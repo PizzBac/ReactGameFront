@@ -1,6 +1,6 @@
 // 소켓 안 쓰고 그냥 useState로 입출력하는 코드
 import React from 'react';
-import styles from "./TestBoard.module.css";
+import styles from "./css/TestBoard.module.css";
 
 function Chat() {
     const [message, setMessage] = React.useState("");
