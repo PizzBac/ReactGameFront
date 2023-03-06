@@ -1,5 +1,5 @@
-import './App.css';
-import './reset.css';
+import './css/reset.css';
+import './css/Game.css';
 import ChatWindows from "./chatWindows";
 
 function App() {
@@ -19,48 +19,48 @@ function App() {
         <div className="player player1">
             <div className="cardSet">
               <p className="playerId"># Player 1</p>
-              <img className="card cardFirst" src={ require('./images/assassin.png') } alt="assassin" />
-              <img className="card cardSecond" src={ require('./images/duke.png') } alt="duke" />
+              <img className="card cardFirst" src={ require('./css/images/contessa.png') } alt="assassin" />
+              <img className="card cardSecond" src={ require('./css/images/duke.png') } alt="duke" />
             </div>
         </div>
 
         <div className="player player2">
             <div className="cardSet">
               <p className="playerId"># Player 2</p>
-              <img className="card cardFirst" src={ require('./images/assassin.png') } alt="assassin" />
-              <img className="card cardSecond" src={ require('./images/contessa.png') } alt="duke" />
+              <img className="card cardFirst" src={ require('./css/images/assassin.png') } alt="assassin" />
+              <img className="card cardSecond" src={ require('./css/images/contessa.png') } alt="duke" />
             </div>
         </div>
 
         <div className="player player3">
             <div className="cardSet">
               <p className="playerId"># Player 3</p>
-              <img className="card cardFirst" src={ require('./images/captin.png') } alt="assassin" />
-              <img className="card cardSecond" src={ require('./images/contessa.png') } alt="duke" />
+              <img className="card cardFirst" src={ require('./css/images/captin.png') } alt="assassin" />
+              <img className="card cardSecond" src={ require('./css/images/contessa.png') } alt="duke" />
             </div>
         </div>
 
         <div className="player player4">
             <div className="cardSet">
               <p className="playerId"># Player 4</p>
-              <img className="card cardFirst" src={ require('./images/contessa.png') } alt="assassin" />
-              <img className="card cardSecond" src={ require('./images/contessa.png') } alt="duke" />
+              <img className="card cardFirst" src={ require('./css/images/contessa.png') } alt="assassin" />
+              <img className="card cardSecond" src={ require('./css/images/contessa.png') } alt="duke" />
             </div>
         </div>
 
         <div className="player player5">
             <div className="cardSet">
               <p className="playerId"># Player 5</p>
-              <img className="card cardFirst" src={ require('./images/assassin.png') } alt="assassin" />
-              <img className="card cardSecond" src={ require('./images/duke.png') } alt="duke" />
+              <img className="card cardFirst" src={ require('./css/images/assassin.png') } alt="assassin" />
+              <img className="card cardSecond" src={ require('./css/images/duke.png') } alt="duke" />
             </div>
         </div>
 
         <div className="player player6">
             <div className="cardSet">
               <p className="playerId"># Player 6</p>
-              <img className="card cardFirst" src={ require('./images/captin.png') } alt="assassin" />
-              <img className="card cardSecond" src={ require('./images/captin.png') } alt="duke" />
+              <img className="card cardFirst" src={ require('./css/images/captin.png') } alt="assassin" />
+              <img className="card cardSecond" src={ require('./css/images/captin.png') } alt="duke" />
             </div>
         </div>
 
