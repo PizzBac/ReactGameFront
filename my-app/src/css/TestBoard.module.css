@@ -1,3 +1,7 @@
+/* .chatWrapper {
+    position: relative;
+} */
+
 /* 채팅창 보이게 하려면 스타일 적용해야 함 */
 .chatcontainer {
     border: 5px solid black;
@@ -16,6 +20,20 @@
 
 .chatcontainer::-webkit-scrollbar {
     display: none;
+}
+
+/* .messageInput {
+    position: fixed;
+    bottom: 500;
+} */
+
+.submitBtn {
+    background-color: DodgerBlue; /* Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 8px 12px; /* Some padding */
+    font-size: 14px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
 }
 
 /* .text {
