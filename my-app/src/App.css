@@ -1,7 +1,3 @@
-.App {
-  text-align: center;
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -35,4 +31,138 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+/* ############################################ */
+
+.page {
+  background-color: rgba(0, 0, 0, 0.65);
+  width: 150vmax;
+  height: 100vmin;
+}
+
+
+.img {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+/* 전체적인 아티클들 위치 맞추기 */
+.GameBoard {
+  width: 50%;
+  height: 3%;
+}
+.sideSection {
+  /* position: relative; */
+  margin-left: 145vmin;
+}
+.hintBox {
+  position:relative;
+  width: 50vmin;
+  height: 30vmin;
+  background-image: url(./images/hint.png);
+}
+.hintTitle {
+  position: relative;
+  font-size: 3vmin;
+  font-weight: bold;
+  color: black;
+  text-shadow:5px 5px 5px gray;
+  top: 10%;
+  left: 40%;
+}
+
+.chatBox {
+  position: relative;
+  width: 50vmin;
+  height: 65vmin;
+  top: 5vmin;
+  background-color: white;
+  border-radius: 10%;
+  border: 5px solid black;
+}
+
+
+
+/* .GameBoard {
+  position: absolute;
+  z-index: 0;
+  background-image: url(images/wood.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 150vmin;
+  height: 150vmin;
+  border-radius: 50%;
+  margin-left: 10px;
+} */
+
+/* 가운데 콘솔 컨트롤러 */
+.console {
+  position:absolute;
+  width: 50vmin;
+  height: 50vmin;
+  background-color: green;
+  border-radius: 50%;
+
+  top: 30%;
+  left: 25%;
+
+}
+/* 플레이어 위치 설정 */
+.player {
+  position: absolute;
+}
+.player1 {
+  top: 5%;
+  left: 13%;
+}
+
+.player2 {
+  margin-top: 35%;
+  margin-left: 47%;
+}
+
+.player3 {
+  margin-top: 3%;
+  margin-left: 47%;
+}
+
+.player4 {
+  margin-top: 35%;
+  margin-left: 13%;
+}
+
+.player5 {
+  margin-top: 18%;
+  margin-left: 53%;
+}
+
+.player6 {
+  margin-top: 18%;
+  margin-left: 5%;
+}
+
+/* 카드 꾸미기 */
+.card {
+  width: 15vmin;
+  height: 20vmin;
+  border: 5px solid pink;
+  border-radius: 10%;
+  box-shadow: 10px 10px 10px black;
+}
+
+/* 카드 사이 조금 간격 주기 */
+.cardSecond {
+  margin-left: 1vmin;
+}
+
+/* 플레이어 아이디 정보 */
+.playerId {
+  font-size: 5vmin;
+  font-weight: bold;
+  color: aqua;
+  text-shadow:5px 5px 5px gray;
 }

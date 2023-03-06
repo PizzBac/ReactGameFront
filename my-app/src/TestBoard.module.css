@@ -1,0 +1,12 @@
+/* 채팅창 보이게 하려면 스타일 적용해야 함 */
+.chatcontainer {
+    border: 5px solid pink;
+    border-radius: 5%;
+    width: 45vmin;
+    height: 50vmin;
+    overflow-y: scroll;
+    /* 스크롤바 속성 적용 */
+    margin-top: 2vmin;
+    margin-bottom: 1vmin;
+    padding: 2vmin;
+}
