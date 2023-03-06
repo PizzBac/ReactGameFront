@@ -1,0 +1,69 @@
+.outer {
+  height: 400px;
+  width: 400px;
+  border-radius: 50%;
+  position: relative;
+  display: inline-grid;
+  margin: 5px;
+  place-content: center;
+
+  background: conic-gradient(
+    #d8eab1e6 0deg 72deg,
+    #b0e29bc2 72deg 144deg,
+    #53e47d97 144deg 216deg,
+    #88d3a647 216deg 288deg,
+    #3a896012 288deg 360deg
+  );
+}
+
+
+
+.inner {
+  height: 100px;
+  width: 100px;
+  background-color: gray;
+  border-radius: 50%;
+  position: relative;
+  display: inline-grid;
+  margin: 5px;
+  place-content: center;
+  background-image: url(aaa.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+
+
+
+.inner {
+  height: 100px;
+  width: 100px;
+  position:relative;
+  overflow:hidden;
+  border-radius: 50%;
+}
+
+
+.inner > * {
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  border:2px solid var(--c,black);
+  border-radius:50%;
+  clip-path:polygon(50% 50%, 50% 0%, 100% 0%, 95% 33.745%); 
+}
+
+.action1 {
+  background-color: gray;
+}
+
+.action2 {
+  background-color: orange; 
+}
+
+.action3 {
+  background-color: green;
+}

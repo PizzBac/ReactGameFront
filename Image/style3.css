@@ -1,0 +1,388 @@
+.page {
+  /* background-color: #000000d4; */
+  background-image: url(wood2.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.player {
+  width: 250px;
+  height: 180px;
+  border-radius: 5%;
+  border: 2px solid white;
+  border-style: outset none;
+}
+
+.player span {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  margin-left: 20px;
+}
+
+.p-red {
+  position: absolute;
+  top: 10px;
+  left: 200px;
+  /* border: 3px solid red; */
+}
+
+.p-yellow {
+  position: absolute;
+  top: 300px;
+  left: 50px;
+  /* border: 3px solid yellow; */
+}
+
+.p-blue {
+  position: absolute;
+  top: 10px;
+  left: 550px;
+  /* border: 3px solid blue; */
+}
+
+.p-orange {
+  position: absolute;
+  top: 300px;
+  left: 730px;
+  /* border: 3px solid orange; */
+}
+
+.p-green {
+  position: absolute;
+  top: 610px;
+  left: 200px;
+  /* border: 3px solid green; */
+}
+
+.p-pink {
+  position: absolute;
+  top: 610px;
+  left: 550px;
+  /* border: 3px solid pink; */
+}
+
+.card-set {
+  
+}
+
+.card {
+  display: inline-block;
+  width: 80px;
+  height: 100px;
+  border: 5px solid;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image: url(card-back.png);
+}
+
+.card-first {
+  margin-left: 22px;
+}
+.card-second {
+  margin-left: 25px;
+}
+
+.p-red .card {
+  border-color: red;
+}
+
+.p-yellow .card {
+  border-color: yellow;
+}
+
+.p-blue .card {
+  border-color: blue;
+}
+
+.p-green .card {
+  border-color: green;
+}
+
+.p-orange .card {
+  border-color: orange;
+}
+
+.p-pink .card {
+  border-color: pink;
+}
+
+
+.p-red .card-first {
+  background-image: url(1.png);
+}
+
+.p-orange .card-second {
+  background-image: url(2.png);
+}
+
+.p-blue .card-first {
+  background-image: url(3.png);
+}
+
+.p-blue .card-second {
+  background-image: url(3.png);
+}
+
+.p-green .card-first {
+  background-image: url(4.png);
+}
+
+.p-green .card-second {
+  background-image: url(5.png);
+}
+
+.p-pink .card-second {
+  background-image: url(5.png);
+}
+
+.coin-set {
+  margin-left: 80px;
+}
+
+.coin {
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image: url(coin.png);
+}
+
+.coin-set span {
+  font-size: 35px;
+  font-weight: bold;
+  color: white;
+}
+
+
+
+
+.hintBox {
+  position: absolute;
+  top: 50px;
+  left: 1100px;
+  width: 400px;
+  height: 200px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-image: url(hint.png);
+}
+
+.title {
+  position: relative;
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  top: 40px;
+  left: 110px;
+}
+
+.hint {
+  position: relative;
+  width: 180px;
+  height: 100px;
+
+  top: 40px;
+  left: 110px;
+  /* border: 2px solid black; */
+}
+
+.hint span {
+  display: block;
+  font-size: 10px;
+  font-weight: bold;
+  color: blue;
+  padding-bottom: 10px;
+}
+
+.chatBox {
+  position: absolute;
+  top: 250px;
+  left: 1100px;
+  width: 400px;
+  height: 500px;
+  border: 5px solid blueviolet;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-image: url(chat.png);
+}
+
+.chatBox span {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  margin-left: 20px;
+}
+
+
+
+.board {
+  margin-top: 200px;
+  margin-left: 300px;
+}
+
+@property --p{
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+
+.pie {
+  --b:22px;
+  --w:150px;
+
+  width: var(--w);
+  aspect-ratio: 1;
+  position: absolute;
+  display: inline-grid;
+  /* margin: 5px; */
+  place-content: center;
+  background-color: white;
+  border-radius: 50%;
+  border: 3px solid white;
+
+  top: 330px;
+  left: 430px;
+  z-index: 1;
+}
+
+.pie:before,
+.pie:after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+
+.pie:before {
+  inset: 0;
+  background:
+    radial-gradient(farthest-side,var(--c) 98%,#0000) top/var(--b) var(--b) no-repeat,
+    conic-gradient(var(--c) calc(var(--p)*1%),#0000 0);
+  -webkit-mask: radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+          mask: radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+}
+
+.animate {
+  animation: p 1s .5s both;
+}
+
+@keyframes p{
+  from{--p:0}
+}
+
+
+
+
+
+.palette {
+  height: 400px;
+  width: 400px;
+  position:relative;
+  overflow:hidden;
+}
+
+
+.palette > * {
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  border:5px solid var(--c,black);
+  border-radius:50%;
+  clip-path:polygon(50% 50%, 50% 0%, 100% 0%,100% 33.745%); 
+}
+.color1 {
+  transform:rotate(72deg);
+  background-image: url(1.png);
+  background-size: 30%;
+  /* --c:blue; */
+}
+.color2 {
+  transform:rotate(144deg);
+  background-image: url(2.png);
+  background-size: 30%;
+  /* --c:yellow; */
+}
+.color3 {
+  transform:rotate(-72deg);
+  background-image: url(3.png);
+  background-size: 30%;
+  /* --c:green; */
+}
+.color4 {
+  transform:rotate(-144deg);
+  background-image: url(4.png);
+  background-size: 30%;
+  /* --c:purple; */
+}
+.color5 {
+  background-image: url(5.png);
+  background-size: 30%;
+}
+
+.inner {
+  height: 100px;
+  width: 100px;
+  position:relative;
+  overflow:hidden;
+}
+
+
+.inner > * {
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  border:2px solid var(--c,black);
+  border-radius:50%;
+  clip-path:polygon(50% 50%, 50% 0%, 100% 0%,100% 100%); 
+}
+.action1 {
+  transform:rotate(120deg);
+  background-color: red;
+}
+.action2 {
+  transform:rotate(240deg);
+  background-color: orange;
+}
+.action3 {
+  transform:rotate(360deg);
+  background-color: yellow;
+}
+
+.action2 span {
+  transform:rotate(120deg);
+  position: absolute;
+  margin-top: 20px;
+  margin-left: 60px;
+}
+
+.action1 span {
+  transform:rotate(240deg);
+  position: absolute;
+  margin-top: 25px;
+  margin-left: 70px;
+}
+
+.action3 span {
+  transform:rotate(360deg);
+  position: absolute;
+  margin-top: 25px;
+  margin-left: 60px;
+}
+
+
+
+

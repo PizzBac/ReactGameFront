@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style3.css">
+  <script type="text/javascript" src="script.js"></script>
+  <title>Document</title>
+</head>
+<body class="page">
+  <div class="player p-red">
+    <span>#p-red</span>
+    <div class="card-set">
+      <div class="card card-first"></div>
+      <div class="card card-second"></div>
+    </div>
+    <div class="coin-set">
+      <div class="coin"></div>
+      <span>1</span>
+    </div>
+  </div>
+  
+  <div class="player p-yellow">
+    <span>#p-yellow</span>
+    <div class="card-set">
+      <div class="card card-first"></div>
+      <div class="card card-second"></div>
+    </div>
+    <div class="coin-set">
+      <div class="coin"></div>
+      <span>3</span>
+    </div>
+  </div>
+  
+  <div class="player p-blue">
+    <span>#p-blue</span>
+    <div class="card-set">
+      <div class="card card-first"></div>
+      <div class="card card-second"></div>
+    </div>
+    <div class="coin-set">
+      <div class="coin"></div>
+      <span>5</span>
+    </div>
+  </div>
+  
+  <div class="player p-orange">
+    <span>#p-orange</span>
+    <div class="card-set">
+      <div class="card card-first"></div>
+      <div class="card card-second"></div>
+    </div>
+    <div class="coin-set">
+      <div class="coin"></div>
+      <span>6</span>
+    </div>
+  </div>
+  
+  <div class="player p-green">
+    <span>#p-green</span>
+    <div class="card-set">
+      <div class="card card-first"></div>
+      <div class="card card-second"></div>
+    </div>
+    <div class="coin-set">
+      <div class="coin"></div>
+      <span>2</span>
+    </div>
+  </div>
+  
+  <div class="player p-pink">
+    <span>#p-pink</span>
+    <div class="card-set">
+      <div class="card card-first"></div>
+      <div class="card card-second"></div>
+    </div>
+    <div class="coin-set">
+      <div class="coin"></div>
+      <span>5</span>
+    </div>
+  </div>
+
+
+  <!-- 게임을 진행 시키는 컨트롤러: 가운데 원판 -->
+  <div class="board">
+    <div class="outer">
+
+
+      <div class="palette">
+
+        <div class="color1"></div>
+        <div class="color2"></div>
+        <div class="color3"></div>
+        <div class="color4"></div>
+        <div class="color5"></div>
+      </div>
+
+
+      <!-- 타이머 -->
+      <div class="pie animate" style="--p:80;--c:black"> 
+        
+        <!-- 매 턴마다 할 수 있는 비캐릭터 기본행동들 -->
+        <div class="inner">
+          <div class="action1"><span>쿠</span></div>
+          <div class="action2"><span>원조</span></div>
+          <div class="action3"><span>소득</span></div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="hintBox">
+    <span class="title">#Game hint(!)</span>
+    <div class="hint">
+      <span>사령관: 상대방에게 코인 두 개를 가져올 수 있습니다.</span>
+      <span>외교관: 카드 두개를 뽑아, 네 장의 카드 중 두 장을 고를 수 있습니다(교환).</span>
+      <span>사령관, 외교관: 상대방이 나의 코인을 가져가려는걸 막을 수 있습니다.</span>
+    </div>
+  </div>
+  <div class="chatBox">
+    <span>#Real-Time chatting</span>
+  </div>
+</body>
+</html>
+
+
+<!--     <span>각각 부채꼴에 캐릭터의 그림이 쏙 들어가고,</span>
+    <span>마우스 호버시 능력치를 볼 수 있으며 클릭시에는 능력을 쓸 수 있음.</span> -->

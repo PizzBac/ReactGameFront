@@ -1,0 +1,52 @@
+.palette {
+  height: 200px;
+  width: 200px;
+  position:relative;
+  overflow:hidden;
+}
+
+/* .inner {
+  height: 300px;
+  width: 300px;
+  background-color: pink;
+  z-index: 1;
+  position:absolute;
+  border-radius:50%;
+  top: 100px;
+} */
+
+.palette > * {
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  border:2px solid var(--c,red);
+  border-radius:50%;
+  clip-path:polygon(50% 50%, 50% 0%, 100% 0%,100% 33.745%); 
+}
+.color1 {
+  transform:rotate(72deg);
+  background-image: url(1.png);
+  background-repeat: no-repeat;
+  background-size: 90%;
+  --c:blue;
+}
+.color2 {
+  transform:rotate(144deg);
+  background-image: url(2.png);
+  --c:yellow;
+}
+.color3 {
+  transform:rotate(-72deg);
+  background-image: url(3.png);
+  --c:green;
+}
+.color4 {
+  transform:rotate(-144deg);
+  background-image: url(4.png);
+  --c:purple;
+}
+.color5 {
+  background-image: url(5.png);
+}

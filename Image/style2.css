@@ -1,0 +1,27 @@
+.donut {
+  /* (A1) CIRCLE */
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background-image: url(1.png);
+  /* (A2) SEGMENTS */
+  background: conic-gradient(
+    red 0deg 80deg,
+    green 80deg 190deg,
+    blue 190deg 360deg
+  );
+}
+
+/* (B) DONUT "CONVERSION" */
+/* (B1) SMALLER CIRCLE */
+.hole {
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: #fff;
+}
+ 
+/* (B2) "CONVERT PIE TO DONUT" - CENTER SMALLER CIRCLE */
+.donut {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
