@@ -17,6 +17,7 @@ function App() {
         >
           Learn React
         </a>
+        <img src={ require('./images/1.png') } alt="hi" />
       </header>
     </div>
   );
