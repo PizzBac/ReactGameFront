@@ -99,18 +99,6 @@
   margin-left: 10px;
 } */
 
-/* 가운데 콘솔 컨트롤러 */
-.console {
-  position:absolute;
-  width: 50vmin;
-  height: 50vmin;
-  background-color: green;
-  border-radius: 50%;
-
-  top: 30%;
-  left: 25%;
-
-}
 /* 플레이어 위치 설정 */
 .player {
   position: absolute;
@@ -149,11 +137,29 @@
 .card {
   width: 15vmin;
   height: 20vmin;
-  border: 5px solid pink;
+  border: 5px solid;
   border-radius: 10%;
   box-shadow: 10px 10px 10px black;
 }
 
+.card-p1 {
+  border-color: pink;
+}
+.card-p2 {
+  border-color: green;
+}
+.card-p3 {
+  border-color: yellow;
+}
+.card-p4 {
+  border-color: red;
+}
+.card-p5 {
+  border-color: blue;
+}
+.card-p1 {
+  border-color: blueviolet;
+}
 /* 카드 사이 조금 간격 주기 */
 .cardSecond {
   margin-left: 1vmin;
@@ -165,4 +171,124 @@
   font-weight: bold;
   color: aqua;
   text-shadow:5px 5px 5px gray;
+}
+
+
+
+/* 가운데 콘솔 컨트롤러 */
+.console {
+  position:absolute;
+  width: 50vmin;
+  height: 50vmin;
+  /* background-color: green; */
+  border-radius: 50%;
+
+  top: 30%;
+  left: 25%;
+
+}
+
+/* 가운데 원판(콘솔) */
+
+/* 바깥 원판 */
+.console > * {
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  border:5px solid var(--c,black);
+  border-radius:50%;
+  clip-path:polygon(50% 50%, 50% 0%, 100% 0%, 100% 33.745%); 
+}
+
+.color1 {
+  transform:rotate(60deg);
+  background-image: url(./images/assassin.png);
+  background-size: 30%;
+  /* --c:blue; */
+}
+
+.color2 {
+  transform:rotate(120deg);
+  background-image: url(./images/captin.png);
+  background-size: 30%;
+  /* --c:yellow; */
+}
+.color3 {
+  transform:rotate(180deg);
+  background-image: url(./images/duke.png);
+  background-size: 30%;
+  /* --c:green; */
+}
+.color4 {
+  transform:rotate(240deg);
+  background-image: url(./images/contessa.png);
+  background-size: 30%;
+  /* --c:purple; */
+}
+.color5 {
+  transform:rotate(300deg);
+  background-image: url(./images/contessa.png);
+  background-size: 30%;
+}
+
+.color6 {
+  background-color: bisque;
+  background-size: 30%;
+}
+
+/* 안쪽 원판 */
+
+.inner {
+  height: 20vmin;
+  width: 20vmin;
+  position:absolute;
+  top: 45%;
+  left: 32.5%;
+}
+
+.inner > * {
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  border:2px solid var(--c,black);
+  border-radius:50%;
+  clip-path:polygon(50% 50%, 50% 0%, 100% 0%,100% 100%); 
+}
+
+.action1 {
+  transform:rotate(120deg);
+  background-color: skyblue;
+}
+.action2 {
+  transform:rotate(240deg);
+  background-color: orange;
+}
+.action3 {
+  transform:rotate(360deg);
+  background-color: yellow;
+}
+
+.action2 span {
+  transform:rotate(120deg);
+  position: absolute;
+  top: 40px;
+  margin-left: 110px;
+}
+
+.action1 span {
+  transform:rotate(240deg);
+  position: absolute;
+  margin-top: 45px;
+  margin-left: 120px;
+}
+
+.action3 span {
+  transform:rotate(360deg);
+  position: absolute;
+  margin-top: 40px;
+  margin-left: 110px;
 }
