@@ -1,4 +1,4 @@
-.App-logo {
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -31,23 +31,23 @@
   to {
     transform: rotate(360deg);
   }
-}
-
+} */
 
 /* ############################################ */
 
+/* 기본적인 설정 */
 .page {
-  background-color: rgba(0, 0, 0, 0.65);
+  background-color: rgba(0, 0, 0, 0.75);
   width: 150vmax;
   height: 100vmin;
 }
-
 
 .img {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
 }
+
 
 /* 전체적인 아티클들 위치 맞추기 */
 .GameBoard {
@@ -74,6 +74,18 @@
   left: 40%;
 }
 
+.hintTextBox {
+  position: relative;
+  width: 30vmin;
+  height: 25vmin;
+  top: 12%;
+  left: 20%;
+}
+
+.hintTextBox p {
+  padding-top: 2vmin;
+}
+
 .chatBox {
   position: relative;
   width: 50vmin;
@@ -85,19 +97,7 @@
 }
 
 
-
-/* .GameBoard {
-  position: absolute;
-  z-index: 0;
-  background-image: url(images/wood.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  width: 150vmin;
-  height: 150vmin;
-  border-radius: 50%;
-  margin-left: 10px;
-} */
+/* 게임 섹션 */
 
 /* 플레이어 위치 설정 */
 .player {
@@ -135,8 +135,8 @@
 
 /* 카드 꾸미기 */
 .card {
-  width: 15vmin;
-  height: 20vmin;
+  width: 10vmin;
+  height: 14vmin;
   border: 5px solid;
   border-radius: 10%;
   box-shadow: 10px 10px 10px black;
@@ -162,20 +162,41 @@
 }
 /* 카드 사이 조금 간격 주기 */
 .cardSecond {
-  margin-left: 1vmin;
+  margin-left: 2vmin;
 }
 
 /* 플레이어 아이디 정보 */
 .playerId {
-  font-size: 5vmin;
+  font-size: 3vmin;
   font-weight: bold;
   color: aqua;
   text-shadow:5px 5px 5px gray;
 }
 
 
+.coin-set {
+  margin-left: 7vmin;
+}
+
+.coin {
+  width: 5vmin;
+  height: 5vmin;
+}
+
+.coin-set span {
+  font-size: 35px;
+  font-weight: bold;
+  color: white;
+  margin-left: 2vmin;
+}
+
+
+
+/* 가운데 원판(콘솔) */
+
 
 /* 가운데 콘솔 컨트롤러 */
+/* 바깥 원판 */
 .console {
   position:absolute;
   width: 50vmin;
@@ -183,14 +204,11 @@
   /* background-color: green; */
   border-radius: 50%;
 
-  top: 30%;
-  left: 25%;
+  top: 25%;
+  left: 23%;
 
 }
 
-/* 가운데 원판(콘솔) */
-
-/* 바깥 원판 */
 .console > * {
   position:absolute;
   top:0;
@@ -244,8 +262,8 @@
   height: 20vmin;
   width: 20vmin;
   position:absolute;
-  top: 45%;
-  left: 32.5%;
+  top: 40%;
+  left: 30.5%;
 }
 
 .inner > * {

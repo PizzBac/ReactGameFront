@@ -39,7 +39,7 @@ function Chat() {
             {/* 채팅 목록 */}
             <div className={styles.chatcontainer}>
                 {chatLog.map((item, index) => (
-                    <div key={index}>
+                    <div className="text" key={index}>
                         <strong>{item.name}:</strong> {item.message}
                     </div>
                 ))}
