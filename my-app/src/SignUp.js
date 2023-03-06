@@ -3,6 +3,7 @@ import { useState } from "react";
 // import Button from "../components/lib/button";
 import React from "react";
 import './css/SignUp.css';
+import { Link } from "react-router-dom";
 
 function SignUp() {
     //초기값 세팅 - 아이디, 닉네임, 비밀번호, 비밀번호확인, 이메일, 전화번호, 생년월일
