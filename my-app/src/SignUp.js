@@ -189,10 +189,10 @@ function SignUp() {
                 </div> */}
                     <br />
                     <br />
-                    <button type="submit">회원가입</button>
+                    <button type="submit" className="JoinBtn">회원가입</button>
                 </div>
             </form>
-            <button type="submit" onClick={handleSubmit}>로그인 창으로 이동</button>
+            <button type="submit" className="LoginBtn" onClick={handleSubmit}>로그인 창으로 이동</button>
         </div>
     );
 }
