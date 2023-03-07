@@ -12,6 +12,11 @@ function App() {
     setActivate((prev) => !prev);
   };
 
+  const [playerNumber, setplayerNumber] = useState();
+  const playerNumberCheck = () => {
+    // 플레이어 번호에 따라서 앞뒷면 보이는 게 다르게 할 예정
+  }
+
   return (
     <div className="page">
       <button onClick={handleClick}>Activate</button>
@@ -33,7 +38,7 @@ function App() {
           <div class="action3"><span>소득</span></div>
         </div>
 
-        <div className="player player1">
+        <div className={`player player1 ${activate ? "active" : ""}`}>
           <div className={`cardSet ${activate ? "active" : ""}`}>
             <p className={`card-p1 playerId ${activate ? "active" : ""}`}># Player 1</p>
             <img
@@ -47,67 +52,67 @@ function App() {
               alt="duke"
             />
           </div>
-          <div class="coin-set">
+          <div className={`coin-set coin-set1 ${activate ? "active" : ""}`}>
             <img className="img coin" src={require("./css/images/coin.png")} alt="coin" />
             <span>5</span>
           </div>
         </div>
 
-        <div className="player player2" >
+        <div className={`player player2 ${activate ? "active" : ""}`}>
           <div className={`cardSet ${activate ? "active" : ""}`}>
             <p className={`card-p2 playerId ${activate ? "active" : ""}`}># Player 2</p>
             <img className={`card card-p2 cardFirst ${activate ? "active" : ""}`} src={require('./css/images/assassin.png')} alt="assassin" />
             <img className={`card card-p2 cardSecond ${activate ? "active" : ""}`} src={require('./css/images/contessa.png')} alt="duke" />
           </div>
-          <div class="coin-set">
+          <div className={`coin-set coin-set2 ${activate ? "active" : ""}`}>
             <img className="img coin" src={require("./css/images/coin.png")} alt="coin" />
             <span>5</span>
           </div>
         </div>
 
-        <div className="player player3">
+        <div className={`player player3 ${activate ? "active" : ""}`}>
           <div className={`cardSet ${activate ? "active" : ""}`}>
             <p className={`card-p3 playerId ${activate ? "active" : ""}`}># Player 3</p>
             <img className={`card card-p3 cardFirst ${activate ? "active" : ""}`} src={require('./css/images/captin.png')} alt="assassin" />
             <img className={`card card-p3 cardSecond ${activate ? "active" : ""}`} src={require('./css/images/back.png')} alt="duke" />
           </div>
-          <div class="coin-set">
+          <div className={`coin-set coin-set3 ${activate ? "active" : ""}`}>
             <img className="img coin" src={require("./css/images/coin.png")} alt="coin" />
             <span>5</span>
           </div>
         </div>
 
-        <div className="player player4">
+        <div className={`player player4 ${activate ? "active" : ""}`}>
           <div className={`cardSet ${activate ? "active" : ""}`}>
             <p className={`card-p4 playerId ${activate ? "active" : ""}`}># Player 4</p>
             <img className={`card card-p4 cardFirst ${activate ? "active" : ""}`} src={require('./css/images/contessa.png')} alt="assassin" />
             <img className={`card card-p4 cardSecond ${activate ? "active" : ""}`} src={require('./css/images/ambassador.png')} alt="duke" />
           </div>
-          <div class="coin-set">
+          <div className={`coin-set coin-set4 ${activate ? "active" : ""}`}>
             <img className="img coin" src={require("./css/images/coin.png")} alt="coin" />
             <span>5</span>
           </div>
         </div>
 
-        <div className="player player5">
+        <div className={`player player5 ${activate ? "active" : ""}`}>
           <div className={`cardSet ${activate ? "active" : ""}`}>
             <p className={`card-p5 playerId ${activate ? "active" : ""}`}># Player 5</p>
             <img className={`card card-p5 cardFirst ${activate ? "active" : ""}`} src={require('./css/images/back.png')} alt="assassin" />
             <img className={`card card-p5 cardSecond ${activate ? "active" : ""}`} src={require('./css/images/duke.png')} alt="duke" />
           </div>
-          <div class="coin-set">
+          <div className={`coin-set coin-set5 ${activate ? "active" : ""}`}>
             <img className="img coin" src={require("./css/images/coin.png")} alt="coin" />
             <span>3</span>
           </div>
         </div>
 
-        <div className="player player6">
+        <div className={`player player6 ${activate ? "active" : ""}`}>
           <div className={`cardSet ${activate ? "active" : ""}`}>
             <p className={`card-p6 playerId ${activate ? "active" : ""}`}># Player 6</p>
             <img className={`card card-p6 cardFirst ${activate ? "active" : ""}`} src={require('./css/images/captin.png')} alt="assassin" />
             <img className={`card card-p6 cardSecond ${activate ? "active" : ""}`} src={require('./css/images/back.png')} alt="duke" />
           </div>
-          <div class="coin-set">
+          <div className={`coin-set coin-set6 ${activate ? "active" : ""}`}>
             <img className="img coin" src={require("./css/images/coin.png")} alt="coin" />
             <span>5</span>
           </div>
