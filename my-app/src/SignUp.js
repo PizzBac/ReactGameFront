@@ -4,6 +4,7 @@ import { useState } from "react";
 import React from "react";
 import './css/SignUp.css';
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
     //초기값 세팅 - 아이디, 닉네임, 비밀번호, 비밀번호확인, 이메일, 전화번호, 생년월일
@@ -124,65 +125,73 @@ function SignUp() {
     };
 
     const onChangeBirth = (e) => {
-        
+
         const currentBirth = e.target.value;
         setBirth(currentBirth);
     };
 
+    const navigate = useNavigate();
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        // 폼 데이터를 서버로 전송하는 로직...
+        navigate("/");
+    };
+
     return (
-        
+
         <div className="superform">
-            <div className="title"><h1>회원가입</h1></div>
-            <div className="form">
-                <div className="form-el">
-                    <label htmlFor="id">아이디</label> <br />
-                    <input id="id" name="id" value={id} onChange={onChangeId} />
-                    <br/>
-                    <p className="message"> {idMessage} </p>
-                </div><br />
+            <form onSubmit={handleSubmit} action="/main" method="POST">
+                <div className="title"><h1>회원가입</h1></div>
+                <div className="form">
+                    <div className="form-el">
+                        <label htmlFor="id">아이디</label> <br />
+                        <input id="id" name="id" value={id} onChange={onChangeId} />
+                        <br />
+                        <p className="message"> {idMessage} </p>
+                    </div><br />
 
-                <div className="form-el">
-                    <label htmlFor="name">이름</label> <br />
-                    <input id="name" name="name" value={name} onChange={onChangeName} />
-                    <p className="message">{nameMessage}</p>
-                </div><br />
+                    <div className="form-el">
+                        <label htmlFor="name">이름</label> <br />
+                        <input id="name" name="name" value={name} onChange={onChangeName} />
+                        <p className="message">{nameMessage}</p>
+                    </div><br />
 
-                <div className="form-el">
-                    <label htmlFor="password">비밀번호</label> <br />
-                    <input
-                        id="password"
-                        name="password"
-                        value={password}
-                        onChange={onChangePassword} />
-                    <p className="message">{passwordMessage}</p>
-                </div><br />
+                    <div className="form-el">
+                        <label htmlFor="password">비밀번호</label> <br />
+                        <input
+                            id="password"
+                            name="password"
+                            value={password}
+                            onChange={onChangePassword} />
+                        <p className="message">{passwordMessage}</p>
+                    </div><br />
 
-                <div className="form-el">
-                    <label htmlFor="passwordConfirm">비밀번호 확인</label> <br />
-                    <input
-                        id="passwordConfirm"
-                        name="passwordConfirm"
-                        value={passwordConfirm}
-                        onChange={onChangePasswordConfirm} />
-                    <p className="message">{passwordConfirmMessage}</p>
-                </div><br />
+                    <div className="form-el">
+                        <label htmlFor="passwordConfirm">비밀번호 확인</label> <br />
+                        <input
+                            id="passwordConfirm"
+                            name="passwordConfirm"
+                            value={passwordConfirm}
+                            onChange={onChangePasswordConfirm} />
+                        <p className="message">{passwordConfirmMessage}</p>
+                    </div><br />
 
-                <div className="form-el">
-                    <label htmlFor="email">이메일</label> <br />
-                    <input
-                        id="email"
-                        name="name"
-                        value={email}
-                        onChange={onChangeEmail} />
-                    <p className="message">{emailMessage}</p>
-                </div><br />
+                    <div className="form-el">
+                        <label htmlFor="email">이메일</label> <br />
+                        <input
+                            id="email"
+                            name="name"
+                            value={email}
+                            onChange={onChangeEmail} />
+                        <p className="message">{emailMessage}</p>
+                    </div><br />
 
-                <div className="form-el">
-                    <label htmlFor="phone">핸드폰 번호</label> <br />
-                    <input id="phone" name="phone" value={phone} onChange={addHyphen} />
-                    <p className="message">{phoneMessage}</p>
-                </div>
-                {/* <div className="form-el">
+                    <div className="form-el">
+                        <label htmlFor="phone">핸드폰 번호</label> <br />
+                        <input id="phone" name="phone" value={phone} onChange={addHyphen} />
+                        <p className="message">{phoneMessage}</p>
+                    </div>
+                    {/* <div className="form-el">
                     <label htmlFor="birth">Birth</label> <br />
                     <input
                         id="birth"
@@ -191,13 +200,13 @@ function SignUp() {
                         onChange={onChangeBirth} />
                     <p className="message">{birthMessage}</p>
                 </div> */}
-                <br />
-                <br />
-                <button type="submit">로그인 창으로 이동</button> 
-                
-                <button type="submit">회원가입</button>
-            </div>
-         </div>
+                    <br />
+                    <br />
+                    <button type="submit">회원가입</button>
+                </div>
+            </form>
+            <button type="submit" onClick={handleSubmit}>로그인 창으로 이동</button>
+        </div>
     );
 }
 

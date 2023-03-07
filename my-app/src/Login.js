@@ -8,8 +8,13 @@ function Login() {
     const handleSubmit = (event) => {
         event.preventDefault();
         // 폼 데이터를 서버로 전송하는 로직...
-        navigate("/main");
+        navigate("/game");
     };
+
+    const SignUpBtn = (event) => {
+        event.preventDefault();
+        navigate("/signUp");
+    }
 
     return (
         <div className="html">
@@ -36,10 +41,9 @@ function Login() {
                         </div>
                         <button className="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
                         <br />
-                        <button className="JoinBtn">회원가입</button> <br /><br /> <br /><br />
-
-                        <p className="mt-5 mb-3 text-muted">&copy; 2023</p>
                     </form>
+                    <button className="JoinBtn" onClick={SignUpBtn}>회원가입</button> <br /><br /> <br /><br />
+                    <p className="mt-5 mb-3 text-muted">&copy; 2023</p>
                 </main>
             </div>
         </div>
