@@ -1,20 +1,15 @@
-// import { NextPage } from "next";
-import { useState } from "react";
-// import Button from "../components/lib/button";
 import React from "react";
 import './css/SignUp.css';
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 function SignUp() {
-    //초기값 세팅 - 아이디, 닉네임, 비밀번호, 비밀번호확인, 이메일, 전화번호, 생년월일
+    //초기값 세팅 - 아이디, 닉네임, 비밀번호, 비밀번호확인, 이메일
     const [id, setId] = React.useState("");
     const [name, setName] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [passwordConfirm, setPasswordConfirm] = React.useState("");
     const [email, setEmail] = React.useState("");
-    const [phone, setPhone] = React.useState("");
-    const [birth, setBirth] = React.useState("");
 
     // 오류메세지 상태 저장
     const [idMessage, setIdMessage] = React.useState("");
@@ -22,8 +17,6 @@ function SignUp() {
     const [passwordMessage, setPasswordMessage] = React.useState("");
     const [passwordConfirmMessage, setPasswordConfirmMessage] = React.useState("");
     const [emailMessage, setEmailMessage] = React.useState("");
-    const [phoneMessage, setPhoneMessage] = React.useState("");
-    const [birthMessage, setBirthMessage] = React.useState("");
 
     // 유효성 검사
     const [isId, setIsId] = React.useState(false);
@@ -31,8 +24,6 @@ function SignUp() {
     const [isPassword, setIsPassword] = React.useState(false);
     const [isPasswordConfirm, setIsPasswordConfirm] = React.useState(false);
     const [isEmail, setIsEmail] = React.useState(false);
-    const [isPhone, setIsPhone] = React.useState(false);
-    const [isBirth, setIsBirth] = React.useState(false);
 
     const onChangeId = (e) => {
         const currentId = e.target.value;
@@ -99,66 +90,57 @@ function SignUp() {
             setIsEmail(true);
         }
     };
-    const onChangePhone = (getNumber) => {
-        const currentPhone = getNumber;
-        setPhone(currentPhone);
-        const phoneRegExp = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
-
-        if (!phoneRegExp.test(currentPhone)) {
-            setPhoneMessage("-를 넣어서 전화번호를 입력해주세요");
-            setIsPhone(false);
-        } else {
-            setPhoneMessage("사용 가능한 번호입니다:-)");
-            setIsPhone(true);
-        }
-    };
-
-    const addHyphen = (e) => {
-        const currentNumber = e.target.value;
-        setPhone(currentNumber);
-        if (currentNumber.length == 3 || currentNumber.length == 8) {
-            setPhone(currentNumber + "-");
-            onChangePhone(currentNumber + "-");
-        } else {
-            onChangePhone(currentNumber);
-        }
-    };
-
-    const onChangeBirth = (e) => {
-
-        const currentBirth = e.target.value;
-        setBirth(currentBirth);
-    };
 
     const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();
-        // 폼 데이터를 서버로 전송하는 로직...
-        navigate("/");
+        navigate("/login");
+
+        // axios.post('./api/signUpApi', {
+        //     id: id,
+        //     name: name,
+        //     password: password,
+        //     email: email,
+        // })
+        //     .then(function (response) { // 서버의 응답이 성공적으로 왔을 때 navigate 함수를 호출해 홈 경로(/)로 이동
+        //         // 서버 응답 처리
+        //         if(response === true){
+        //             navigate('/login');
+        //         }
+        //     })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     });
     };
+
+    const backToLogin = (event) => {
+        event.preventDefault();
+        navigate("/login");
+    }
 
     return (
 
         <div className="superform">
-            <form onSubmit={handleSubmit} action="/main" method="POST">
+            <form onSubmit={handleSubmit} method="POST">
                 <div className="title"><h1>회원가입</h1></div>
                 <div className="form">
                     <div className="form-el">
                         <label htmlFor="id">아이디</label> <br />
-                        <input id="id" name="id" value={id} onChange={onChangeId} />
+                        <input type="text" id="id" name="id" value={id} onChange={onChangeId} />
                         <br />
                         <p className="message"> {idMessage} </p>
                     </div><br />
 
                     <div className="form-el">
                         <label htmlFor="name">이름</label> <br />
-                        <input id="name" name="name" value={name} onChange={onChangeName} />
+                        <input type="text" id="name" name="name" value={name} onChange={onChangeName} />
                         <p className="message">{nameMessage}</p>
                     </div><br />
 
                     <div className="form-el">
                         <label htmlFor="password">비밀번호</label> <br />
                         <input
+                            type="password"
                             id="password"
                             name="password"
                             value={password}
@@ -169,6 +151,7 @@ function SignUp() {
                     <div className="form-el">
                         <label htmlFor="passwordConfirm">비밀번호 확인</label> <br />
                         <input
+                            type="password"
                             id="passwordConfirm"
                             name="passwordConfirm"
                             value={passwordConfirm}
@@ -179,6 +162,7 @@ function SignUp() {
                     <div className="form-el">
                         <label htmlFor="email">이메일</label> <br />
                         <input
+                            type="email"
                             id="email"
                             name="name"
                             value={email}
@@ -186,26 +170,10 @@ function SignUp() {
                         <p className="message">{emailMessage}</p>
                     </div><br />
 
-                    <div className="form-el">
-                        <label htmlFor="phone">핸드폰 번호</label> <br />
-                        <input id="phone" name="phone" value={phone} onChange={addHyphen} />
-                        <p className="message">{phoneMessage}</p>
-                    </div>
-                    {/* <div className="form-el">
-                    <label htmlFor="birth">Birth</label> <br />
-                    <input
-                        id="birth"
-                        name="birth"
-                        value={birth}
-                        onChange={onChangeBirth} />
-                    <p className="message">{birthMessage}</p>
-                </div> */}
-                    <br />
-                    <br />
                     <button type="submit">회원가입</button>
                 </div>
             </form>
-            <button type="submit" onClick={handleSubmit}>로그인 창으로 이동</button>
+            <button type="submit" onClick={backToLogin}>로그인 창으로 이동</button>
         </div>
     );
 }
