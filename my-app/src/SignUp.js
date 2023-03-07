@@ -96,21 +96,21 @@ function SignUp() {
         event.preventDefault();
         navigate("/login");
 
-        // axios.post('./api/signUpApi', {
-        //     id: id,
-        //     name: name,
-        //     password: password,
-        //     email: email,
-        // })
-        //     .then(function (response) { // 서버의 응답이 성공적으로 왔을 때 navigate 함수를 호출해 홈 경로(/)로 이동
-        //         // 서버 응답 처리
-        //         if(response === true){
-        //             navigate('/login');
-        //         }
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
+        axios.post('./api/signUpApi', {
+            id: id,
+            name: name,
+            password: password,
+            email: email,
+        })
+            .then(function (response) { // 서버의 응답이 성공적으로 왔을 때 navigate 함수를 호출해 홈 경로(/)로 이동
+                // 서버 응답 처리
+                if(response === true){
+                    navigate('/login');
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     };
 
     const backToLogin = (event) => {
@@ -126,14 +126,14 @@ function SignUp() {
                 <div className="form">
                     <div className="form-el">
                         <label htmlFor="id">아이디</label> <br />
-                        <input id="id" name="id" value={id} onChange={onChangeId} />
+                        <input id="id" name="id" className="SignUpForm"value={id} onChange={onChangeId} />
                         <br />
                         <p className="message"> {idMessage} </p>
                     </div><br />
 
                     <div className="form-el">
                         <label htmlFor="name">이름</label> <br />
-                        <input id="name" name="name" value={name} onChange={onChangeName} />
+                        <input id="name" name="name" className="SignUpForm" value={name} onChange={onChangeName} />
                         <p className="message">{nameMessage}</p>
                     </div><br />
 
@@ -173,11 +173,11 @@ function SignUp() {
                         <p className="message">{emailMessage}</p>
                     </div><br />
 
-                    <div className="form-el">
+                    {/* <div className="form-el">
                         <label htmlFor="phone">핸드폰 번호</label> <br />
                         <input id="phone" name="phone" value={phone} onChange={addHyphen} />
                         <p className="message">{phoneMessage}</p>
-                    </div>
+                    </div> */}
                     {/* <div className="form-el">
                     <label htmlFor="birth">Birth</label> <br />
                     <input
