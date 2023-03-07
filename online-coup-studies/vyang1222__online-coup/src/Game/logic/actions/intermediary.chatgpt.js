@@ -133,12 +133,112 @@ notUsed.splice(i, 1);
 }
   
   
+  // notUsed 배열에는 선택할 수 있는 카드가 모두 들어있음. 이 중에서 선택하지 않은 카드만 걸러내기
+let i = notUsed.length;
+while (i--) {
+if (newHand.includes(notUsed[i])) {
+notUsed.splice(i, 1);
+}
+}
+// 선택하지 않은 카드들을 원래 손패에서나 새로 뽑은 2장의 카드 중에서 선택하여 가져오기
+for (let i = 0; i < notUsed.length; i++) {
+notUsed[i] = notUsed[i] < 2 ? oldHand[notUsed[i]] : G.turnLog.exchange.drawnCards[notUsed[i] - 2];
+}
+// 가져오지 않은 카드들을 덱으로 되돌리고 턴 종료
+returnToDeck(G, notUsed);
+ctx.events.endTurn();
+};
+
+/* ---- Challenge Responses ---- */
+
+const revealCard = (G, ctx, playerID, cardID) => {
+// 도전에 대한 답변을 하면서 카드 공개
+G.turnLog.challenge.revealedCard = {
+name: G.players[playerID].hand[cardID].character,
+id: cardID,
+};
+// 공개된 카드가 도전자가 주장한 캐릭터와 일치하면 도전 실패, 그렇지 않으면 도전 성공
+if (G.turnLog.challenge.characters.includes(G.turnLog.challenge.revealedCard.name)) {
+// 실패했을 때, 선택한 카드를 덱에 돌려놓고 대체 카드를 뽑아서 턴 로그에 기록
+G.turnLog.successful = true;
+G.turnLog.challenge.loser = {
+name: G.turnLog.challenge.challenger.name,
+id: G.turnLog.challenge.challenger.id,
+};
+returnToDeck(G, [Card(G.players[playerID].hand[cardID].character, G.players[playerID].hand[cardID].front)]);
+
+sql
+Copy code
+const { character, front } = G.deck.pop();
+G.turnLog.challenge.swapCard = { character, front };
+} else {
+// 성공했을 때, 패배한 사람이 카드 하나 내놓기
+G.turnLog.challenge.successful = true;
+G.turnLog.challenge.loser = {
+name: G.turnLog.challenge.challenged.name,
+id: G.turnLog.challenge.challenged.id,
+};
+loseCardAndShuffle(G, ctx, playerID, cardID);
+}
+
+// 만약 이전에 블락이 있었다면, 성공여부를 반대로 변경
+if (Object.keys(G.turnLog.blockedBy).length !== 0) {
+G.turnLog.successful = !G.turnLog.successful;
+}
+};
+
+// 캐릭터 액션: 도전에 패배, 암살, 교환, 쿠두
+const loseCardAndShuffle = (G, ctx, playerID, cardID) => {
+// 카드를 덱으로 되돌리고 플레이어의
   
-  
-  
-  
-  
-  
+ 
+  // 카드를 드러낸 후 도전 결과에 따라 처리를 수행합니다.
+const revealCard = (G, ctx, playerID, cardID) => {
+G.turnLog.challenge.revealedCard = {
+name: G.players[playerID].hand[cardID].character,
+id: cardID,
+};
+if (G.turnLog.challenge.characters.includes(G.turnLog.challenge.revealedCard.name)) {
+// 도전 실패: 플레이어는 그대로 움직일 수 있습니다.
+G.turnLog.successful = true;
+G.turnLog.challenge.loser = {
+name: G.turnLog.challenge.challenger.name,
+id: G.turnLog.challenge.challenger.id,
+};
+returnToDeck(G, [Card(G.players[playerID].hand[cardID].character, G.players[playerID].hand[cardID].front)]);
+
+sql
+Copy code
+const { character, front } = G.deck.pop();
+G.turnLog.challenge.swapCard = { character, front };
+} else {
+// 도전 성공: 도전자가 카드를 하나 내야 합니다.
+G.turnLog.challenge.successful = true;
+G.turnLog.challenge.loser = {
+name: G.turnLog.challenge.challenged.name,
+id: G.turnLog.challenge.challenged.id,
+};
+loseCardAndShuffle(G, ctx, playerID, cardID);
+}
+
+// 이전에 차단이 있었다면 결과는 반대로 됩니다.
+if (Object.keys(G.turnLog.blockedBy).length !== 0) {
+G.turnLog.successful = !G.turnLog.successful;
+}
+};
+
+// 캐릭터 액션: 도전에 실패, 암살, 교환, 쿠두
+const loseCardAndShuffle = (G, ctx, playerID, cardID) => {
+returnToDeck(G, [Card(G.players[playerID].hand[cardID].character, G.players[playerID].hand[cardID].front)]);
+
+G.players[playerID].hand[cardID] = {
+character: "",
+front: "",
+discarded: true,
+id: cardID,
+};
+updateIsOut(G.players[playerID]);
+};  
   // 만약 player가 암살 당하면
 if (
   G.turnLog.action === "assassinate" &&
