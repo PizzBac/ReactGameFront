@@ -41,112 +41,112 @@
 
 .cardSet.active .card-p2.playerId {
   transform: translateX(0px) translateY(-200px);
-  transition: 0.25s 0.5s ease-in-out;
+  transition: 0.25s 0.25s ease-in-out;
 }
 
 .cardSet.active .card-p3.playerId {
   transform: translateX(200px) translateY(-200px);
-  transition: 0.25s 0.75s ease-in-out;
+  transition: 0.25s 0.5s ease-in-out;
 }
 
 .cardSet.active .card-p4.playerId {
   transform: translateX(200px) translateY(200px);
-  transition: 0.25s 1s ease-in-out;
+  transition: 0.25s 0.75s ease-in-out;
 }
 
 .cardSet.active .card-p5.playerId {
   transform: translateX(0px) translateY(200px);
-  transition: 0.25s 1.25s ease-in-out;
+  transition: 0.25s 1s ease-in-out;
 }
 
 .cardSet.active .card-p6.playerId {
   transform: translateX(-200px) translateY(200px);
-  transition: 0.25s 1.5s ease-in-out;
+  transition: 0.25s 1.25s ease-in-out;
 }
 
 .cardSet.active .card-p1.cardFirst {
   transform: translateX(-200px) translateY(-200px);
-  transition: 0.25s 1.75s ease-in-out;
+  transition: 0.25s 1.5s ease-in-out;
 }
 
 .cardSet.active .card-p2.cardFirst {
   transform: translateX(0px) translateY(-200px);
-  transition: 0.25s 2s ease-in-out;
+  transition: 0.25s 1.75s ease-in-out;
 }
 
 .cardSet.active .card-p3.cardFirst {
   transform: translateX(200px) translateY(-200px);
-  transition: 0.25s 2.25s ease-in-out;
+  transition: 0.25s 2s ease-in-out;
 }
 
 .cardSet.active .card-p4.cardFirst {
   transform: translateX(200px) translateY(200px);
-  transition: 0.25s 2.5s ease-in-out;
+  transition: 0.25s 2.25s ease-in-out;
 }
 
 .cardSet.active .card-p5.cardFirst {
   transform: translateX(0px) translateY(200px);
-  transition: 0.25s 2.75s ease-in-out;
+  transition: 0.25s 2.5s ease-in-out;
 }
 
 .cardSet.active .card-p6.cardFirst {
   transform: translateX(-200px) translateY(200px);
-  transition: 0.25s 3s ease-in-out;
+  transition: 0.25s 2.75s ease-in-out;
 }
 
 .cardSet.active .card-p1.cardSecond {
   transform: translateX(-200px) translateY(-200px);
-  transition: 0.25s 3.25s ease-in-out;
+  transition: 0.25s 3s ease-in-out;
 }
 
 .cardSet.active .card-p2.cardSecond {
   transform: translateX(0px) translateY(-200px);
-  transition: 0.25s 3.5s ease-in-out;
+  transition: 0.25s 3.25s ease-in-out;
 }
 
 .cardSet.active .card-p3.cardSecond {
   transform: translateX(200px) translateY(-200px);
-  transition: 0.25s 3.75s ease-in-out;
+  transition: 0.25s 3.5s ease-in-out;
 }
 
 .cardSet.active .card-p4.cardSecond {
   transform: translateX(200px) translateY(200px);
-  transition: 0.25s 4s ease-in-out;
+  transition: 0.25s 3.75s ease-in-out;
 }
 
 .cardSet.active .card-p5.cardSecond {
   transform: translateX(0px) translateY(200px);
-  transition: 0.25s 4.25s ease-in-out;
+  transition: 0.25s 4s ease-in-out;
 }
 
 .cardSet.active .card-p6.cardSecond {
   transform: translateX(-200px) translateY(200px);
-  transition: 0.25s 4.5s ease-in-out;
+  transition: 0.25s 4.25s ease-in-out;
 }
 
 .coin-set1.active {
   transform: translateX(-200px) translateY(-200px);
-  transition: 0.25s 4.75s ease-in-out;
+  transition: 0.25s 4.5s ease-in-out;
 }
 .coin-set2.active {
   transform: translateX(0px) translateY(-200px);
-  transition: 0.25s 4.75s ease-in-out;
+  transition: 0.25s 4.5s ease-in-out;
 }
 .coin-set3.active {
   transform: translateX(200px) translateY(-200px);
-  transition: 0.25s 4.75s ease-in-out;
+  transition: 0.25s 4.5s ease-in-out;
 }
 .coin-set4.active {
   transform: translateX(200px) translateY(200px);
-  transition: 0.25s 4.75s ease-in-out;
+  transition: 0.25s 4.5s ease-in-out;
 }
 .coin-set5.active {
   transform: translateX(0px) translateY(200px);
-  transition: 0.25s 4.75s ease-in-out;
+  transition: 0.25s 4.5s ease-in-out;
 }
 .coin-set6.active {
   transform: translateX(-200px) translateY(200px);
-  transition: 0.25s 4.75s ease-in-out;
+  transition: 0.25s 4.5s ease-in-out;
 }
 
 /* ############################################ */
@@ -297,10 +297,32 @@
 .playerId {
   font-size: 3vmin;
   font-weight: bold;
-  color: aqua;
   text-shadow: 5px 5px 5px gray;
 }
 
+.card-p1.playerId {
+  color: pink;
+}
+
+.card-p2.playerId {
+  color: green;
+}
+
+.card-p3.playerId {
+  color: yellow;
+}
+
+.card-p4.playerId {
+  color: red;
+}
+
+.card-p5.playerId {
+  color: blue;
+}
+
+.card-p6.playerId {
+  color: blueviolet;
+}
 
 .coin-set {
   margin-left: 7vmin;
@@ -318,10 +340,7 @@
   margin-left: 2vmin;
 }
 
-
-
 /* 가운데 원판(콘솔) */
-
 
 /* 가운데 콘솔 컨트롤러 */
 /* 바깥 원판 */

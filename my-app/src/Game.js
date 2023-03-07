@@ -1,7 +1,7 @@
 import './css/reset.css';
 import './css/Game.css';
 import ChatWindows from "./ChatWindows";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
 
@@ -12,14 +12,38 @@ function App() {
     setActivate((prev) => !prev);
   };
 
-  const [playerNumber, setplayerNumber] = useState();
-  const playerNumberCheck = () => {
+  const [playerNumber, setplayerNumber] = useState(0);
+  const playerNumberCheck = (event) => {
     // 플레이어 번호에 따라서 앞뒷면 보이는 게 다르게 할 예정
+    setplayerNumber(event.target.value);
   }
+
+  useEffect(() => {
+    console.log(playerNumber);
+  }, [playerNumber]);
 
   return (
     <div className="page">
       <button onClick={handleClick}>Activate</button>
+      {/* <button onClick={playerNumberCheck} value="0">manager</button>
+      <button onClick={playerNumberCheck} value="1">player1</button>
+      <button onClick={playerNumberCheck} value="2">player2</button>
+      <button onClick={playerNumberCheck} value="3">player3</button>
+      <button onClick={playerNumberCheck} value="4">player4</button>
+      <button onClick={playerNumberCheck} value="5">player5</button>
+      <button onClick={playerNumberCheck} value="6">player6</button> */}
+      {/* <div className="dropdown">
+        <button className="dropbtn">Player {playerNumber || "Select"}</button>
+        <div className="dropdown-content">
+          <button onClick={playerNumberCheck} value="0">Manager</button>
+          <button onClick={playerNumberCheck} value="1">Player 1</button>
+          <button onClick={playerNumberCheck} value="2">Player 2</button>
+          <button onClick={playerNumberCheck} value="3">Player 3</button>
+          <button onClick={playerNumberCheck} value="4">Player 4</button>
+          <button onClick={playerNumberCheck} value="5">Player 5</button>
+          <button onClick={playerNumberCheck} value="6">Player 6</button>
+        </div>
+      </div> */}
 
       <div className="GameBoard">
         <div className="console">
