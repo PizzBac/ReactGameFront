@@ -39,7 +39,7 @@ function Chat() {
                     chatLog.map((item, index) => (
                         <div className="text" key={index}>
                             {/* <strong>{item.name}:</strong> {item.message} */}
-                            <strong>Guest:</strong> {item.message}
+                            <strong>익명:</strong> {item.message}
                         </div>
                     ))
                 }
@@ -53,12 +53,13 @@ function Chat() {
                     <input type="text" value={name} onChange={handleChangeName} />
                 </label>
                 <br /> */}
-                <label className={styles.messageInput}>
-                    메시지:
+                <label className={styles.messageLabel}>
                     <input
+                        className={styles.messageInput}
                         type="text"
                         value={message}
                         onChange={handleChangeMessage}
+                        placeholder="메시지를 입력하세요"
                     />
                     {/* <button className={styles.submitBtn} type="submit"><i class="fa fa-paper-plane"></i></button> */}
                     <span className={styles.submitBtn} onClick={handleSubmit}>
