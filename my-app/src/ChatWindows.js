@@ -10,8 +10,8 @@ function Chat() {
     const [chatLog, setChatLog] = React.useState([]);
 
     // 새로운 메시지가 추가될 때마다 자동으로 스크롤을 아래쪽으로 이동
-    const messagesEndRef = React.useRef(null); // useRef를 이용하여 messagesEndRef 변수 생성
-    React.useEffect(() => { // useEffect 등록
+    const messagesEndRef = React.useRef(null);
+    React.useEffect(() => {
         messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }, [chatLog]);
 
