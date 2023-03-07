@@ -33,6 +33,97 @@
   }
 } */
 
+/* 시작 시 카드 이동 */
+.cardSet.active .card-p1.playerId {
+  transform: translateX(-200px) translateY(-200px);
+  transition: 0.25s 0s ease-in-out;
+}
+
+.cardSet.active .card-p2.playerId {
+  transform: translateX(0px) translateY(-200px);
+  transition: 0.25s 0.5s ease-in-out;
+}
+
+.cardSet.active .card-p3.playerId {
+  transform: translateX(200px) translateY(-200px);
+  transition: 0.25s 0.75s ease-in-out;
+}
+
+.cardSet.active .card-p4.playerId {
+  transform: translateX(200px) translateY(200px);
+  transition: 0.25s 1s ease-in-out;
+}
+
+.cardSet.active .card-p5.playerId {
+  transform: translateX(0px) translateY(200px);
+  transition: 0.25s 1.25s ease-in-out;
+}
+
+.cardSet.active .card-p6.playerId {
+  transform: translateX(-200px) translateY(200px);
+  transition: 0.25s 1.5s ease-in-out;
+}
+
+.cardSet.active .card-p1.cardFirst {
+  transform: translateX(-200px) translateY(-200px);
+  transition: 0.25s 1.75s ease-in-out;
+}
+
+.cardSet.active .card-p2.cardFirst {
+  transform: translateX(0px) translateY(-200px);
+  transition: 0.25s 2s ease-in-out;
+}
+
+.cardSet.active .card-p3.cardFirst {
+  transform: translateX(200px) translateY(-200px);
+  transition: 0.25s 2.25s ease-in-out;
+}
+
+.cardSet.active .card-p4.cardFirst {
+  transform: translateX(200px) translateY(200px);
+  transition: 0.25s 2.5s ease-in-out;
+}
+
+.cardSet.active .card-p5.cardFirst {
+  transform: translateX(0px) translateY(200px);
+  transition: 0.25s 2.75s ease-in-out;
+}
+
+.cardSet.active .card-p6.cardFirst {
+  transform: translateX(-200px) translateY(200px);
+  transition: 0.25s 3s ease-in-out;
+}
+
+.cardSet.active .card-p1.cardSecond {
+  transform: translateX(-200px) translateY(-200px);
+  transition: 0.25s 3.25s ease-in-out;
+}
+
+.cardSet.active .card-p2.cardSecond {
+  transform: translateX(0px) translateY(-200px);
+  transition: 0.25s 3.5s ease-in-out;
+}
+
+.cardSet.active .card-p3.cardSecond {
+  transform: translateX(200px) translateY(-200px);
+  transition: 0.25s 3.75s ease-in-out;
+}
+
+.cardSet.active .card-p4.cardSecond {
+  transform: translateX(200px) translateY(200px);
+  transition: 0.25s 4s ease-in-out;
+}
+
+.cardSet.active .card-p5.cardSecond {
+  transform: translateX(0px) translateY(200px);
+  transition: 0.25s 4.25s ease-in-out;
+}
+
+.cardSet.active .card-p6.cardSecond {
+  transform: translateX(-200px) translateY(200px);
+  transition: 0.25s 4.5s ease-in-out;
+}
+
 /* ############################################ */
 
 /* 기본적인 설정 */
@@ -54,22 +145,25 @@
   width: 50%;
   height: 3%;
 }
+
 .sideSection {
   /* position: relative; */
   margin-left: 145vmin;
 }
+
 .hintBox {
-  position:relative;
+  position: relative;
   width: 50vmin;
   height: 30vmin;
   background-image: url(./images/hint.png);
 }
+
 .hintTitle {
   position: relative;
   font-size: 3vmin;
   font-weight: bold;
   color: black;
-  text-shadow:5px 5px 5px gray;
+  text-shadow: 5px 5px 5px gray;
   top: 10%;
   left: 40%;
 }
@@ -102,8 +196,11 @@
 /* 플레이어 위치 설정 */
 .player {
   position: absolute;
+  top: 40%;
+  left: 30%;
 }
-.player1 {
+
+/* .player1 {
   top: 5%;
   left: 13%;
 }
@@ -131,7 +228,7 @@
 .player6 {
   margin-top: 18%;
   margin-left: 5%;
-}
+} */
 
 /* 카드 꾸미기 */
 .card {
@@ -145,21 +242,27 @@
 .card-p1 {
   border-color: pink;
 }
+
 .card-p2 {
   border-color: green;
 }
+
 .card-p3 {
   border-color: yellow;
 }
+
 .card-p4 {
   border-color: red;
 }
+
 .card-p5 {
   border-color: blue;
 }
+
 .card-p1 {
   border-color: blueviolet;
 }
+
 /* 카드 사이 조금 간격 주기 */
 .cardSecond {
   margin-left: 2vmin;
@@ -170,7 +273,7 @@
   font-size: 3vmin;
   font-weight: bold;
   color: aqua;
-  text-shadow:5px 5px 5px gray;
+  text-shadow: 5px 5px 5px gray;
 }
 
 
@@ -198,7 +301,7 @@
 /* 가운데 콘솔 컨트롤러 */
 /* 바깥 원판 */
 .console {
-  position:absolute;
+  position: absolute;
   width: 50vmin;
   height: 50vmin;
   /* background-color: green; */
@@ -209,44 +312,47 @@
 
 }
 
-.console > * {
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  border:5px solid var(--c,black);
-  border-radius:50%;
-  clip-path:polygon(50% 50%, 50% 0%, 100% 0%, 100% 33.745%); 
+.console>* {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 5px solid var(--c, black);
+  border-radius: 50%;
+  clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 33.745%);
 }
 
 .color1 {
-  transform:rotate(60deg);
+  transform: rotate(60deg);
   background-image: url(./images/assassin.png);
   background-size: 30%;
   /* --c:blue; */
 }
 
 .color2 {
-  transform:rotate(120deg);
+  transform: rotate(120deg);
   background-image: url(./images/captin.png);
   background-size: 30%;
   /* --c:yellow; */
 }
+
 .color3 {
-  transform:rotate(180deg);
+  transform: rotate(180deg);
   background-image: url(./images/duke.png);
   background-size: 30%;
   /* --c:green; */
 }
+
 .color4 {
-  transform:rotate(240deg);
+  transform: rotate(240deg);
   background-image: url(./images/contessa.png);
   background-size: 30%;
   /* --c:purple; */
 }
+
 .color5 {
-  transform:rotate(300deg);
+  transform: rotate(300deg);
   background-image: url(./images/ambassador.png);
   background-size: 30%;
 }
@@ -261,51 +367,53 @@
 .inner {
   height: 20vmin;
   width: 20vmin;
-  position:absolute;
+  position: absolute;
   top: 40%;
   left: 30.5%;
 }
 
-.inner > * {
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  border:2px solid var(--c,black);
-  border-radius:50%;
-  clip-path:polygon(50% 50%, 50% 0%, 100% 0%,100% 100%); 
+.inner>* {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid var(--c, black);
+  border-radius: 50%;
+  clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%);
 }
 
 .action1 {
-  transform:rotate(120deg);
+  transform: rotate(120deg);
   background-color: skyblue;
 }
+
 .action2 {
-  transform:rotate(240deg);
+  transform: rotate(240deg);
   background-color: orange;
 }
+
 .action3 {
-  transform:rotate(360deg);
+  transform: rotate(360deg);
   background-color: yellow;
 }
 
 .action2 span {
-  transform:rotate(120deg);
+  transform: rotate(120deg);
   position: absolute;
   top: 40px;
   margin-left: 110px;
 }
 
 .action1 span {
-  transform:rotate(240deg);
+  transform: rotate(240deg);
   position: absolute;
   margin-top: 45px;
   margin-left: 120px;
 }
 
 .action3 span {
-  transform:rotate(360deg);
+  transform: rotate(360deg);
   position: absolute;
   margin-top: 40px;
   margin-left: 110px;
