@@ -145,14 +145,14 @@ function SignUp() {
                 <div className="form">
                     <div className="form-el">
                         <label htmlFor="id">아이디</label> <br />
-                        <input id="id" name="id" value={id} onChange={onChangeId} />
+                        <input id="id" name="id" className="SignUpForm" value={id} onChange={onChangeId} />
                         <br />
                         <p className="message"> {idMessage} </p>
                     </div><br />
 
                     <div className="form-el">
                         <label htmlFor="name">이름</label> <br />
-                        <input id="name" name="name" value={name} onChange={onChangeName} />
+                        <input id="name" name="name" className="SignUpForm"  value={name} onChange={onChangeName} />
                         <p className="message">{nameMessage}</p>
                     </div><br />
 
@@ -161,6 +161,7 @@ function SignUp() {
                         <input
                             id="password"
                             name="password"
+                            className="SignUpForm" 
                             value={password}
                             onChange={onChangePassword} />
                         <p className="message">{passwordMessage}</p>
@@ -171,6 +172,7 @@ function SignUp() {
                         <input
                             id="passwordConfirm"
                             name="passwordConfirm"
+                            className="SignUpForm" 
                             value={passwordConfirm}
                             onChange={onChangePasswordConfirm} />
                         <p className="message">{passwordConfirmMessage}</p>
@@ -181,6 +183,7 @@ function SignUp() {
                         <input
                             id="email"
                             name="name"
+                            className="SignUpForm" 
                             value={email}
                             onChange={onChangeEmail} />
                         <p className="message">{emailMessage}</p>
@@ -188,7 +191,7 @@ function SignUp() {
 
                     <div className="form-el">
                         <label htmlFor="phone">핸드폰 번호</label> <br />
-                        <input id="phone" name="phone" value={phone} onChange={addHyphen} />
+                        <input id="phone" name="phone" className="SignUpForm" value={phone} onChange={addHyphen} />
                         <p className="message">{phoneMessage}</p>
                     </div>
                     {/* <div className="form-el">
@@ -202,10 +205,10 @@ function SignUp() {
                 </div> */}
                     <br />
                     <br />
-                    <button type="submit">회원가입</button>
+                    <button className="JoinBtn" type="submit">회원가입</button>
                 </div>
             </form>
-            <button type="submit" onClick={handleSubmit}>로그인 창으로 이동</button>
+            <button type="submit" className="LoginBtn" onClick={handleSubmit}>로그인 창으로 이동</button>
         </div>
     );
 }
