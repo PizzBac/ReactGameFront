@@ -70,7 +70,6 @@ function Game() {
             <p className="hintText">은행에서 코인 1개를 가져올 수 있습니다.</p>
           </div>
         </div>
-        <ChatWindows />
       </div>
     </div >
   );
