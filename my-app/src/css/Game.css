@@ -124,7 +124,7 @@
   transition: 0.25s 4.25s ease-in-out;
 }
 
-.coin-set1.active {
+.coin-set1.active { 
   transform: translateX(-200px) translateY(-200px);
   transition: 0.25s 4.5s ease-in-out;
 }
