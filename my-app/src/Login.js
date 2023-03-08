@@ -16,6 +16,11 @@ function Login() {
         navigate("/signUp");
     }
 
+    const LobbyBtn = (event) =>{
+        event.preventDefault();
+        navigate("/Lobby");
+    }
+
     return (
         
         <div className="html">
@@ -41,7 +46,7 @@ function Login() {
                                 {/* <input type="checkbox" value="remember-me" /> 아이디 저장 */}
                             </label><br />
                         </div>
-                        <button className="LoginBtn" type="submit">로그인</button>
+                        <button className="LoginBtn" onClick={LobbyBtn} type="submit">로그인</button>
                         {" "}
                         <button className="JoinBtn" onClick={SignUpBtn}>회원가입</button> <br /><br /> <br /><br />
                     <p className="mt-5 mb-3 text-muted">&copy; 2023</p>
