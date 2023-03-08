@@ -2,8 +2,10 @@ import './css/reset.css';
 import './css/Game.css';
 import ChatWindows from "./ChatWindows";
 import { useState, useEffect } from 'react';
+import CardFrontBack from './gameMechanism/CardFrontBack';
+import CardDistribution from './gameMechanism/CardDistribution';
 
-function App() {
+function Game() {
 
   // 버튼을 작동시키기 위한 activate 상태 추가해서 버튼 클릭하면 작동
   // 추후 게임 시작 시 자동으로 카드 분배되도록 변경해야 함
@@ -12,38 +14,47 @@ function App() {
     setActivate((prev) => !prev);
   };
 
-  const [playerNumber, setplayerNumber] = useState(0);
-  const playerNumberCheck = (event) => {
-    // 플레이어 번호에 따라서 앞뒷면 보이는 게 다르게 할 예정
-    setplayerNumber(event.target.value);
-  }
+  // 입장 플레이어 수 반영하도록 수정해야 함
+  // const [howManyPlayers, setHowManyPlayers] = useState(Math.floor(Math.random() * 6 + 1));
+  const [howManyPlayers, setHowManyPlayers] = useState(6);
+  console.log("플레이어 숫자 " + howManyPlayers);
 
-  useEffect(() => {
-    console.log(playerNumber);
-  }, [playerNumber]);
+  // 플레이어 번호에 따라서 앞뒷면 보이는 게 다르게 할 예정
+  // const [playerNumber, setPlayerNumber] = useState(0);
+  // const playerNumberCheck = (event) => {
+  //   setPlayerNumber(parseInt(event.target.value));
+  // }
+  // useEffect(() => {
+  //   console.log(playerNumber);
+  // }, [playerNumber]);
 
   return (
     <div className="page">
+      {/* 게임 메커니즘 작동용 버튼. 나중에 전부 삭제 후 자동으로 돌아가도록 설정해야 함 */}
       <button onClick={handleClick}>Activate</button>
-      {/* <button onClick={playerNumberCheck} value="0">manager</button>
-      <button onClick={playerNumberCheck} value="1">player1</button>
-      <button onClick={playerNumberCheck} value="2">player2</button>
-      <button onClick={playerNumberCheck} value="3">player3</button>
-      <button onClick={playerNumberCheck} value="4">player4</button>
-      <button onClick={playerNumberCheck} value="5">player5</button>
-      <button onClick={playerNumberCheck} value="6">player6</button> */}
-      {/* <div className="dropdown">
-        <button className="dropbtn">Player {playerNumber || "Select"}</button>
-        <div className="dropdown-content">
-          <button onClick={playerNumberCheck} value="0">Manager</button>
-          <button onClick={playerNumberCheck} value="1">Player 1</button>
-          <button onClick={playerNumberCheck} value="2">Player 2</button>
-          <button onClick={playerNumberCheck} value="3">Player 3</button>
-          <button onClick={playerNumberCheck} value="4">Player 4</button>
-          <button onClick={playerNumberCheck} value="5">Player 5</button>
-          <button onClick={playerNumberCheck} value="6">Player 6</button>
-        </div>
+      
+      {/* <div>
+        <label>
+          <input type="radio" name="playerNumber" value="1" onChange={playerNumberCheck} />Player 1
+        </label>
+        <label>
+          <input type="radio" name="playerNumber" value="2" onChange={playerNumberCheck} />Player 2
+        </label>
+        <label>
+          <input type="radio" name="playerNumber" value="3" onChange={playerNumberCheck} />Player 3
+        </label>
+        <label>
+          <input type="radio" name="playerNumber" value="4" onChange={playerNumberCheck} />Player 4
+        </label>
+        <label>
+          <input type="radio" name="playerNumber" value="5" onChange={playerNumberCheck} />Player 5
+        </label>
+        <label>
+          <input type="radio" name="playerNumber" value="6" onChange={playerNumberCheck} />Player 6
+        </label>
       </div> */}
+      {/* <CardFrontBack playerNumber={playerNumber} activate={activate} /> */}
+
 
       <div className="GameBoard">
         <div className="console">
@@ -61,86 +72,7 @@ function App() {
           <div class="action2"><span>원조</span></div>
           <div class="action3"><span>소득</span></div>
         </div>
-
-        <div className={`player player1 ${activate ? "active" : ""}`}>
-          <div className={`cardSet ${activate ? "active" : ""}`}>
-            <p className={`card-p1 playerId ${activate ? "active" : ""}`}># Player 1</p>
-            <img
-              className={`card card-p1 cardFirst ${activate ? "active" : ""}`}
-              src={require("./css/images/contessa.png")}
-              alt="assassin"
-            />
-            <img
-              className={`card card-p1 cardSecond ${activate ? "active" : ""}`}
-              src={require("./css/images/duke.png")}
-              alt="duke"
-            />
-          </div>
-          <div className={`coin-set coin-set1 ${activate ? "active" : ""}`}>
-            <img className="img coin" src={require("./css/images/coin.png")} alt="coin" />
-            <span>5</span>
-          </div>
-        </div>
-
-        <div className={`player player2 ${activate ? "active" : ""}`}>
-          <div className={`cardSet ${activate ? "active" : ""}`}>
-            <p className={`card-p2 playerId ${activate ? "active" : ""}`}># Player 2</p>
-            <img className={`card card-p2 cardFirst ${activate ? "active" : ""}`} src={require('./css/images/assassin.png')} alt="assassin" />
-            <img className={`card card-p2 cardSecond ${activate ? "active" : ""}`} src={require('./css/images/contessa.png')} alt="duke" />
-          </div>
-          <div className={`coin-set coin-set2 ${activate ? "active" : ""}`}>
-            <img className="img coin" src={require("./css/images/coin.png")} alt="coin" />
-            <span>5</span>
-          </div>
-        </div>
-
-        <div className={`player player3 ${activate ? "active" : ""}`}>
-          <div className={`cardSet ${activate ? "active" : ""}`}>
-            <p className={`card-p3 playerId ${activate ? "active" : ""}`}># Player 3</p>
-            <img className={`card card-p3 cardFirst ${activate ? "active" : ""}`} src={require('./css/images/captin.png')} alt="assassin" />
-            <img className={`card card-p3 cardSecond ${activate ? "active" : ""}`} src={require('./css/images/back.png')} alt="duke" />
-          </div>
-          <div className={`coin-set coin-set3 ${activate ? "active" : ""}`}>
-            <img className="img coin" src={require("./css/images/coin.png")} alt="coin" />
-            <span>5</span>
-          </div>
-        </div>
-
-        <div className={`player player4 ${activate ? "active" : ""}`}>
-          <div className={`cardSet ${activate ? "active" : ""}`}>
-            <p className={`card-p4 playerId ${activate ? "active" : ""}`}># Player 4</p>
-            <img className={`card card-p4 cardFirst ${activate ? "active" : ""}`} src={require('./css/images/contessa.png')} alt="assassin" />
-            <img className={`card card-p4 cardSecond ${activate ? "active" : ""}`} src={require('./css/images/ambassador.png')} alt="duke" />
-          </div>
-          <div className={`coin-set coin-set4 ${activate ? "active" : ""}`}>
-            <img className="img coin" src={require("./css/images/coin.png")} alt="coin" />
-            <span>5</span>
-          </div>
-        </div>
-
-        <div className={`player player5 ${activate ? "active" : ""}`}>
-          <div className={`cardSet ${activate ? "active" : ""}`}>
-            <p className={`card-p5 playerId ${activate ? "active" : ""}`}># Player 5</p>
-            <img className={`card card-p5 cardFirst ${activate ? "active" : ""}`} src={require('./css/images/back.png')} alt="assassin" />
-            <img className={`card card-p5 cardSecond ${activate ? "active" : ""}`} src={require('./css/images/duke.png')} alt="duke" />
-          </div>
-          <div className={`coin-set coin-set5 ${activate ? "active" : ""}`}>
-            <img className="img coin" src={require("./css/images/coin.png")} alt="coin" />
-            <span>3</span>
-          </div>
-        </div>
-
-        <div className={`player player6 ${activate ? "active" : ""}`}>
-          <div className={`cardSet ${activate ? "active" : ""}`}>
-            <p className={`card-p6 playerId ${activate ? "active" : ""}`}># Player 6</p>
-            <img className={`card card-p6 cardFirst ${activate ? "active" : ""}`} src={require('./css/images/captin.png')} alt="assassin" />
-            <img className={`card card-p6 cardSecond ${activate ? "active" : ""}`} src={require('./css/images/back.png')} alt="duke" />
-          </div>
-          <div className={`coin-set coin-set6 ${activate ? "active" : ""}`}>
-            <img className="img coin" src={require("./css/images/coin.png")} alt="coin" />
-            <span>5</span>
-          </div>
-        </div>
+        <CardDistribution howManyPlayers={howManyPlayers} activate={activate} />
       </div>
 
       <div className="sideSection">
@@ -158,4 +90,4 @@ function App() {
   );
 }
 
-export default App;
+export default Game;

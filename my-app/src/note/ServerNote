@@ -1,0 +1,7 @@
+https://web.postman.co/ > My WorkSpace > New Request > https://spring-boot-coup-backend.onrender.com/board 주소 통해서 서버 입출력 확인(임시)
+https://github.com/singateco/springbootcoup/blob/master/API.md에서 데이터 정보 확인 가능
+
+https://github.com/stomp-js/stompjs
+https://spring.io/guides/gs/messaging-stomp-websocket/
+https://jxy.me/websocket-debug-tool/
+stomp, sockjs 공부 필요

@@ -72,3 +72,17 @@ function Chat() {
 }
 
 export default Chat;
+
+// 소켓 관련 내용
+// https://spring.io/guides/gs/messaging-stomp-websocket/
+// function connect() {
+//     var socket = new SockJS('/gs-guide-websocket');
+//     stompClient = Stomp.over(socket);
+//     stompClient.connect({}, function (frame) {
+//         setConnected(true);
+//         console.log('Connected: ' + frame);
+//         stompClient.subscribe('/topic/greetings', function (greeting) {
+//             showGreeting(JSON.parse(greeting.body).content);
+//         });
+//     });
+// }
