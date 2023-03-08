@@ -2,12 +2,9 @@ import './css/reset.css';
 import './css/Game.css';
 import ChatWindows from "./ChatWindows";
 import { useState, useEffect } from 'react';
-<<<<<<< HEAD
 import CardFrontBack from './gameMechanism/CardFrontBack';
 import CardDistribution from './gameMechanism/CardDistribution';
-=======
 import { useNavigate } from "react-router-dom";
->>>>>>> c07fc5d9dd9b38b5845f63787c60b43daf2e777b
 
 function Game() {
 
