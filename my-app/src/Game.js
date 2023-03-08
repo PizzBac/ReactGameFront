@@ -2,28 +2,25 @@ import './css/reset.css';
 import './css/Game.css';
 import ChatWindows from "./ChatWindows";
 import { useState, useEffect } from 'react';
-<<<<<<< HEAD
 import CardFrontBack from './gameMechanism/CardFrontBack';
 import CardDistribution from './gameMechanism/CardDistribution';
-=======
 import { useNavigate } from "react-router-dom";
->>>>>>> c07fc5d9dd9b38b5845f63787c60b43daf2e777b
 
 function Game() {
 
-  
   // 버튼을 작동시키기 위한 activate 상태 추가해서 버튼 클릭하면 작동
   // 추후 게임 시작 시 자동으로 카드 분배되도록 변경해야 함
   const [activate, setActivate] = useState(false);
   const navigate = useNavigate(); //로비로 이동시키기는 navigate함수를 사용하기 위해 사용함.
-   const handleClick = () => {
+
+  const handleClick = () => {
     setActivate((prev) => !prev);
   };
-   const LobbyBtn = (event) => {
+  
+  const LobbyBtn = (event) => {
     event.preventDefault();
     navigate("/Lobby");
-}
-
+  }
 
   // 입장 플레이어 수 반영하도록 수정해야 함
   // const [howManyPlayers, setHowManyPlayers] = useState(Math.floor(Math.random() * 6 + 1));
@@ -43,51 +40,7 @@ function Game() {
     <div className="page">
       {/* 게임 메커니즘 작동용 버튼. 나중에 전부 삭제 후 자동으로 돌아가도록 설정해야 함 */}
       <button onClick={handleClick}>Activate</button>
-<<<<<<< HEAD
-      
-      {/* <div>
-        <label>
-          <input type="radio" name="playerNumber" value="1" onChange={playerNumberCheck} />Player 1
-        </label>
-        <label>
-          <input type="radio" name="playerNumber" value="2" onChange={playerNumberCheck} />Player 2
-        </label>
-        <label>
-          <input type="radio" name="playerNumber" value="3" onChange={playerNumberCheck} />Player 3
-        </label>
-        <label>
-          <input type="radio" name="playerNumber" value="4" onChange={playerNumberCheck} />Player 4
-        </label>
-        <label>
-          <input type="radio" name="playerNumber" value="5" onChange={playerNumberCheck} />Player 5
-        </label>
-        <label>
-          <input type="radio" name="playerNumber" value="6" onChange={playerNumberCheck} />Player 6
-        </label>
-=======
       <button onClick={LobbyBtn}>로비로 이동</button>
-      {/* <button onClick={playerNumberCheck} value="0">manager</button>
-      <button onClick={playerNumberCheck} value="1">player1</button>
-      <button onClick={playerNumberCheck} value="2">player2</button>
-      <button onClick={playerNumberCheck} value="3">player3</button>
-      <button onClick={playerNumberCheck} value="4">player4</button>
-      <button onClick={playerNumberCheck} value="5">player5</button>
-      <button onClick={playerNumberCheck} value="6">player6</button> */}
-      {/* <div className="dropdown">
-        <button className="dropbtn">Player {playerNumber || "Select"}</button>
-        <div className="dropdown-content">
-          <button onClick={playerNumberCheck} value="0">Manager</button>
-          <button onClick={playerNumberCheck} value="1">Player 1</button>
-          <button onClick={playerNumberCheck} value="2">Player 2</button>
-          <button onClick={playerNumberCheck} value="3">Player 3</button>
-          <button onClick={playerNumberCheck} value="4">Player 4</button>
-          <button onClick={playerNumberCheck} value="5">Player 5</button>
-          <button onClick={playerNumberCheck} value="6">Player 6</button>
-        </div>
->>>>>>> c07fc5d9dd9b38b5845f63787c60b43daf2e777b
-      </div> */}
-      {/* <CardFrontBack playerNumber={playerNumber} activate={activate} /> */}
-
 
       <div className="GameBoard">
         <div className="console">
@@ -119,7 +72,7 @@ function Game() {
         </div>
         <ChatWindows />
       </div>
-    </div>
+    </div >
   );
 }
 
