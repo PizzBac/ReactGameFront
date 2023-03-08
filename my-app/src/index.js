@@ -9,5 +9,6 @@ root.render(
     {/* <Game /> */}
     {/* <SignUp /> */}
     {/* <Login /> */}
+    
   </div>
 );
