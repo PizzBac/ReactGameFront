@@ -1,8 +1,7 @@
 import React from 'react';
 import styles from "./css/TestBoard.module.css";
 import { FaPaperPlane } from "react-icons/fa";
-
-// 소켓 안 쓰고 그냥 useState로 입출력하는 코드
+// import SockJs from 'sockjs-client';
 
 function Chat() {
     // const [name, setName] = React.useState("");
@@ -28,6 +27,9 @@ function Chat() {
         const newMessage = { message };
         setChatLog([...chatLog, newMessage]);
         // setName("");
+
+        //소켓을 사용하여 서버에 메세지를 전송
+        // const socket= new SockJs('http://localhost:8080/chat');
         setMessage("");
     };
 
