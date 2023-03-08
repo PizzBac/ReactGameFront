@@ -215,7 +215,6 @@
   border: 5px solid black;
 }
 
-
 /* 게임 섹션 */
 
 /* 플레이어 위치 설정 */
@@ -350,10 +349,8 @@
   height: 50vmin;
   /* background-color: green; */
   border-radius: 50%;
-
   top: 25%;
   left: 23%;
-
 }
 
 .console>* {
