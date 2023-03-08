@@ -31,3 +31,14 @@
     border-radius: 5px;
     cursor: pointer;
   } */
+.GameStart{
+  position: absolute;
+  top:23%;
+  left:50%;
+}
+
+.GoLogin{
+  position: absolute;
+  top:33%;
+  left:50%;
+}

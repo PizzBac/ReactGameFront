@@ -19,7 +19,7 @@ function Lobby() {
     return (
         <div>
            <button className="GameStart" onClick={GameStart}>게임시작</button>
-           <button className="GameStart" onClick={LoginBtn}>로그인 창으로 이동</button> 
+           <button className="GoLogin" onClick={LoginBtn}>로그인 창으로 이동</button> 
       </div>
     );
   }
