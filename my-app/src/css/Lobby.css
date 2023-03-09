@@ -42,6 +42,7 @@ width: 500px;
   height: 50px;
   font-size: 45px;
   font-style: blue;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 
@@ -52,11 +53,19 @@ width: 500px;
   border-radius: 10px;
 }
 
+.Setting{
+  position: absolute;
+  top: 2%;
+  right: 5%;
+  border-radius: 10px;
+}
+
 .LobbyTitle{
   font-size: 75px;
   text-align: center;
   font-weight: bold;
-  
+  background: linear-gradient(to right, #FFBF00,#A9BCF5,#D8F781,#BDBDBD,#00BFFF);
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .LobbyTable{
@@ -65,20 +74,42 @@ width: 500px;
 
 .SubTitle1{
   position: absolute;
-  top:15%;
-  left: 20%;
+  top:66%;
+  left: 5%;
   font-size: 25px;
+  background-color: aqua;
 }
 
 
 .SubTitle2{
   position: absolute;
-  top: 18%;
-  left: 20%;
+  top: 66%;
+  left: 40%;
   font-size: 25px;
+  background-color: blueviolet;
+}
+
+
+.SubTitle3{
+  position: absolute;
+  top: 66%;
+  left: 70%;
+  font-size: 25px;
+  background-color: #FA58F4;
+}
+
+.imgdoor{
+  background-image: url(/Users/jongjin/ReactGameFront-11/dummy/door.png);
+  width: 100%;
+  height: 350px;
+  text-align: center;
+  margin-top: 7%;
+  background-color: gray;
   
 }
 
-.LobbyBody{
-  background-color: blue;
+.BackGround{
+  background-image: url(/Users/jongjin/ReactGameFront-11/dummy/card-back.png);
+  width: 100%;
+  height: 330px;
 }
