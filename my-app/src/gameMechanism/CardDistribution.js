@@ -1,7 +1,15 @@
 // 카드 분배 등의 기능 서버에서 구현해야 함
 
+import React, { useState, useEffect } from 'react';
+
 function CardDistribution(props) {
-  const { howManyPlayers, activate, loginPlayerNumber } = props;
+  const { howManyPlayers, loginPlayerNumber } = props;
+
+  // 게임 시작 시 자동으로 카드 분배
+  const [activate, setActivate] = useState(false);
+  useEffect(() => {
+    setActivate((prev) => !prev);
+  }, []);
 
   // 카드 이미지 설정
   const cardImages = {
@@ -62,7 +70,6 @@ function CardDistribution(props) {
   }
 
   distributeCards(players);
-  console.log("카드 분배");
 
   return (
     <div>

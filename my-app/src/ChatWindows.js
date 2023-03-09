@@ -33,8 +33,6 @@ function Chat() {
         setMessage("");
     };
 
-    console.log("채팅창");
-
     return (
         <div className={styles.chatWrapper}>
             {/* 채팅 목록 */}

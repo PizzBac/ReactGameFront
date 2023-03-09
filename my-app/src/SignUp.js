@@ -94,7 +94,6 @@ function SignUp() {
     const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();
-        navigate("/login");
 
         axios.post('./api/signUpApi', {
             id: id,
@@ -192,7 +191,7 @@ function SignUp() {
                     <button type="submit" className="JoinBtn">회원가입</button>
                 </div>
             </form>
-            <button type="submit" className="LoginBtn" onClick={handleSubmit}>로그인 창으로 이동</button>
+            <button type="submit" className="LoginBtn" onClick={backToLogin}>로그인 창으로 이동</button>
         </div>
     );
 }
