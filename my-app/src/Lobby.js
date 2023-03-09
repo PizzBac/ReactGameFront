@@ -30,18 +30,25 @@ function Lobby() {
     }
 
     return (
-        <div>
+
+        
+        <div className="LobbyBody">
+            <div>
+            
             <h1 className="LobbyTitle">로비</h1>
-            입장 플레이어 수
+            
+           <h3 className="SubTitle1">원하는 인원수를 선택하세요
+            
+          
             <select
                 value={howManyPlayer} // 현재 선택한 값을 표시
                 onChange={(e) => setHowManyPlayer(parseInt(e.target.value))} // 선택한 값을 저장
             >
-                {[...Array(6)].map((_, i) => (
-                    <option value={i + 1}>{i + 1}명</option>
+                {[...Array(5)].map((_, i) => (
+                    <option value={i +1}>{i+2}인방</option>
                 ))}
-            </select>
-            로그인한 플레이어의 입장 번호
+            </select></h3><br />
+           <h3 className="SubTitle2">자신의 위치를 선택하세요
             <select
                 value={loginPlayerNum}
                 onChange={(ev) => setLoginPlayerNum(parseInt(ev.target.value))}
@@ -49,11 +56,13 @@ function Lobby() {
                 {[...Array(6)].map((_, i) => (
                     <option value={i + 1}>{i + 1}번</option>
                 ))}
-            </select>
-            <button className="GameStart" onClick={GameStart}>게임시작</button>
+                
+            </select></h3>
+            <button className="GameStart" onClick={GameStart}>게임 스타트</button>
             <button className="GoLogin" onClick={LoginBtn}>로그아웃</button>
         </div>
-    );
+</div>
+);
 }
 
 export default Lobby;
