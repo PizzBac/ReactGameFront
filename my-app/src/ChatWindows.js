@@ -3,8 +3,8 @@ import styles from "./css/TestBoard.module.css";
 import { FaPaperPlane } from "react-icons/fa";
 // import SockJs from 'sockjs-client';
 
-function Chat() {
-    // const [name, setName] = React.useState("");
+function Chat(props) {
+    const { loginPlayerNickname } = props;
     const [message, setMessage] = React.useState("");
     const [chatLog, setChatLog] = React.useState([]);
 
@@ -14,10 +14,6 @@ function Chat() {
         messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }, [chatLog]);
 
-    // const handleChangeName = (event) => {
-    //     setName(event.target.value);
-    // };
-
     const handleChangeMessage = (event) => {
         setMessage(event.target.value);
     };
@@ -26,7 +22,6 @@ function Chat() {
         event.preventDefault();
         const newMessage = { message };
         setChatLog([...chatLog, newMessage]);
-        // setName("");
 
         //소켓을 사용하여 서버에 메세지를 전송
         // const socket= new SockJs('http://localhost:8080/chat');
@@ -41,7 +36,7 @@ function Chat() {
                     chatLog.map((item, index) => (
                         <div className="text" key={index}>
                             {/* <strong>{item.name}:</strong> {item.message} */}
-                            <strong>익명:</strong> {item.message}
+                            <strong>{loginPlayerNickname}:</strong> {item.message}
                         </div>
                     ))
                 }
@@ -74,17 +69,3 @@ function Chat() {
 }
 
 export default Chat;
-
-// 소켓 관련 내용
-// https://spring.io/guides/gs/messaging-stomp-websocket/
-// function connect() {
-//     var socket = new SockJS('/gs-guide-websocket');
-//     stompClient = Stomp.over(socket);
-//     stompClient.connect({}, function (frame) {
-//         setConnected(true);
-//         console.log('Connected: ' + frame);
-//         stompClient.subscribe('/topic/greetings', function (greeting) {
-//             showGreeting(JSON.parse(greeting.body).content);
-//         });
-//     });
-// }
