@@ -1,6 +1,6 @@
 // 경로 설정
 
-import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./Login";
 import Game from "./Game";
 import SignUp from "./SignUp";

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 
 function CardDistribution(props) {
-  const { howManyPlayers, loginPlayerNumber } = props;
+  const { howManyPlayers, loginPlayerNumber, loginPlayerNickname } = props;
 
   // 게임 시작 시 자동으로 카드 분배
   const [activate, setActivate] = useState(false);
@@ -45,6 +45,12 @@ function CardDistribution(props) {
     { id: 5, name: 'Player 5' },
     { id: 6, name: 'Player 6' },
   ].splice(0, howManyPlayers);
+
+  players.forEach((player) => {
+    if (player.id === loginPlayerNumber) {
+      player.name = loginPlayerNickname;
+    }
+  });
 
   // 카드 셔플
   function shuffleCards(array) {

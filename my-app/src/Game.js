@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import './css/reset.css';
 import './css/Game.css';
@@ -8,21 +8,24 @@ import CardDistribution from './gameMechanism/CardDistribution';
 function Game() {
 
   const navigate = useNavigate();
+  const location = useLocation(); // 값을 전달 받기 위한 훅
+  console.log('state', location.state);
+  const { howManyPlayer, loginPlayerId, loginPlayerNum, loginPlayerNickname } = location.state;
+
   const LobbyBtn = (event) => {
     event.preventDefault();
-    navigate("/Lobby");
+    navigate('/Lobby', {
+      state: {
+        loginPlayerId: loginPlayerId,
+      },
+    });
   }
 
-  // 값을 전달 받기 위한 훅
-  const location = useLocation();
-  const { howManyPlayer } = location.state;
-  // console.log('state', location.state);
-
   // -> CardDistribution.js 연결
-  const [howManyPlayers, setHowManyPlayers] = useState(howManyPlayer);
+  const [howManyPlayers, setHowManyPlayers] = useState(howManyPlayer || 6);
 
   // 입장한 플레이어 번호에 따라서 본인 카드만 앞면이 보이게 설정
-  const [loginPlayerNumber, setLoginPlayerNumber] = useState(1);
+  const [loginPlayerNumber, setLoginPlayerNumber] = useState(loginPlayerNum);
 
   return (
     <div className="page">
@@ -44,7 +47,7 @@ function Game() {
           <div class="action2"><span>원조</span></div>
           <div class="action3"><span>소득</span></div>
         </div>
-        <CardDistribution howManyPlayers={howManyPlayers} loginPlayerNumber={loginPlayerNumber} />
+        <CardDistribution howManyPlayers={howManyPlayers} loginPlayerNumber={loginPlayerNumber} loginPlayerNickname={loginPlayerNickname} />
       </div>
 
       <div className="sideSection">
