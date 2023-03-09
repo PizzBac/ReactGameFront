@@ -35,7 +35,7 @@ function Lobby() {
         <div className="LobbyBody">
             <div>
             
-            <h1 className="LobbyTitle">로비</h1>
+            <h1 className="LobbyTitle">[로비]</h1>
             
            <h3 className="SubTitle1">원하는 인원수를 선택하세요
             
@@ -60,6 +60,15 @@ function Lobby() {
             </select></h3>
             <button className="GameStart" onClick={GameStart}>게임 스타트</button>
             <button className="GoLogin" onClick={LoginBtn}>로그아웃</button>
+
+            {/* <div className="img hintBox"> */}
+          <span className="hintTitle">게임 힌트</span>
+          <div className="hintTextBox">
+            <p className="hintText">사령관 카드 능력으로 상대방 코인 2개를 가져올 수 있습니다.</p>
+            <p className="hintText">외교관 카드 능력으로 상대방이 코인 2개를 강탈 하는 것을 막을 수 있습니다.</p>
+            <p className="hintText">은행에서 코인 1개를 가져올 수 있습니다.</p>
+          </div>
+        {/* </div> */}
         </div>
 </div>
 );
