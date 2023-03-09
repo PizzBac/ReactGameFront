@@ -1,3 +1,5 @@
+// 턴 넘기기 기능 아직 미구현임
+
 import React, { useState } from 'react';
 
 function ChangeTurn(props) {
