@@ -4,6 +4,7 @@ import './css/reset.css';
 import './css/Game.css';
 import ChatWindows from "./ChatWindows";
 import CardDistribution from './gameMechanism/CardDistribution';
+import ChangeTurn from './gameMechanism/ChangeTurn';
 
 function Game() {
 
@@ -22,14 +23,21 @@ function Game() {
   }
 
   // -> CardDistribution.js 연결
-  const [howManyPlayers, setHowManyPlayers] = useState(howManyPlayer || 6);
+  const [howManyPlayers, setHowManyPlayers] = useState(howManyPlayer);
 
   // 입장한 플레이어 번호에 따라서 본인 카드만 앞면이 보이게 설정
   const [loginPlayerNumber, setLoginPlayerNumber] = useState(loginPlayerNum);
 
+  //   const [playerTurn, setPlayerTurn] = useState(1);
+  // // ChangeTurn에서 값을 전달받기 위한 함수
+  // function updatePlayerTurn(value) {
+  //   setPlayerTurn(value);
+  // }
+
   return (
     <div className="page">
       <button onClick={LobbyBtn}>로비로 이동</button>
+      <ChangeTurn loginPlayerNumber={loginPlayerNumber} />
 
       <div className="GameBoard">
         <div className="console">
@@ -59,7 +67,7 @@ function Game() {
             <p className="hintText">은행에서 코인 1개를 가져올 수 있습니다.</p>
           </div>
         </div>
-        <ChatWindows />
+        <ChatWindows loginPlayerNickname={loginPlayerNickname}/>
       </div>
     </div >
   );

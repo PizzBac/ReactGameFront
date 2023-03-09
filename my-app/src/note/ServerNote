@@ -5,3 +5,203 @@ https://github.com/stomp-js/stompjs
 https://spring.io/guides/gs/messaging-stomp-websocket/
 https://jxy.me/websocket-debug-tool/
 stomp, sockjs 공부 필요
+
+----------------------------------------------------------------
+
+웹소켓을 이용한 서버와의 연결을 구현하기 위해서는 WebSocket 객체를 이용해서 서버와의 연결을 생성하고, 메시지를 주고받아야 합니다.
+
+아래는 예시 코드입니다.
+
+javascript
+Copy code
+import React, { useState } from 'react';
+import './css/Login.css';
+import { useNavigate } from "react-router-dom";
+
+function Login() {
+    const navigate = useNavigate();
+    const [loginPlayerId, setLoginPlayerId] = useState("");
+
+    const SignUpBtn = (event) => {
+        event.preventDefault();
+        navigate("/signUp");
+    }
+
+    const IdInput = (event) => {
+        setLoginPlayerId(event.target.value);
+    }
+
+    const LobbyBtn = (event) => {
+        event.preventDefault();
+        const ws = new WebSocket('ws://localhost:3000'); // WebSocket 연결 생성
+
+        ws.onopen = () => {
+            // 연결이 열렸을 때 실행되는 코드
+            ws.send(JSON.stringify({
+                type: 'login',
+                playerId: loginPlayerId,
+                password: document.getElementById('pwd').value
+            }));
+        };
+
+        ws.onmessage = (event) => {
+            // 서버에서 메시지가 도착했을 때 실행되는 코드
+            const data = JSON.parse(event.data);
+            if (data.success) {
+                navigate('/Lobby', {
+                    state: {
+                        loginPlayerId: loginPlayerId,
+                        loginPlayerNickname: "임시닉네임",
+                    },
+                });
+            } else {
+                alert(data.message);
+            }
+        };
+
+        ws.onerror = (event) => {
+            // 에러 발생 시 실행되는 코드
+            alert(event);
+        };
+    }
+
+    return (
+        <div className="html">
+            <div className="body">
+                <main className="loginForm">
+                    <form onSubmit={LobbyBtn} action="/main" method="POST">
+                        <h1 className="h3-mb-3-fw-normal">로그인</h1><br /><br />
+                        <div className="form-floating">
+                        <label className="id">아이디</label><br /><br />
+                            <input type="text" className="form-control" id="id" placeholder="아이디를 입력하세요" onChange={IdInput} /><br /><br />
+                            <label className="pwd">비밀번호</label><br /><br />
+                            <input type="password" className="form-control" id="pwd" placeholder="비밀번호를 입력하세요" /><br /><br />
+                        </div>
+                        <br />
+                        <button className="LoginBtn" type="submit">로그인</button>
+                        <button className="JoinBtn" onClick={SignUpBtn}>회원가입</button> <br /><br /> <br /><br />
+                        <p className="mt-5 mb-3 text-muted">&copy; 2023</p>
+                    </form>
+                </main>
+            </div>
+        </div>
+    );
+};
+
+export default Login;
+위 예시 코드에서는 WebSocket 객체를 이용해서 서버와 연결을 생성하고, 로그인 버튼을 클릭하면 ws.send()를 통해 서버로 로그인 정보를 전송합니다. 서버에서는 이 정보를 받아서 로그인 처리를 하고, 결과를 클라이언트에게 전송합니다. 클라이언트에서는 ws.onmessage() 함수를 이용해서 서버에서 전송된 결과를 받아와서 처리합니다.
+
+이제 서버에서도 웹소켓을 이용해서 클라이언트와의 연결을 구현해야 합니다. 서버에서 웹소켓을 사용하기 위해서는 WebSocket 모듈을 사용해야 합니다.
+
+아래는 예시 코드입니다.
+
+javascript
+Copy code
+const WebSocket = require('ws');
+
+const wss = new WebSocket.Server({ port: 3000 }); // 웹소켓 서버 생성
+
+wss.on('connection', (ws) => {
+ws.on('message', (message) => {
+const data = JSON.parse(message);
+if (data.type === 'login') {
+// 로그인 처리 코드
+const success = true; // 로그인 성공 여부
+const message = success ? '로그인에 성공했습니다.' : '로그인에 실패했습니다.';
+ws.send(JSON.stringify({
+success: success,
+message: message
+}));
+}
+});
+});
+위 예시 코드에서는 WebSocket.Server 모듈을 사용해서 웹소켓 서버를 생성하고, 클라이언트와의 연결이 생성될 때마다 wss.on('connection') 함수가 실행됩니다. 이 함수에서는 ws.on('message') 함수를 이용해서 클라이언트로부터 전송된 메시지를 받아서 처리합니다. 위 코드에서는 로그인 처리를 예시로 들었습니다. 만약 메시지의 타입이 'login'이라면 로그인 처리 코드를 실행하고, 처리 결과를 클라이언트로 전송합니다.
+
+이렇게 클라이언트와 서버에서 웹소켓을 이용해서 실시간으로 메시지를 주고받을 수 있습니다. 웹소켓을 이용하면 실시간 채팅, 게임 등을 구현할 수 있습니다.
+
+--------------------------------------------
+
+SockJS는 WebSocket 프로토콜을 사용하지 않는 브라우저나 서버 환경에서 웹소켓과 유사한 양방향 통신을 제공하는 라이브러리입니다. 
+따라서 SockJS를 사용하면 웹소켓을 이용한 클라이언트와의 연결 대신 SockJS 객체를 이용한 클라이언트와의 연결을 생성하게 됩니다.
+
+따라서 SockJS를 이용해서 서버와의 연결을 구현하기 위해서는 SockJS 객체를 이용해서 클라이언트와의 연결을 생성하고, 메시지를 주고받아야 합니다.
+ 이때 서버 측에서는 SockJS 라이브러리를 이용해서 클라이언트와의 연결을 처리하는 코드를 작성해야 합니다.
+
+아래는 SockJS를 이용해서 클라이언트와의 연결을 구현하는 코드 예시입니다.
+
+서버 측:
+
+javascript
+const SockJS = require('sockjs'); // SockJS 모듈 불러오기
+const sockjs = require('sockjs'); // sockjs 모듈 불러오기
+
+const server = http.createServer((req, res) => {
+    // HTTP 서버 생성
+    // ...
+});
+
+const sockjs_echo = sockjs.createServer();
+sockjs_echo.on('connection', function (conn) {
+    // 클라이언트와의 연결이 생성되면 실행되는 코드
+    conn.on('data', function (message) {
+        // 클라이언트로부터 메시지를 받으면 실행되는 코드
+        conn.write(message);
+    });
+    conn.on('close', function () {
+        // 클라이언트와의 연결이 종료되면 실행되는 코드
+    });
+});
+sockjs_echo.installHandlers(server, { prefix: '/echo' }); // SockJS 핸들러 등록
+
+server.listen(3000); // 서버 실행
+위 코드에서는 SockJS와 sockjs 모듈을 불러와서 SockJS 객체를 생성하고, 클라이언트와의 연결을 처리하는 코드를 작성합니다. 
+이때 클라이언트와의 연결은 HTTP 서버를 이용하므로 http 모듈도 함께 사용됩니다.
+
+클라이언트 측:
+
+javascript
+import SockJS from 'sockjs-client'; // SockJS 모듈 불러오기
+import Stomp from 'stompjs'; // Stomp 모듈 불러오기
+
+const socket = new SockJS('http://localhost:3000/echo'); // SockJS 연결 생성
+const stompClient = Stomp.over(socket); // Stomp 클라이언트 생성
+
+stompClient.connect({}, function (frame) {
+    // 연결이 성공했을 때 실행되는 코드
+    console.log('Connected: ' + frame);
+    stompClient.subscribe('/topic/messages', function (message) {
+        // 메시지를 받으면 실행되는 코드
+        console.log('Received: ' + message.body);
+    });
+});
+
+function sendMessage() {
+    // 메시지를 보내는 함수
+const messageInput = document.getElementById('messageInput');
+const message = messageInput.value;
+stompClient.send('/app/chat.sendMessage', {}, JSON.stringify({ message }));
+messageInput.value = '';
+}
+위 코드에서는 SockJS와 stompjs 모듈을 불러와서 SockJS 연결과 Stomp 클라이언트를 생성합니다. 
+그리고 stompClient.connect() 함수를 이용해서 서버와의 연결을 시도하고, 
+연결이 성공했을 때 stompClient.subscribe() 함수를 이용해서 메시지를 구독합니다.
+
+클라이언트에서 sendMessage() 함수를 호출하면 stompClient.send() 함수를 이용해서 서버로 메시지를 전송합니다.
+
+이렇게 SockJS와 Stomp 라이브러리를 이용해서 클라이언트와 서버 간의 양방향 통신을 구현할 수 있습니다.
+
+-----------------------------------------------------------
+
+소켓 관련 내용
+https://spring.io/guides/gs/messaging-stomp-websocket/
+function connect() {
+    var socket = new SockJS('/gs-guide-websocket');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        setConnected(true);
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/topic/greetings', function (greeting) {
+            showGreeting(JSON.parse(greeting.body).content);
+        });
+    });
+}
