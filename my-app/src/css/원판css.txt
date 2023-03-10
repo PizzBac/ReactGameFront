@@ -1,0 +1,126 @@
+
+/* 가운데 원판(콘솔) */
+
+/* 가운데 콘솔 컨트롤러 */
+/* 바깥 원판 */
+.console {
+  position: absolute;
+  width: 50vmin;
+  height: 50vmin;
+  /* background-color: green; */
+  border-radius: 50%;
+  top: 25%;
+  left: 23%;
+}
+
+.console>* {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 5px solid var(--c, black);
+  border-radius: 50%;
+  clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 33.745%);
+}
+
+.color1 {
+  transform: rotate(60deg);
+  background-image: url(./images/assassin.png);
+  background-size: 30%;
+  /* --c:blue; */
+  /* background-size: 400px;
+  background-position: center;
+  background-repeat: no-repeat; */
+}
+
+.color2 {
+  transform: rotate(120deg);
+  background-image: url(./images/captain.png);
+  background-size: 30%;
+  /* --c:yellow; */
+}
+
+.color3 {
+  transform: rotate(180deg);
+  background-image: url(./images/duke.png);
+  background-size: 30%;
+  /* --c:green; */
+}
+
+.color4 {
+  transform: rotate(240deg);
+  background-image: url(./images/contessa.png);
+  background-size: 30%;
+  /* --c:purple; */
+}
+
+.color5 {
+  transform: rotate(300deg);
+  background-image: url(./images/ambassador.png);
+  background-size: 30%;
+  
+}
+
+.color6 {
+  background-color: bisque;
+  background-size: 30%;
+  
+}
+
+/* 안쪽 원판 */
+
+.inner {
+  height: 20vmin;
+  width: 20vmin;
+  position: absolute;
+  top: 40%;
+  left: 30.5%;
+}
+
+.inner>* {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid var(--c, black);
+  border-radius: 50%;
+  clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%);
+}
+
+.action1 {
+  transform: rotate(120deg);
+  background-color: skyblue;
+}
+
+.action2 {
+  transform: rotate(240deg);
+  background-color: orange;
+}
+
+.action3 {
+  transform: rotate(360deg);
+  background-color: yellow;
+}
+
+.action2 span {
+  transform: rotate(120deg);
+  position: absolute;
+  top: 40px;
+  margin-left: 110px;
+}
+
+.action1 span {
+  transform: rotate(240deg);
+  position: absolute;
+  margin-top: 45px;
+  margin-left: 120px;
+}
+
+.action3 span {
+  transform: rotate(360deg);
+  position: absolute;
+  margin-top: 40px;
+  margin-left: 110px;
+}

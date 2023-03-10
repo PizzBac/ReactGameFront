@@ -41,19 +41,20 @@ function Game() {
 
       <div className="GameBoard">
         <div className="console">
-          <button class="color1"></button>
-          <button class="color2"></button>
-          <button class="color3"></button>
-          <button class="color4"></button>
-          <button class="color5"></button>
-          <div class="color6">
-            <div class="timer"><span>00:00</span></div>
-          </div>
+          <button className="action color1">암살자</button>
+          <button className="action color2">외교관</button>
+          <button className="action color3">대공작</button>
+          <button className="action color4">귀부인</button>
+          <button className="action color5">사령관</button>
+          {/* <div className="color6">
+            <div className="timer"><span>00:00</span></div>
+          </div> */}
         </div>
         <div class="inner">
-          <button class="action1"><span>쿠</span></button>
-          <button class="action2"><span>원조</span></button>
-          <button class="action3"><span>소득</span></button>
+          <button className="coup">쿠</button>
+          <button className="foreign">원조</button>
+          <button className="income">소득</button>
+          <button className="turn">턴 넘기기</button>
         </div>
         <CardDistribution howManyPlayers={howManyPlayers} loginPlayerNumber={loginPlayerNumber} loginPlayerNickname={loginPlayerNickname} />
       </div>
