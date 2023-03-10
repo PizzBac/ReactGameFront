@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 function Card(props) {
     const { players, activate, loginPlayerNumber } = props;
+    const [coin, setCoin] = useState(2);
     return (
         <div>
             {
@@ -24,7 +25,7 @@ function Card(props) {
                         </div>
                         <div className={`coin-set coin-set${player.id} ${activate === true ? "active" : ""}`}>
                             <img className="img coin" src={require("../css/images/coin.png")} alt="coin" />
-                            <span>2</span>
+                            <span>{coin}</span>
                         </div>
                     </div>
                 ))

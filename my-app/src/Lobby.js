@@ -2,6 +2,8 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import './css/Lobby.css';
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { PieChart } from 'react-minimal-pie-chart';
 
 function User({userData}){
 
@@ -48,29 +50,38 @@ function UserList(){
     ];
 
     return(
-        <div className="Mothertable">
-        <div className="table">
-        <table>
-            <thead>
-                <tr>
-                    <th className="channel">CHN</th>
-                    <th>접속자 <div className="Present">12341242134</div> </th>
-                </tr>
-            </thead>
-            <tbody>
-              {users.map((user)=>(
-                <User userData={user}/>
-              ))}
-            </tbody>
-        </table>
-        
-        <button className="GameStart" onClick={GameStart}>Game Start</button>
+        <div className="BackGround">
+            <div>
+                <h1 className="LobbyTitle">Welcome to the Coup!</h1>
+                <div>
+                    <h1 className="imgdoor"></h1>
+                    <h3 className="SubTitle1">원하는 인원수를 선택하세요
+                        <select
+                            value={howManyPlayer} // 현재 선택한 값을 표시
+                            onChange={(e) => setHowManyPlayer(parseInt(e.target.value))} // 선택한 값을 저장
+                        >
+                            {[...Array(5)].map((_, i) => (
+                                <option key={i+2} value={i + 2}>{i + 2}인방</option>
+                            ))}
+                        </select></h3><br />
+                    <h3 className="SubTitle2">자신의 위치를 선택하세요
+                        <select
+                            value={loginPlayerNum}
+                            onChange={(ev) => setLoginPlayerNum(parseInt(ev.target.value))}
+                        >
+                            {[...Array(6)].map((_, i) => (
+                                <option key={i+1} value={i + 1}>{i + 1}번</option>
+                            ))}
+                        </select></h3>
+                    <button className="GameStart" onClick={GameStart}>Game Start</button>
                     <button className="GoLogin" onClick={LoginBtn}>로그아웃</button>
-                    <button className="Setting" onClick={LoginBtn}>환경설정</button>
+                
+                <button className="Setting" onClick={LoginBtn}>환경설정</button>
+                </div>
       
         </div>
         </div>
 
     );
-};
+                            }
 export default UserList;

@@ -341,69 +341,39 @@
   margin-left: 2vmin;
 }
 
-/* 가운데 원판(콘솔) */
-
-/* 가운데 콘솔 컨트롤러 */
-/* 바깥 원판 */
-.console {
-  position: absolute;
-  width: 50vmin;
-  height: 50vmin;
-  /* background-color: green; */
-  border-radius: 50%;
-  top: 25%;
-  left: 23%;
+.console{
+  position: relative;
+  align-items: center;
+  top: 400px;
+  left: 300px;
+}
+.console button {
+  position: relative;
+  width: 100px;
+  height: 50px;
+  border: 5px solid black;
+  border-radius: 15%;
+  margin-left: 10px;
+  background-color: antiquewhite;
 }
 
-.console>* {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border: 5px solid var(--c, black);
-  border-radius: 50%;
-  clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 33.745%);
+.inner{
+  position: relative;
+  align-items: center;
+  top: 400px;
+  left: 300px;
 }
-
-.color1 {
-  transform: rotate(60deg);
-  background-image: url(./images/assassin.png);
-  background-size: 30%;
-  /* --c:blue; */
-}
-
-.color2 {
-  transform: rotate(120deg);
-  background-image: url(./images/captain.png);
-  background-size: 30%;
-  /* --c:yellow; */
-}
-
-.color3 {
-  transform: rotate(180deg);
-  background-image: url(./images/duke.png);
-  background-size: 30%;
-  /* --c:green; */
-}
-
-.color4 {
-  transform: rotate(240deg);
-  background-image: url(./images/contessa.png);
-  background-size: 30%;
-  /* --c:purple; */
-}
-
-.color5 {
-  transform: rotate(300deg);
-  background-image: url(./images/ambassador.png);
-  background-size: 30%;
-}
-
-.color6 {
+.inner button {
+  position: relative;
+  width: 100px;
+  height: 50px;
+  border: 5px solid black;
+  border-radius: 15%;
+  margin-left: 10px;
   background-color: bisque;
-  background-size: 30%;
+  margin-top: 10px;
 }
+
 
 /* 안쪽 원판 */
 

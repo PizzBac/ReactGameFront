@@ -74,6 +74,7 @@ width: 700px;
   height: 350px;
   border-radius: 300px;
   margin-top: 7%;
+
   margin-right: 100px;
   /* background-color: gray; */
   
@@ -143,4 +144,14 @@ td{
 .channel{
   font-size: 100px;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  background-color: gray;
+  background-repeat: no-repeat;
+  background-position: center;
 }
+
+/* .BackGround{
+  background-image: url(../../../dummy/card-back.png);
+  width: 100%;
+  height: 330px;
+  background-repeat: no-repeat;
+} */
