@@ -371,6 +371,9 @@
   background-image: url(./images/assassin.png);
   background-size: 30%;
   /* --c:blue; */
+  /* background-size: 400px;
+  background-position: center;
+  background-repeat: no-repeat; */
 }
 
 .color2 {
@@ -398,11 +401,13 @@
   transform: rotate(300deg);
   background-image: url(./images/ambassador.png);
   background-size: 30%;
+  
 }
 
 .color6 {
   background-color: bisque;
   background-size: 30%;
+  
 }
 
 /* 안쪽 원판 */
