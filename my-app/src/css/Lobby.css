@@ -99,7 +99,7 @@ width: 500px;
 }
 
 .imgdoor{
-  background-image: url(/Users/jongjin/ReactGameFront-11/dummy/door.png);
+  background-image: url(../../../dummy/door.png);
   width: 100%;
   height: 350px;
   text-align: center;
@@ -109,7 +109,7 @@ width: 500px;
 }
 
 .BackGround{
-  background-image: url(/Users/jongjin/ReactGameFront-11/dummy/card-back.png);
+  background-image: url(../../../dummy/card-back.png);
   width: 100%;
   height: 330px;
 }
