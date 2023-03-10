@@ -31,53 +31,53 @@ function Lobby() {
 
     return (
 
-         <div className="BackGround">
-        <div>
-          <h1 className="LobbyTitle">Welcome to the Coup!</h1> 
+        <div className="BackGround">
             <div>
-            
-            <h1 className="imgdoor"></h1>
-            
-           <h3 className="SubTitle1">원하는 인원수를 선택하세요
-            
-          
-            <select
-                value={howManyPlayer} // 현재 선택한 값을 표시
-                onChange={(e) => setHowManyPlayer(parseInt(e.target.value))} // 선택한 값을 저장
-            >
-                {[...Array(5)].map((_, i) => (
-                    <option value={i +1}>{i+2}인방</option>
-                ))}
-            </select></h3><br />
-           <h3 className="SubTitle2">자신의 위치를 선택하세요
-            <select
-                value={loginPlayerNum}
-                onChange={(ev) => setLoginPlayerNum(parseInt(ev.target.value))}
-            >
-                {[...Array(6)].map((_, i) => (
-                    <option value={i + 1}>{i + 1}번</option>
-                ))}
-                
-            </select></h3>
+                <h1 className="LobbyTitle">Welcome to the Coup!</h1>
+                <div>
 
-            <h3 className="SubTitle3">대충 이상한거(나도 안정함)
-            <select
-                value={loginPlayerNum}
-                onChange={(ev) => setLoginPlayerNum(parseInt(ev.target.value))}
-            >
-                {[...Array(6)].map((_, i) => (
-                    <option value={i + 1}>{i + 1}번</option>
-                ))}
-                
-            </select></h3>
-            <button className="GameStart" onClick={GameStart}>Game Start</button>
-            <button className="GoLogin" onClick={LoginBtn}>로그아웃</button>
-            <button className="Setting" onClick={LoginBtn}>환경설정</button>
-            <div className="BackGround">{""}</div>
+                    <h1 className="imgdoor"></h1>
+
+                    <h3 className="SubTitle1">원하는 인원수를 선택하세요
+
+
+                        <select
+                            value={howManyPlayer} // 현재 선택한 값을 표시
+                            onChange={(e) => setHowManyPlayer(parseInt(e.target.value))} // 선택한 값을 저장
+                        >
+                            {[...Array(5)].map((_, i) => (
+                                <option value={i + 2}>{i + 2}인방</option>
+                            ))}
+                        </select></h3><br />
+                    <h3 className="SubTitle2">자신의 위치를 선택하세요
+                        <select
+                            value={loginPlayerNum}
+                            onChange={(ev) => setLoginPlayerNum(parseInt(ev.target.value))}
+                        >
+                            {[...Array(6)].map((_, i) => (
+                                <option value={i + 1}>{i + 1}번</option>
+                            ))}
+
+                        </select></h3>
+
+                    <h3 className="SubTitle3">대충 이상한거(나도 안정함)
+                        <select
+                            value={loginPlayerNum}
+                            onChange={(ev) => setLoginPlayerNum(parseInt(ev.target.value))}
+                        >
+                            {[...Array(6)].map((_, i) => (
+                                <option value={i + 1}>{i + 1}번</option>
+                            ))}
+
+                        </select></h3>
+                    <button className="GameStart" onClick={GameStart}>Game Start</button>
+                    <button className="GoLogin" onClick={LoginBtn}>로그아웃</button>
+                    <button className="Setting" onClick={LoginBtn}>환경설정</button>
+                    <div className="BackGround">{""}</div>
+                </div>
+            </div>
         </div>
-</div>
-</div>
-);
+    );
 }
 
 export default Lobby;

@@ -64,6 +64,7 @@ function CardDistribution(props) {
   const cards = ['assassin', 'assassin', 'assassin', 'contessa', 'contessa', 'contessa', 'duke', 'duke', 'duke', 'ambassador', 'ambassador', 'ambassador', 'captain', 'captain', 'captain'];
   shuffleCards(cards);
 
+  // vyang initializer 참고 필요
   // 카드, 분배
   function distributeCards(players) {
     players.forEach((player) => {
@@ -74,6 +75,19 @@ function CardDistribution(props) {
     });
     return players;
   }
+
+  // for (let i = 0; i < numPlayers; i++) {
+  //   players.push({
+  //     name: "",
+  //     isOut: false,
+  //     hand: [
+  //       { ...deck.pop(), discarded: false, id: 0 },
+  //       { ...deck.pop(), discarded: false, id: 1 },
+  //     ],
+  //     coins: 2,
+  //     id: `${i}`,
+  //   });
+  // }
 
   distributeCards(players);
 
