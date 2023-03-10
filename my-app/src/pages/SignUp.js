@@ -1,5 +1,5 @@
 import React from "react";
-import './css/SignUp.css';
+import '../css/SignUp.css';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'; //axios는 api연결을 위한 함수여서 다른곳은 딱히 필요없음
 

@@ -1,10 +1,10 @@
 // 경로 설정
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./Login";
-import Game from "./Game";
-import SignUp from "./SignUp";
-import Lobby from "./Lobby";
+import Login from "./pages/Login";
+import Game from "./game/Game";
+import SignUp from "./pages/SignUp";
+import Lobby from "./pages/Lobby";
 
 function App() {
   return (

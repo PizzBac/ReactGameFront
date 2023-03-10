@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
-import './css/reset.css';
-import './css/Game.css';
-import ChatWindows from "./ChatWindows";
-import CardDistribution from './gameMechanism/CardDistribution';
-import ChangeTurn from './gameMechanism/ChangeTurn';
+import '../css/reset.css';
+import '../css/Game.css';
+import ChatWindows from "./chat/ChatWindows";
+import CardDistribution from './CardDistribution';
+import ChangeTurn from './ChangeTurn';
 
 function Game() {
 

@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import './css/Lobby.css';
-import { useState } from "react";
+import '../css/Lobby.css';
 
 function User({userData}){
 
