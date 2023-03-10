@@ -2,8 +2,6 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import './css/Lobby.css';
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { PieChart } from 'react-minimal-pie-chart';
 
 function User({userData}){
 

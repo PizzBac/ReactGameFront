@@ -50,7 +50,7 @@ function Game() {
             <div className="timer"><span>00:00</span></div>
           </div> */}
         </div>
-        <div class="inner">
+        <div className="inner">
           <button className="coup">쿠</button>
           <button className="foreign">원조</button>
           <button className="income">소득</button>
