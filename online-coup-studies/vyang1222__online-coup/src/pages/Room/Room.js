@@ -20,7 +20,7 @@ const CoupClient = Client({
   multiplayer: SocketIO({ server: SERVER_URL }),
 });
 
-const Room = (props) => {
+function Room(props){
   const { history } = props;
   const { id } = useParams();
   const [copied, setCopied] = useState(false);
