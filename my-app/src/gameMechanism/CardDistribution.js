@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 function CardDistribution(props) {
   const { howManyPlayers, loginPlayerNumber, loginPlayerNickname } = props;
 
+
   // 게임 시작 시 자동으로 카드 분배
   const [activate, setActivate] = useState(false);
   useEffect(() => {
@@ -63,7 +64,6 @@ function CardDistribution(props) {
 
   const cards = ['assassin', 'assassin', 'assassin', 'contessa', 'contessa', 'contessa', 'duke', 'duke', 'duke', 'ambassador', 'ambassador', 'ambassador', 'captain', 'captain', 'captain'];
   shuffleCards(cards);
-
   // 카드, 분배
   function distributeCards(players) {
     players.forEach((player) => {

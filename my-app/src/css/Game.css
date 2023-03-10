@@ -404,7 +404,7 @@
 }
 
 /* 안쪽 원판 */
-ㄹ
+
 .inner {
   height: 20vmin;
   width: 20vmin;
@@ -413,7 +413,7 @@
   left: 30.5%;
 }
 
-.inner>* {
+.inner {
   position: absolute;
   top: 0;
   left: 0;
