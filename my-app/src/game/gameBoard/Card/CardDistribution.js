@@ -6,7 +6,6 @@ import Card from './Card';
 function CardDistribution(props) {
   const { howManyPlayers, loginPlayerNumber, loginPlayerNickname } = props;
 
-
   // 게임 시작 시 자동으로 카드 분배
   const [activate, setActivate] = useState(false);
   useEffect(() => {
@@ -16,24 +15,24 @@ function CardDistribution(props) {
   // 카드 이미지 설정
   const cardImages = {
     assassin: {
-      front: require("../css/images/assassin.png"),
-      back: require("../css/images/back.png"),
+      front: require("../../../css/images/assassin.png"),
+      back: require("../../../css/images/back.png"),
     },
     contessa: {
-      front: require("../css/images/contessa.png"),
-      back: require("../css/images/back.png"),
+      front: require("../../../css/images/contessa.png"),
+      back: require("../../../css/images/back.png"),
     },
     duke: {
-      front: require("../css/images/duke.png"),
-      back: require("../css/images/back.png"),
+      front: require("../../../css/images/duke.png"),
+      back: require("../../../css/images/back.png"),
     },
     ambassador: {
-      front: require("../css/images/ambassador.png"),
-      back: require("../css/images/back.png"),
+      front: require("../../../css/images/ambassador.png"),
+      back: require("../../../css/images/back.png"),
     },
     captain: {
-      front: require("../css/images/captain.png"),
-      back: require("../css/images/back.png"),
+      front: require("../../../css/images/captain.png"),
+      back: require("../../../css/images/back.png"),
     },
   };
 

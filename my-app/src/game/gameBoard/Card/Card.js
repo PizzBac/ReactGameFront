@@ -24,7 +24,7 @@ function Card(props) {
                             ))}
                         </div>
                         <div className={`coin-set coin-set${player.id} ${activate === true ? "active" : ""}`}>
-                            <img className="img coin" src={require("../css/images/coin.png")} alt="coin" />
+                            <img className="img coin" src={require("../../../css/images/coin.png")} alt="coin" />
                             <span>{coin}</span>
                         </div>
                     </div>
