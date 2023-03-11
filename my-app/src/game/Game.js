@@ -5,7 +5,7 @@ import '../css/Game.css';
 import { GameToLobby } from '../Navigation';
 import Console from './gameBoard/Console';
 import Inner from './gameBoard/Inner';
-import CardDistribution from './gameBoard/card/CardDistribution';
+import Player from './gameBoard/player/Player';
 import HintBox from './HintBox';
 import ChatWindows from "./chat/ChatWindows";
 import Turn from './gameMechanism/Turn';
@@ -17,7 +17,8 @@ function Game() {
   console.log('state', location.state);
   const { howManyPlayer, loginPlayerId, loginPlayerNum, loginPlayerNickname } = location.state;
 
-  // 게임 시작 시 자동으로 카드 분배 애니메이션 // 매번 다시 렌더링되지 않으려면 가장 상위 컴포넌트에 있어야 함
+  // 게임 시작 시 자동으로 카드 분배 애니메이션 작동 스테이트
+  // 매번 다시 렌더링되지 않으려면 가장 상위 컴포넌트에 있어야 함
   const [activate, setActivate] = useState(false);
   useEffect(() => {
     setActivate((prev) => !prev);
@@ -34,7 +35,7 @@ function Game() {
       <div className="GameBoard">
         <Console />
         <Inner />
-        <CardDistribution activate={activate} howManyPlayer={howManyPlayer} loginPlayerNumber={loginPlayerNumber} loginPlayerNickname={loginPlayerNickname} />
+        <Player activate={activate} howManyPlayer={howManyPlayer} loginPlayerNumber={loginPlayerNumber} loginPlayerNickname={loginPlayerNickname} />
       </div>
 
       <div className="sideSection">
