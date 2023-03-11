@@ -5,10 +5,10 @@ import '../css/Game.css';
 import { GameToLobby } from '../Navigation';
 import Console from './gameBoard/Console';
 import Inner from './gameBoard/Inner';
-import CardDistribution from './gameBoard/Card/CardDistribution';
+import CardDistribution from './gameBoard/card/CardDistribution';
 import HintBox from './HintBox';
 import ChatWindows from "./chat/ChatWindows";
-import ChangeTurn from './ChangeTurn';
+import ChangeTurn from './gameBoard/gameMechanism/PassTurn';
 
 function Game() {
 
@@ -22,12 +22,6 @@ function Game() {
 
   // 입장한 플레이어 좌석 번호에 따라서 본인 카드만 앞면이 보이게 설정
   const [loginPlayerNumber, setLoginPlayerNumber] = useState(loginPlayerNum);
-
-  //   const [playerTurn, setPlayerTurn] = useState(1);
-  // // ChangeTurn에서 값을 전달받기 위한 함수
-  // function updatePlayerTurn(value) {
-  //   setPlayerTurn(value);
-  // }
 
   return (
     <div className="page">

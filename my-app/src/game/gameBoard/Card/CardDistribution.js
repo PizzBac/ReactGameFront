@@ -36,24 +36,7 @@ function CardDistribution(props) {
     },
   };
 
-  // 입장 플레이어 수에 따라서 플레이어 생성
-  // 입장 플레이어 닉네임 반영 필요
-  const players = [
-    { id: 1, name: 'Player 1' },
-    { id: 2, name: 'Player 2' },
-    { id: 3, name: 'Player 3' },
-    { id: 4, name: 'Player 4' },
-    { id: 5, name: 'Player 5' },
-    { id: 6, name: 'Player 6' },
-  ].splice(0, howManyPlayers);
-
-  players.forEach((player) => {
-    if (player.id === loginPlayerNumber) {
-      player.name = loginPlayerNickname;
-    }
-  });
-
-  // 카드 셔플
+  // Fisher-Yates shuffle
   function shuffleCards(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -65,30 +48,36 @@ function CardDistribution(props) {
   const cards = ['assassin', 'assassin', 'assassin', 'contessa', 'contessa', 'contessa', 'duke', 'duke', 'duke', 'ambassador', 'ambassador', 'ambassador', 'captain', 'captain', 'captain'];
   shuffleCards(cards);
 
-  // vyang initializer 참고 필요
-  // 카드, 분배
-  function distributeCards(players) {
-    players.forEach((player) => {
-      player.hand = cards.splice(0, 2).map((card) => ({
-        type: card,
-        image: cardImages[card],
-      }));
+  // 입장 플레이어 수에 따라서 플레이어 생성
+  const players = [];
+  for (let i = 0; i < howManyPlayers; i++) {
+    let name = `Player ${i + 1}`;
+    if (i + 1 === loginPlayerNumber) {
+      name = loginPlayerNickname;
+    }
+    players.push({
+      id: i + 1,
+      name,
+      hand: [],
+      coins: 2,
+      isOut: false,
     });
-    return players;
   }
 
-  // for (let i = 0; i < numPlayers; i++) {
-  //   players.push({
-  //     name: "",
-  //     isOut: false,
-  //     hand: [
-  //       { ...deck.pop(), discarded: false, id: 0 },
-  //       { ...deck.pop(), discarded: false, id: 1 },
-  //     ],
-  //     coins: 2,
-  //     id: `${i}`,
-  //   });
-  // }
+  // 카드 분배
+  // pop() : 배열에서 마지막 요소를 제거하고 그 값을 반환하는 JavaScript 배열 메서드
+  function distributeCards(players) {
+    for (let i = 0; i < players.length; i++) {
+      players[i].hand.push({
+        type: cards.pop(),
+        image: cardImages[cards[cards.length - 1]],
+      });
+      players[i].hand.push({
+        type: cards.pop(),
+        image: cardImages[cards[cards.length - 1]],
+      });
+    }
+  }
 
   distributeCards(players);
 

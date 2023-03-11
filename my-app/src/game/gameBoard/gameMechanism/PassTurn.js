@@ -2,10 +2,13 @@
 
 import React, { useState } from 'react';
 
-function ChangeTurn(props) {
+function PassTurn(props) {
     const { loginPlayerNumber } = props;
     const [playerTurn, setPlayerTurn] = useState(loginPlayerNumber);
 
+    // function updatePlayerTurn(value) {
+    //   setPlayerTurn(value);
+    // }
     function WhosTurn(e) {
         setPlayerTurn(e.target.value);
     }
@@ -27,5 +30,4 @@ function ChangeTurn(props) {
     );
 }
 
-
-export default ChangeTurn;
+export default PassTurn;

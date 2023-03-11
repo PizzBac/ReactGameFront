@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 function Card(props) {
     const { players, activate, loginPlayerNumber } = props;
     const [coin, setCoin] = useState(2);
+
     return (
         <div>
             {
