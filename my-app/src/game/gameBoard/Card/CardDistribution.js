@@ -4,13 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Card from './Card';
 
 function CardDistribution(props) {
-  const { howManyPlayers, loginPlayerNumber, loginPlayerNickname } = props;
-
-  // 게임 시작 시 자동으로 카드 분배
-  const [activate, setActivate] = useState(false);
-  useEffect(() => {
-    setActivate((prev) => !prev);
-  }, []);
+  const { activate, howManyPlayer, loginPlayerNumber, loginPlayerNickname } = props;
 
   // 카드 이미지 설정
   const cardImages = {
@@ -50,7 +44,7 @@ function CardDistribution(props) {
 
   // 입장 플레이어 수에 따라서 플레이어 생성
   const players = [];
-  for (let i = 0; i < howManyPlayers; i++) {
+  for (let i = 0; i < howManyPlayer; i++) {
     let name = `Player ${i + 1}`;
     if (i + 1 === loginPlayerNumber) {
       name = loginPlayerNickname;
