@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import '../css/reset.css';
 import '../css/Game.css';
+import { GameToLobby } from '../Navigation';
 import Console from './gameBoard/Console';
 import Inner from './gameBoard/Inner';
 import CardDistribution from './gameBoard/Card/CardDistribution';
@@ -16,19 +17,10 @@ function Game() {
   console.log('state', location.state);
   const { howManyPlayer, loginPlayerId, loginPlayerNum, loginPlayerNickname } = location.state;
 
-  const LobbyBtn = (event) => {
-    event.preventDefault();
-    navigate('/Lobby', {
-      state: {
-        loginPlayerId: loginPlayerId,
-      },
-    });
-  }
-
-  // -> CardDistribution.js 연결
+  // 입장한 플레이어 수
   const [howManyPlayers, setHowManyPlayers] = useState(howManyPlayer);
 
-  // 입장한 플레이어 번호에 따라서 본인 카드만 앞면이 보이게 설정
+  // 입장한 플레이어 좌석 번호에 따라서 본인 카드만 앞면이 보이게 설정
   const [loginPlayerNumber, setLoginPlayerNumber] = useState(loginPlayerNum);
 
   //   const [playerTurn, setPlayerTurn] = useState(1);
@@ -39,7 +31,7 @@ function Game() {
 
   return (
     <div className="page">
-      <button onClick={LobbyBtn}>로비로 이동</button>
+      <GameToLobby navigate={navigate} loginPlayerId={loginPlayerId} loginPlayerNumber={loginPlayerNum} loginPlayerNickname={loginPlayerNickname} />
       <ChangeTurn loginPlayerNumber={loginPlayerNumber} />
 
       <div className="GameBoard">

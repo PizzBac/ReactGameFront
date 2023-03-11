@@ -8,7 +8,7 @@ function ChangeTurn(props) {
 
     function WhosTurn(e) {
         setPlayerTurn(e.target.value);
-      }
+    }
 
     console.log(playerTurn);
 

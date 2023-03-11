@@ -94,7 +94,7 @@ function CardDistribution(props) {
 
   return (
     <div>
-      <Card players={players} activate={activate} loginPlayerNumber={loginPlayerNumber}/>
+      <Card players={players} activate={activate} loginPlayerNumber={loginPlayerNumber} />
     </div>
   );
 }

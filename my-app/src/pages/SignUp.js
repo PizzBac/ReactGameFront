@@ -103,7 +103,7 @@ function SignUp() {
         })
             .then(function (response) { // 서버의 응답이 성공적으로 왔을 때 navigate 함수를 호출해 홈 경로(/)로 이동
                 // 서버 응답 처리
-                if(response === true){
+                if (response === true) {
                     navigate('/login');
                 }
             })
@@ -125,7 +125,7 @@ function SignUp() {
                 <div className="form">
                     <div className="form-el">
                         <label htmlFor="id">아이디</label> <br />
-                        <input id="id" name="id" className="SignUpForm"value={id} onChange={onChangeId} />
+                        <input id="id" name="id" className="SignUpForm" value={id} onChange={onChangeId} />
                         <br />
                         <p className="message"> {idMessage} </p>
                     </div><br />
@@ -142,7 +142,7 @@ function SignUp() {
                             type="password"
                             id="password"
                             name="password"
-                            className="SignUpForm" 
+                            className="SignUpForm"
                             value={password}
                             onChange={onChangePassword} />
                         <p className="message">{passwordMessage}</p>
@@ -154,7 +154,7 @@ function SignUp() {
                             type="password"
                             id="passwordConfirm"
                             name="passwordConfirm"
-                            className="SignUpForm" 
+                            className="SignUpForm"
                             value={passwordConfirm}
                             onChange={onChangePasswordConfirm} />
                         <p className="message">{passwordConfirmMessage}</p>
@@ -166,7 +166,7 @@ function SignUp() {
                             type="email"
                             id="email"
                             name="name"
-                            className="SignUpForm" 
+                            className="SignUpForm"
                             value={email}
                             onChange={onChangeEmail} />
                         <p className="message">{emailMessage}</p>
