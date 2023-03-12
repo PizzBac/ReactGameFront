@@ -4,7 +4,7 @@ export function ToSignUp( {navigate} ) {
         navigate("/signUp");
     }
     return (
-        <button className="JoinBtn" onClick={handleClick}>회원가입하기</button>
+        <button className="JoinBtn" onClick={handleClick}>회원가입</button>
     );
 }
 
@@ -19,7 +19,7 @@ export function LoginToLobby({ navigate, loginPlayerId, loginPlayerNickname }) {
         });
     };
     return (
-        <button className="LoginBtn" type="submit" onClick={handleClick}>로그인하기</button>
+        <button className="LoginBtn" type="submit" onClick={handleClick}>로그인</button>
     );
 }
 

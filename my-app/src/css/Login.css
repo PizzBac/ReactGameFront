@@ -67,6 +67,7 @@
   border: 1px;
   /* outline-color: black; */
   background: linear-gradient(to right, #01DF3A,#4B8A08,#BFFF00);
+  font-size: bold;
 }
 
 .h3-mb-3-fw-normal{

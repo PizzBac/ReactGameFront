@@ -1,25 +1,57 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import './css/Lobby.css';
+import '../css/Lobby.css';
 import { useState,useEffect} from "react";
 import { PieChart } from 'react-minimal-pie-chart';
 
 function User({userData}) {
     const [count, setCount] = useState(0);
     const [color, setColor] = useState('white');
+    const colors = ['skyblue', '#04B4AE', 'yellowgreen', 'yellow', 'orange', 'red'];
+    // const navigate=useNavigate();
+    // const location= useLocation();
+    // const [howManyPlayer, setHowManyPlayer] = useState(3);
+    // const [loginPlayerNum, setLoginPlayerNum] = useState(3);
+    // const { loginPlayerId, loginPlayerNickname } = location.state;
+    // console.log('state', location.state);
 
-    const handleClick = () => {
-      setCount(count + 1);
-    };
 
+    function handleClick(event) {
+        setCount(count + 1);
+        setColor(colors[count % colors.length]);
+            // event.preventDefault();
+            // navigate('/game', {
+            //     state: {
+            //         howManyPlayer: howManyPlayer,
+            //         loginPlayerId: loginPlayerId,
+            //         loginPlayerNum: loginPlayerNum,
+            //         loginPlayerNickname: loginPlayerNickname,
+            //     },
+            // });
+        }
+      
+
+      
+  useEffect(() => {
+    setColor(colors[count-1 % colors.length]);
+  }, [count]);
+
+    // function handleClick(){
+    //     setColor(['skyblue','yellowgreen','green','yellow','orange','red']);
+    // }
    if(count==7){
     setCount(6) ;
    }
 
-    // if (count==1){
-    //   setColor('skyblue'[count]);
-    // }
+   if(count==7){
+    alert('방이 꽉 찼습니다.');
+   }
 
+   if(count==7){
+    setColor('red');
+   }
+
+ 
     return(
         
 <div>
@@ -31,12 +63,12 @@ function User({userData}) {
         <tr>
             <td className="tdFirst">{userData.name}번방 </td>
 
-            <td className="tdSecond"><button onClick={handleClick}><p className="tdSecond">현재 인원은{count} (명)입니다.</p></button></td>
+            <td className="tdSecond"><button style={{ backgroundColor: color }} onClick={handleClick} ><p className="tdSecond">{count} /6명</p></button></td>
         </tr>
 </div>
 
     )
-};
+        };
 
 function UserList(){
 

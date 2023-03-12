@@ -25,7 +25,7 @@ function SignUp() {
     const [isPasswordConfirm, setIsPasswordConfirm] = React.useState(false);
     const [isEmail, setIsEmail] = React.useState(false);
 
-    const onChangeId = (e) => {
+    function onChangeId(e){
         const currentId = e.target.value;
         setId(currentId);
         const idRegExp = /^[a-zA-z0-9]{4,12}$/;
@@ -39,7 +39,7 @@ function SignUp() {
         }
     };
 
-    const onChangeName = (e) => {
+    function onChangeName(e){
         const currentName = e.target.value;
         setName(currentName);
 
@@ -52,7 +52,7 @@ function SignUp() {
         }
     };
 
-    const onChangePassword = (e) => {
+function onChangePassword(e){
         const currentPassword = e.target.value;
         setPassword(currentPassword);
         const passwordRegExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
@@ -66,18 +66,18 @@ function SignUp() {
             setIsPassword(true);
         }
     };
-    const onChangePasswordConfirm = (e) => {
+   function onChangePasswordConfirm(e){
         const currentPasswordConfirm = e.target.value;
         setPasswordConfirm(currentPasswordConfirm);
         if (password !== currentPasswordConfirm) {
-            setPasswordConfirmMessage("떼잉~ 비밀번호가 똑같지 않아요!");
+            setPasswordConfirmMessage("비밀번호가 일치하지 않습니다!");
             setIsPasswordConfirm(false);
         } else {
             setPasswordConfirmMessage("똑같은 비밀번호를 입력했습니다.");
             setIsPasswordConfirm(true);
         }
     };
-    const onChangeEmail = (e) => {
+   function onChangeEmail(e){
         const currentEmail = e.target.value;
         setEmail(currentEmail);
         const emailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
@@ -92,7 +92,7 @@ function SignUp() {
     };
 
     const navigate = useNavigate();
-    const handleSubmit = (event) => {
+    function handleSubmit(event){
         event.preventDefault();
 
         axios.post('./api/signUpApi', {
@@ -112,7 +112,7 @@ function SignUp() {
             });
     };
 
-    const backToLogin = (event) => {
+    function backToLogin(event){
         event.preventDefault();
         navigate("/login");
     }

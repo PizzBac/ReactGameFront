@@ -14,11 +14,11 @@ function Chat(props) {
         messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }, [chatLog]);
 
-    const handleChangeMessage = (event) => {
+  function handleChangeMessage(event){
         setMessage(event.target.value);
     };
 
-    const handleSubmit = (event) => {
+  function handleSubmit(event){
         event.preventDefault();
         const newMessage = { message };
         setChatLog([...chatLog, newMessage]);

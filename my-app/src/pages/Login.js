@@ -8,7 +8,7 @@ function Login() {
     const [loginPlayerId, setLoginPlayerId] = useState("");
     const [loginPlayerNickname, setLoginPlayerNickname] = useState("임시닉")
 
-    const IdInput = (event) => {
+    function IdInput(event){
         setLoginPlayerId(event.target.value);
     }
 
