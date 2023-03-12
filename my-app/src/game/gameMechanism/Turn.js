@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 
-function PassTurn(props) {
-    const { howManyPlayer, loginPlayerNickname } = props;
+function Turn(props) {
+    const { howManyPlayer, players } = props;
     const [howManyPlayers, setHowManyPlayers] = useState(howManyPlayer);
     const [currentPlayer, setCurrentPlayer] = useState(1);
     const [currentplayerCoin, setCurrentPlayerCoin] = useState(2);
-
-    function WhosTurn(e) {
-        setCurrentPlayer(e.target.value);
-    }
 
     // 턴 시작 전 전체 플레이어 수와 현재 플레이어의 코인 수 체크
     function StartTurn() {
@@ -21,47 +17,54 @@ function PassTurn(props) {
         return BasicAction();
     }
 
-    // 게임종료
-    function EndGame() {
-    }
+    function EndGame() { }
 
-    // 소득, 해외원조, 세금징수, 카드교환, 강탈
+    function Income() {
+        // const updatedPlayers = [...players];
+        // updatedPlayers[currentPlayer - 1].coins += incomeAmount;
+        // setCurrentPlayerCoin(updatedPlayers[currentPlayer - 1].coins);
+        // EndTurn();
+    }
+    function ForeignAid() { }
+    function Tax() { }
+    function Exchange() { }
+    function Steal() { }
+
     function BasicAction() {
+        Income();
+        ForeignAid();
+        Tax();
+        Exchange();
+        Steal();
     }
 
-    // 암살
-    function Assassination() {
-    }
+    function Assassination() { }
 
-    // 쿠데타
-    function Coup() {
-    }
+    function Coup() { }
 
-    // 턴종료
     function EndTurn() {
+        setCurrentPlayer((currentPlayer + 1) % players.length);
         if (2 <= howManyPlayers) {
-            return StartTurn();
-            setCurrentPlayer(currentPlayer + 1);
-            setCurrentPlayerCoin();
+
+            // return StartTurn();
+            // setCurrentPlayerCoin();
         }
         else if (howManyPlayers < 2) {
-            return EndGame();
+            // return EndGame();
         }
     }
 
     return (
         <div>
-            <p>{loginPlayerNickname}의 차례({currentPlayer}번 플레이어)</p>
-            <select value={currentPlayer} onChange={WhosTurn}>
-                <option value="1">Player 1</option>
-                <option value="2">Player 2</option>
-                <option value="3">Player 3</option>
-                <option value="4">Player 4</option>
-                <option value="5">Player 5</option>
-                <option value="6">Player 6</option>
-            </select>
+            <button onClick={Income}>소득</button>
+            <button onClick={ForeignAid}>해외원조</button>
+            <button onClick={Tax}>세금징수</button>
+            <button onClick={Exchange}>카드교환</button>
+            <button onClick={Steal}>강탈</button>
+            <button onClick={Assassination}>암살</button>
+            <button onClick={Coup}>쿠데타</button>
         </div>
-    );
+    )
 }
 
-export default PassTurn;
+export default Turn;

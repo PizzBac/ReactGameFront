@@ -50,7 +50,7 @@ export function DistributeCards(players) {
       image: cardImages[cards[cards.length - 1]],
     });
   }
-
+  console.log(cards);
   return players;
 }
 

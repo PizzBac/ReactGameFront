@@ -30,7 +30,6 @@ function Game() {
   return (
     <div className="page">
       <GameToLobby navigate={navigate} loginPlayerId={loginPlayerId} loginPlayerNumber={loginPlayerNum} loginPlayerNickname={loginPlayerNickname} />
-      <Turn howManyPlayer={howManyPlayer} loginPlayerNickname={loginPlayerNickname} />
 
       <div className="GameBoard">
         <Console />
