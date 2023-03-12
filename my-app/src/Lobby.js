@@ -1,21 +1,46 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import './css/Lobby.css';
-import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useState,useEffect} from "react";
 import { PieChart } from 'react-minimal-pie-chart';
 
-function User({userData}){
+function User({userData}) {
+    const [count, setCount] = useState(0);
+    const [color, setColor] = useState('white');
+
+    const handleClick = () => {
+      setCount(count + 1);
+    };
+
+   if(count==7){
+    setCount(6) ;
+   }
+
+    // if (count==1){
+    //   setColor('skyblue'[count]);
+    // }
 
     return(
+        
+<div>
+    {/* <tr>
+                <th className="Channel">방이름</th>
+            
+                <th className="People"></th>
+            </tr> */}
         <tr>
-            <td className="tdFirst">{userData.name}</td>
-            <td className="tdSecond">{userData.email}</td>
+            <td className="tdFirst">{userData.name}번방 </td>
+
+            <td className="tdSecond"><button onClick={handleClick}><p className="tdSecond">현재 인원은{count} (명)입니다.</p></button></td>
         </tr>
+</div>
+
     )
-}
+};
+
 function UserList(){
 
+    
     const navigate=useNavigate();
     const location= useLocation();
 
@@ -25,7 +50,7 @@ function UserList(){
     const { loginPlayerId, loginPlayerNickname } = location.state;
     console.log('state', location.state);
 
-    const GameStart = (event) => {
+    function GameStart(event){
         event.preventDefault();
         navigate('/game', {
             state: {
@@ -36,26 +61,31 @@ function UserList(){
             },
         });
     }
-    const LoginBtn = (event) => {
+    function Exit(event){
+        event.preventDefault();
+        navigate("/Login");
+    }
+    function LoginBtn(event){
         event.preventDefault();
         navigate("/Login");
     }
     const users = [
-        {email:'100', name:'1채널'},
-        {email:'200', name:'2채널'},
-        {email:'300', name:'3채널'},
-        {email:'4900', name:'4채널'},
-        {email:'4900', name:'5채널'},
-        {email:'4900', name:'6채널'}
-    ];
+        {email:'1', name:'1'},
+        {email:'2', name:'2'},
+        {email:'3', name:'3'},
+        {email:'4', name:'4'},
+        {email:'5', name:'5'},
+        {email:'6', name:'6'}
 
+    ];
+     
     return(
+   
         <div className="BackGround">
             <div>
                 <h1 className="LobbyTitle">Welcome to the Coup!</h1>
                 <div>
-                    <h1 className="imgdoor"></h1>
-                    <h3 className="SubTitle1">원하는 인원수를 선택하세요
+                    {/* <h3 className="SubTitle1">원하는 인원수를 선택하세요
                         <select
                             value={howManyPlayer} // 현재 선택한 값을 표시
                             onChange={(e) => setHowManyPlayer(parseInt(e.target.value))} // 선택한 값을 저장
@@ -72,16 +102,32 @@ function UserList(){
                             {[...Array(6)].map((_, i) => (
                                 <option key={i+1} value={i + 1}>{i + 1}번</option>
                             ))}
-                        </select></h3>
+                        </select></h3> */}
                     <button className="GameStart" onClick={GameStart}>Game Start</button>
-                    <button className="GoLogin" onClick={LoginBtn}>로그아웃</button>
-                
+                    <button className="Exit" onClick={Exit}>Exit</button>
+                    <button className="imgdoor" onClick={LoginBtn}>로그아웃</button>
                 <button className="Setting" onClick={LoginBtn}>환경설정</button>
                 </div>
       
+                <div>
+        <table>
+        <thead>
+            {/* <tr>
+                <th className="Channel">방이름</th>
+            
+                <th className="People">가나다</th>
+            </tr> */}
+        </thead>
+        <tbody>
+          {users.map((user)=>(
+            <User userData={user}/>
+          ))}
+        </tbody>
+    </table>
+    </div>
         </div>
         </div>
 
     );
-                            }
+}
 export default UserList;
