@@ -7,6 +7,7 @@ import Console from './gameBoard/Console';
 import Player from './gameBoard/player/Player';
 import HintBox from './HintBox';
 import ChatWindows from "./chat/ChatWindows";
+import Banker from './banker';
 // import Turn from './gameMechanism/Turn';
 import ScrollToTop from './scrollTop';
 
@@ -27,6 +28,7 @@ function Game() {
   // 입장한 플레이어 좌석 번호에 따라서 본인 카드만 앞면이 보이게 설정
   const [loginPlayerNumber, setLoginPlayerNumber] = useState(loginPlayerNum);
 
+
   return (
     <ScrollToTop>
     <div className="page">
@@ -34,12 +36,24 @@ function Game() {
         <div className="lobbyButton">
           <GameToLobby navigate={navigate} loginPlayerId={loginPlayerId} loginPlayerNumber={loginPlayerNum} loginPlayerNickname={loginPlayerNickname} />
         </div>
+        <div className="temp-div">
+          <button className="tmp-btn turnButton">턴 바꾸기</button>
+          <button className="tmp-btn messageButton">메세지 바꾸기</button>  
+        </div>
         <button className="fabicon img"></button>
       </div>
-      <div className="banker">게임 방송 메세지</div>
+      <Banker/>
+      <div className="deck">
+        <img className="card card-dummy img"></img>
+        <p className="remain-card">남은 카드: 5</p>
+      </div>
       <div className="GameBoard">
         <Console />
       </div>
+      <div className="timezone">
+        {/* <Progress value={5} max={10} /> */}
+      </div>
+      
       <Player activate={activate} howManyPlayer={howManyPlayer} loginPlayerNumber={loginPlayerNumber} loginPlayerNickname={loginPlayerNickname} />
 
       <div className="sideSection">
@@ -50,9 +64,5 @@ function Game() {
     </ScrollToTop>
   );
 }
-
-<div className="hexagon">
-        
-</div>
 
 export default Game;
