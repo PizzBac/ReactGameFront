@@ -1,5 +1,6 @@
 import { DistributeCards, Card } from './card/Card';
 import Coin from './coin/Coin';
+import Turn from '../../gameMechanism/Turn';
 
 function Player(props) {
   const { activate, howManyPlayer, loginPlayerNumber, loginPlayerNickname } = props;
