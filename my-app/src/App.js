@@ -3,7 +3,6 @@ import Login from "./pages/Login";
 import Game from "./game/Game";
 import SignUp from "./pages/SignUp";
 import Lobby from "./pages/Lobby";
-
 function App() {
   return (
     <Router>

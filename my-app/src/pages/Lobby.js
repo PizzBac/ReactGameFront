@@ -155,7 +155,7 @@ function UserList() {
             <div>
                 <h1 className="LobbyTitle">Welcome to the Coup!</h1>
                 <div>
-                    {/* <h3 className="SubTitle1">원하는 인원수를 선택하세요
+                    <h3 className="SubTitle1">원하는 인원수를 선택하세요
                         <select
                             value={howManyPlayer} // 현재 선택한 값을 표시
                             onChange={(e) => setHowManyPlayer(parseInt(e.target.value))} // 선택한 값을 저장
@@ -172,7 +172,7 @@ function UserList() {
                             {[...Array(6)].map((_, i) => (
                                 <option key={i+1} value={i + 1}>{i + 1}번</option>
                             ))}
-                        </select></h3> */}
+                        </select></h3>
                         <ToGame navigate={navigate} howManyPlayer={howManyPlayer} loginPlayerId={loginPlayerId} loginPlayerNum={loginPlayerNum} loginPlayerNickname={loginPlayerNickname}/>
                     {/* <button className="GameStart" onClick={GameStart}>Game Start</button> */}
                     <button className="Exit" onClick={Exit}>Exit</button>

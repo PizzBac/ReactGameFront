@@ -1,132 +1,156 @@
 /* 시작 시 카드 분배 */
 
 .cardSet.active .card-p1.playerId {
-  transform: translateX(-300px) translateY(-300px);
+  transform: translateX(-250px) translateY(-250px);
   transition: 0.25s 0s ease-in-out;
 }
 
 .cardSet.active .card-p2.playerId {
-  transform: translateX(0px) translateY(-300px);
+  transform: translateX(150px) translateY(-250px);
   transition: 0.25s 0.25s ease-in-out;
 }
 
 .cardSet.active .card-p3.playerId {
-  transform: translateX(300px) translateY(-300px);
+  transform: translateX(500px) translateY(-250px);
   transition: 0.25s 0.5s ease-in-out;
 }
 
 .cardSet.active .card-p4.playerId {
-  transform: translateX(300px) translateY(300px);
+  transform: translateX(500px) translateY(250px);
   transition: 0.25s 0.75s ease-in-out;
 }
 
 .cardSet.active .card-p5.playerId {
-  transform: translateX(0px) translateY(300px);
+  transform: translateX(150px) translateY(250px);
   transition: 0.25s 1s ease-in-out;
 }
 
 .cardSet.active .card-p6.playerId {
-  transform: translateX(-300px) translateY(300px);
+  transform: translateX(-250px) translateY(250px);
   transition: 0.25s 1.25s ease-in-out;
 }
 
 .cardSet.active .card-p1.card1 {
-  transform: translateX(-300px) translateY(-300px);
+  transform: translateX(-250px) translateY(-250px);
   transition: 0.25s 1.5s ease-in-out;
 }
 
 .cardSet.active .card-p2.card1 {
-  transform: translateX(0px) translateY(-300px);
+  transform: translateX(150px) translateY(-250px);
   transition: 0.25s 1.75s ease-in-out;
 }
 
 .cardSet.active .card-p3.card1 {
-  transform: translateX(300px) translateY(-300px);
+  transform: translateX(500px) translateY(-250px);
   transition: 0.25s 2s ease-in-out;
 }
 
 .cardSet.active .card-p4.card1 {
-  transform: translateX(300px) translateY(300px);
+  transform: translateX(500px) translateY(250px);
   transition: 0.25s 2.25s ease-in-out;
 }
 
 .cardSet.active .card-p5.card1 {
-  transform: translateX(0px) translateY(300px);
+  transform: translateX(150px) translateY(250px);
   transition: 0.25s 2.5s ease-in-out;
 }
 
 .cardSet.active .card-p6.card1 {
-  transform: translateX(-300px) translateY(300px);
+  transform: translateX(-250px) translateY(250px);
   transition: 0.25s 2.75s ease-in-out;
 }
 
 .cardSet.active .card-p1.card2 {
-  transform: translateX(-300px) translateY(-300px);
+  transform: translateX(-250px) translateY(-250px);
   transition: 0.25s 3s ease-in-out;
 }
 
 .cardSet.active .card-p2.card2 {
-  transform: translateX(0px) translateY(-300px);
+  transform: translateX(150px) translateY(-250px);
   transition: 0.25s 3.25s ease-in-out;
 }
 
 .cardSet.active .card-p3.card2 {
-  transform: translateX(300px) translateY(-300px);
+  transform: translateX(500px) translateY(-250px);
   transition: 0.25s 3.5s ease-in-out;
 }
 
 .cardSet.active .card-p4.card2 {
-  transform: translateX(300px) translateY(300px);
+  transform: translateX(500px) translateY(250px);
   transition: 0.25s 3.75s ease-in-out;
 }
 
 .cardSet.active .card-p5.card2 {
-  transform: translateX(0px) translateY(300px);
+  transform: translateX(150px) translateY(250px);
   transition: 0.25s 4s ease-in-out;
 }
 
 .cardSet.active .card-p6.card2 {
-  transform: translateX(-300px) translateY(300px);
+  transform: translateX(-250px) translateY(250px);
   transition: 0.25s 4.25s ease-in-out;
 }
 
 .coin-set1.active {
-  transform: translateX(-300px) translateY(-300px);
+  transform: translateX(-250px) translateY(-250px);
   transition: 0.25s 4.5s ease-in-out;
 }
 
 .coin-set2.active {
-  transform: translateX(0px) translateY(-300px);
+  transform: translateX(150px) translateY(-250px);
   transition: 0.25s 4.5s ease-in-out;
 }
 
 .coin-set3.active {
-  transform: translateX(300px) translateY(-300px);
+  transform: translateX(500px) translateY(-250px);
   transition: 0.25s 4.5s ease-in-out;
 }
 
 .coin-set4.active {
-  transform: translateX(300px) translateY(300px);
+  transform: translateX(500px) translateY(250px);
   transition: 0.25s 4.5s ease-in-out;
 }
 
 .coin-set5.active {
-  transform: translateX(0px) translateY(300px);
+  transform: translateX(150px) translateY(250px);
   transition: 0.25s 4.5s ease-in-out;
 }
 
 .coin-set6.active {
-  transform: translateX(-300px) translateY(300px);
+  transform: translateX(-250px) translateY(250px);
   transition: 0.25s 4.5s ease-in-out;
 }
 
 /* ############################################ */
 
 /* 기본적인 설정 */
+/* 지원 가능 해상도: 1680 x 1050; 1440 x 900; 1024 x 640. 16:10 화면 비율 */
 .page {
-  background-color: rgba(0, 0, 0, 0.75);
-  width: 150vmax;
-  height: 100vmin;
+  background-color: rgba(0, 0, 0, 0.85);
+  width: 1680px;
+  height: 1050px;
+}
+
+.gameHeader {
+  position: relative;
+  background-color:  gray;
+  width: 1680px;
+  height: 50px;
+}
+
+.lobbyButton {
+  position: relative;
+  width: 100px;
+  height: 50px;
+  float: left;
+}
+
+.fabicon {
+  position: relative;
+  background-image: url(./images/fabicon.png);
+  width: 250px;
+  height: 50px;
+  border: none;
+  float: left;
 }
 
 .img {
@@ -136,10 +160,33 @@
 }
 
 /* 전체적인 아티클들 위치 맞추기 */
-.GameBoard {
-  width: 50%;
-  height: 3%;
+.banker {
+  position: absolute;
+  background-color: green;
+  width: 600px;
+  height: 230px;
+  top:35%;
+  left: 5%;
 }
+.GameBoard {
+  position: absolute;
+  width: 400px;
+  height: 100px;
+  top:5%;
+  left: 48%;
+
+}
+/* .console ul li {
+  float: left;
+} */
+
+/* .console ul li button {
+  width: 100px;
+  height: 100px;
+} */
+
+/* 육각형 콘솔 */
+
 
 .sideSection {
   /* position: relative; */
@@ -191,7 +238,7 @@
 .player {
   position: absolute;
   top: 40%;
-  left: 30%;
+  left: 25%;
 }
 
 /* .player1 {
@@ -309,44 +356,10 @@
   margin-left: 2vmin;
 }
 
-.console {
-  position: relative;
-  align-items: center;
-  top: 400px;
-  left: 300px;
-}
-
-.console button {
-  position: relative;
-  width: 100px;
-  height: 50px;
-  border: 5px solid black;
-  border-radius: 15%;
-  margin-left: 10px;
-  background-color: antiquewhite;
-}
-
-.inner {
-  position: relative;
-  align-items: center;
-  top: 400px;
-  left: 300px;
-}
-
-.inner button {
-  position: relative;
-  width: 100px;
-  height: 50px;
-  border: 5px solid black;
-  border-radius: 15%;
-  margin-left: 10px;
-  background-color: bisque;
-  margin-top: 10px;
-}
 
 /* 안쪽 원판 */
 
-.inner {
+/* .inner {
   height: 20vmin;
   width: 20vmin;
   position: absolute;
@@ -363,7 +376,7 @@
   border: 2px solid var(--c, black);
   border-radius: 50%;
   clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%);
-}
+} */
 
 .action1 {
   transform: rotate(120deg);

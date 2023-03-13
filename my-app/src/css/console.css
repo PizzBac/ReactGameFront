@@ -1,0 +1,105 @@
+/* .wrap ul li {
+  display: inline-block;
+}
+
+.wrap-line-2 {
+  margin-left: 55px;
+}
+
+.wrap-line-3 {
+  margin-left: 110px;
+} */
+.line-1 {
+  position: absolute;
+}
+.line-2 {
+  position: absolute;
+  margin-top: 90px;
+  margin-left: 50px;
+}
+.line-3 {
+  position: absolute;
+  margin-top: 180px;
+  margin-left: 100px;
+}
+
+.wrapper {
+  /* margin: 8vh auto; */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.hex {
+  width: 6vw;
+  height: calc(20vw*1.7430);
+  margin: .2vw;
+  position: relative;
+  overflow: hidden !important;
+  transform: rotate(60deg);
+  /* background-color: red; */
+}
+.hex-inner1 {
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(60deg);
+  overflow: hidden;
+  /* background-color: red; */
+}
+.hex-inner2 {
+  display: flex;
+  width: inherit;
+  height: inherit;
+  background-size: 110%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-120deg);
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* .hex:nth-of-type(n+5) {
+  margin-top: -17.3vw;
+} */
+
+.font {
+  color: black;
+  padding: 10px;
+  font: bold 1.2vw "TmonMonsori";
+  text-shadow: 3px 3px 0 white;
+}
+
+/* 이미지 설정 */
+.job-duke {
+  background-image: url(images/duke.png);
+}
+
+.job-assassin {
+  background-image: url(images/assassin.png);
+}
+.job-contessa {
+  background-image: url(images/contessa.png);
+}
+.job-ambassador {
+  background-image: url(images/ambassador.png);
+}
+.job-captain {
+  background-image: url(images/captain.png);
+}
+
+.coup {
+  background-color: aqua;
+}
+.income {
+  background-color: yellow;
+}
+.forgien {
+  background-color: pink;
+}
