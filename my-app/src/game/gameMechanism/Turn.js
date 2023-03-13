@@ -20,13 +20,15 @@ function Turn(props) {
         return players ? JSON.parse(players) : null;
     }
 
+    // 무조건 시작될 때 렌더링 필요
+    players[currentPlayer].player.myTurn = true;
+
     // 현재 턴 플레이어 정보를 가져와야 함
     // 턴 시작 전 전체 플레이어 수와 현재 플레이어의 코인 수 체크
     function StartTurn() {
         console.log("턴 시작" + currentPlayer);
         loadPlayersData();
         console.log(players)
-        players[currentPlayer].player.myTurn = true;
 
         return SelectAction();
     }
