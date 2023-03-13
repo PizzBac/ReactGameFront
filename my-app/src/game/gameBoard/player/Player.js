@@ -20,8 +20,10 @@ function Player(props) {
           hand: [],
           coins: 2,
           myTurn: false,
+          actionType: "대기",
           isDoubt: false,
-          isObstructed: false,
+          isObstructing: false,
+          isBluffing: false,
           isOut: false,
         }
       });
