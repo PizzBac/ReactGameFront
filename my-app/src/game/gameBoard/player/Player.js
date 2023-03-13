@@ -18,6 +18,9 @@ function Player(props) {
         name,
         hand: [],
         coins: 2,
+        myTurn: false,
+        isDoubt: false,
+        isObstructed: false,
         isOut: false,
       });
     }

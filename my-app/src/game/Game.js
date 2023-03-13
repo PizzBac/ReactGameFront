@@ -39,7 +39,7 @@ function Game() {
 
       <div className="sideSection">
         <HintBox />
-        <ChatWindows loginPlayerNickname={loginPlayerNickname} />
+        <ChatWindows loginPlayerId={loginPlayerId} loginPlayerNickname={loginPlayerNickname} />
       </div>
     </div >
   );

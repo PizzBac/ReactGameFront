@@ -3,8 +3,8 @@ import styles from "../../css/TestBoard.module.css";
 import { FaPaperPlane } from "react-icons/fa";
 // import SockJs from 'sockjs-client';
 
-function Chat(props) {
-    const { loginPlayerNickname } = props;
+function ChatWindows(props) {
+    const { loginPlayerId, loginPlayerNickname } = props;
     const [message, setMessage] = React.useState("");
     const [chatLog, setChatLog] = React.useState([]);
 
@@ -68,4 +68,4 @@ function Chat(props) {
     );
 }
 
-export default Chat;
+export default ChatWindows;

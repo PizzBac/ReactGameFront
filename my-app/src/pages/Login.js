@@ -8,7 +8,7 @@ function Login() {
     const [loginPlayerId, setLoginPlayerId] = useState("");
     const [loginPlayerNickname, setLoginPlayerNickname] = useState("임시닉")
 
-    function IdInput(event){
+    function IdInput(event) {
         setLoginPlayerId(event.target.value);
     }
 
@@ -27,7 +27,6 @@ function Login() {
                         <br />
                         <LoginToLobby navigate={navigate} loginPlayerId={loginPlayerId} loginPlayerNickname={loginPlayerNickname} />
                         <ToSignUp navigate={navigate} />
-                        <br /><br /> <br /><br />
                         <p className="mt-5 mb-3 text-muted">&copy; 2023</p>
                     </form>
                 </main>
