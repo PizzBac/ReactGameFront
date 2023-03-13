@@ -37,6 +37,8 @@ function Game() {
           <GameToLobby navigate={navigate} loginPlayerId={loginPlayerId} loginPlayerNumber={loginPlayerNum} loginPlayerNickname={loginPlayerNickname} />
         </div>
         <div className="temp-div">
+          <button className="tmp-btn start">스타트</button>
+          <button className="tmp-btn server">서버로 전송</button>
           <button className="tmp-btn turnButton">턴 바꾸기</button>
           <button className="tmp-btn messageButton">메세지 바꾸기</button>  
         </div>
@@ -51,6 +53,7 @@ function Game() {
         <Console />
       </div>
       <div className="timezone">
+        시간이 흘러갑니다 ~~~
         {/* <Progress value={5} max={10} /> */}
       </div>
       

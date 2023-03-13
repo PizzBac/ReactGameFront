@@ -195,10 +195,10 @@
 /* 전체적인 아티클들 위치 맞추기 */
 .GameBoard {
   position: absolute;
-  width: 400px;
+  width: 500px;
   height: 100px;
-  top:5%;
-  left: 50%;
+  top:32%;
+  left: 48%;
 
 }
 /* .console ul li {
@@ -215,7 +215,7 @@
 
 .sideSection {
   /* position: relative; */
-  margin-left: 145vmin;
+  margin-left: 148vmin;
 }
 
 .hintBox {
