@@ -10,40 +10,28 @@ function Turn(props) {
         const players = localStorage.getItem('players');
         return players ? JSON.parse(players) : null;
     }
+    console.log(players);
 
     // 현재 턴 플레이어 정보를 가져와야 함
     // 턴 시작 전 전체 플레이어 수와 현재 플레이어의 코인 수 체크
     function StartTurn() {
+        console.log("턴 시작");
         loadPlayersData();
-        console.log("Turn.js players");
-        console.log(players);
-        console.log("Turn.js currentPlayer");
-        console.log(currentPlayer);
-        if (howManyPlayers < 2) {
-            EndGame();
-        }
-        if (currentPlayer === 0) {
-            players[currentPlayer].player.myTurn = true;
-            setCurrentPlayer((prev) => prev + 1);
-        }
-        else {
-            players[currentPlayer].player.myTurn = false;
-            console.log(currentPlayer);
-            setCurrentPlayer((prev) => prev + 1);
-            players[currentPlayer].player.myTurn = true;
-        }
-        console.log(currentPlayer);
-        console.log("Tusssr");
+        console.log(players)
+
+        players[currentPlayer].player.myTurn = true;
+
         // if (currentplayerCoin >= 7) {
         //     return Coup();
         // }
         // if (currentplayerCoin >= 3) {
         //     return Assassination();
         // }
+        // if (howManyPlayers < 2) {
+        //     EndGame();
+        // }
         // return BasicAction();
     }
-
-    function EndGame() { }
 
     function Income() {
         // 현재 턴 플레이어 코인 1 증가
@@ -78,11 +66,8 @@ function Turn(props) {
         function IsObstruction() {
             // 방해한 플레이어 의심 여부 확인 필요
         }
-
-
         // 의심 없을 시
         // 의심 있을 시
-
     }
 
     function Tax() { }
@@ -102,16 +87,13 @@ function Turn(props) {
     function Coup() { }
 
     function EndTurn() {
+        console.log("턴 종료");
+        players[currentPlayer].player.myTurn = false;
         setCurrentPlayer((currentPlayer + 1) % players.length);
-        if (2 <= howManyPlayers) {
-
-            // return StartTurn();
-            // setCurrentPlayerCoin();
-        }
-        else if (howManyPlayers < 2) {
-            // return EndGame();
-        }
+        // return StartTurn();
     }
+    
+    function EndGame() { }
 
     return (
         <div>
@@ -123,6 +105,8 @@ function Turn(props) {
             <button onClick={Steal}>강탈</button>
             <button onClick={Assassination}>암살</button>
             <button onClick={Coup}>쿠데타</button>
+            <button onClick={EndTurn}>턴종료</button>
+            <button onClick={EndGame}>게임종료</button>
         </div>
     )
 }
