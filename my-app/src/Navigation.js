@@ -42,6 +42,7 @@ export function GameToLobby({ navigate, loginPlayerId, loginPlayerNumber, loginP
 export function ToGame({ navigate, howManyPlayer, loginPlayerId, loginPlayerNum, loginPlayerNickname}) {
     const handleClick = (event) => {
         event.preventDefault();
+        localStorage.removeItem('players');
         navigate('/game', {
             state: {
                 howManyPlayer: howManyPlayer,
