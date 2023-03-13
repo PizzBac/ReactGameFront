@@ -24,6 +24,20 @@ sockjs_server.on('connection', function (conn) {
     });
 });
 
+// app.post('/api/makePlayers', (req, res) => {
+//     const { name, tableId } = req.body;
+//     const newPlayer = {
+//       name,
+//       tableId,
+//       // ... 추가적인 필드 값
+//     };
+//     // players 배열에 새로운 플레이어 추가
+//     players.push(newPlayer);
+  
+//     // 새로 생성된 플레이어 정보를 응답으로 보내기
+//     res.status(200).json(newPlayer);
+//   });
+
 // 서버 시작
 const server = sockjs_server.installHandlers(require('http').createServer().listen(3001, '0.0.0.0'), { prefix: '/socket' });
 

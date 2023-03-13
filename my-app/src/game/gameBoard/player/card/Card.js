@@ -41,16 +41,18 @@ export function DistributeCards(players) {
   // 카드 분배
   // pop() : 배열에서 마지막 요소를 제거하고 그 값을 반환하는 JavaScript 배열 메서드
   for (let i = 0; i < players.length; i++) {
-    players[i].hand.push({
+    players[i].player.hand.push({
       type: cards.pop(),
       image: cardImages[cards[cards.length - 1]],
+      isOpen: false,
     });
-    players[i].hand.push({
+    players[i].player.hand.push({
       type: cards.pop(),
       image: cardImages[cards[cards.length - 1]],
+      isOpen: false,
     });
   }
-  console.log(cards);
+  console.log("Card.js - 남은 카드:"+cards);
   return players;
 }
 

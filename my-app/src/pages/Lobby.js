@@ -76,8 +76,8 @@ function UserList(){
     const navigate=useNavigate();
     const location= useLocation();
 
-    const [howManyPlayer, setHowManyPlayer] = useState(3);
-    const [loginPlayerNum, setLoginPlayerNum] = useState(3);
+    const [howManyPlayer, setHowManyPlayer] = useState(6);
+    const [loginPlayerNum, setLoginPlayerNum] = useState(2);
 
     const { loginPlayerId, loginPlayerNickname } = location.state;
     console.log('state', location.state);
