@@ -51,6 +51,25 @@ function User({userData}) {
     setColor('red');
    }
 
+   const [tableRows, setTableRows] = useState([
+  ]);
+
+  const [roomNumber, setRoomNumber] = useState(1);
+
+  function addRow(e) {
+    setTableRows([...tableRows, { id: tableRows.length, name: roomNumber }]);
+    setRoomNumber(roomNumber + 1);
+    e.preventDefault();
+  }
+  
+  function deleteRow(id){
+    const newRows = tableRows.filter((row) => row.id !== id);
+    setTableRows(newRows);
+  };
+  
+  
+
+
  
     return(
         
@@ -65,7 +84,27 @@ function User({userData}) {
 
             <td className="tdSecond"><button style={{ backgroundColor: color }} onClick={handleClick} ><p className="tdSecond">{count} /6명</p></button></td>
         </tr>
-</div>
+       
+        <table>
+          <tbody>
+          <button className="createRoom" onClick={addRow}>방 만들기</button>
+            {tableRows.map((userData) => (
+                
+              <tr key={userData.name}>
+                
+               <td className="tdFirst">{userData.name+1}번방 </td>
+
+               <td className="tdSecond"><button style={{ backgroundColor: color }} onClick={handleClick} >
+                <p className="tdSecond">{count} /6명</p></button></td>
+               
+                  <button onClick={() => deleteRow(userData.id)}>방삭제</button>
+                
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        </div>
+
 
     )
         };
@@ -76,8 +115,8 @@ function UserList(){
     const navigate=useNavigate();
     const location= useLocation();
 
-    const [howManyPlayer, setHowManyPlayer] = useState(3);
-    const [loginPlayerNum, setLoginPlayerNum] = useState(3);
+    const [howManyPlayer, setHowManyPlayer] = useState(6);
+    const [loginPlayerNum, setLoginPlayerNum] = useState(2);
 
     const { loginPlayerId, loginPlayerNickname } = location.state;
     console.log('state', location.state);
@@ -93,6 +132,7 @@ function UserList(){
             },
         });
     }
+    
     function Exit(event){
         event.preventDefault();
         navigate("/Login");
@@ -102,18 +142,15 @@ function UserList(){
         navigate("/Login");
     }
     const users = [
-        {email:'1', name:'1'},
-        {email:'2', name:'2'},
-        {email:'3', name:'3'},
-        {email:'4', name:'4'},
-        {email:'5', name:'5'},
-        {email:'6', name:'6'}
-
+        {email:'1', name:'1'}
+        // {email:'2', name:'2'},
+        // {email:'3', name:'3'},
+        // {email:'4', name:'4'},
+        // {email:'5', name:'5'},
+        // {email:'6', name:'6'}
     ];
-     
     return(
-   
-        <div className="BackGround">
+     <div className="BackGround">
             <div>
                 <h1 className="LobbyTitle">Welcome to the Coup!</h1>
                 <div>
@@ -139,6 +176,8 @@ function UserList(){
                     <button className="Exit" onClick={Exit}>Exit</button>
                     <button className="imgdoor" onClick={LoginBtn}>로그아웃</button>
                 <button className="Setting" onClick={LoginBtn}>환경설정</button>
+                {/* <button onClick={addRow}>방 만들기</button> */}
+               
                 </div>
       
                 <div>
@@ -161,5 +200,5 @@ function UserList(){
         </div>
 
     );
-}
+          }
 export default UserList;
