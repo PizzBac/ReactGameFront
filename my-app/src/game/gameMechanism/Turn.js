@@ -3,22 +3,44 @@ import React, { useState } from 'react';
 function Turn(props) {
     const { howManyPlayer, players } = props;
     const [howManyPlayers, setHowManyPlayers] = useState(howManyPlayer);
-    const [currentPlayer, setCurrentPlayer] = useState(1);
+    const [currentPlayer, setCurrentPlayer] = useState(0);
     const [currentplayerCoin, setCurrentPlayerCoin] = useState(2);
+
+    function loadPlayersData() {
+        const players = localStorage.getItem('players');
+        return players ? JSON.parse(players) : null;
+    }
 
     // 현재 턴 플레이어 정보를 가져와야 함
     // 턴 시작 전 전체 플레이어 수와 현재 플레이어의 코인 수 체크
     function StartTurn() {
+        loadPlayersData();
+        console.log("Turn.js players");
+        console.log(players);
+        console.log("Turn.js currentPlayer");
+        console.log(currentPlayer);
         if (howManyPlayers < 2) {
             EndGame();
         }
-        if (currentplayerCoin >= 7) {
-            return Coup();
+        if (currentPlayer === 0) {
+            players[currentPlayer].player.myTurn = true;
+            setCurrentPlayer((prev) => prev + 1);
         }
-        if (currentplayerCoin >= 3) {
-            return Assassination();
+        else {
+            players[currentPlayer].player.myTurn = false;
+            console.log(currentPlayer);
+            setCurrentPlayer((prev) => prev + 1);
+            players[currentPlayer].player.myTurn = true;
         }
-        return BasicAction();
+        console.log(currentPlayer);
+        console.log("Tusssr");
+        // if (currentplayerCoin >= 7) {
+        //     return Coup();
+        // }
+        // if (currentplayerCoin >= 3) {
+        //     return Assassination();
+        // }
+        // return BasicAction();
     }
 
     function EndGame() { }
@@ -45,7 +67,7 @@ function Turn(props) {
                     setIsObstructed(true);
                 }
             }
-            if(isObstructed) {
+            if (isObstructed) {
                 IsObstruction();
             }
             else {
@@ -93,6 +115,7 @@ function Turn(props) {
 
     return (
         <div>
+            <button onClick={StartTurn}>턴시작</button>
             <button onClick={Income}>소득</button>
             <button onClick={ForeignAid}>해외원조</button>
             <button onClick={Tax}>세금징수</button>

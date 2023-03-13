@@ -2,10 +2,9 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import '../css/Lobby.css';
 import { useState, useEffect } from "react";
-import { PieChart } from 'react-minimal-pie-chart';
 import { ToGame } from "../Navigation";
 
-function User({ userData }) {
+function User({ user }) {
     const [count, setCount] = useState(0);
     const [color, setColor] = useState('white');
     const colors = ['skyblue', '#04B4AE', 'yellowgreen', 'yellow', 'orange', 'red'];
@@ -15,7 +14,6 @@ function User({ userData }) {
     // const [loginPlayerNum, setLoginPlayerNum] = useState(3);
     // const { loginPlayerId, loginPlayerNickname } = location.state;
     // console.log('state', location.state);
-
 
     function handleClick(event) {
         setCount(count + 1);
@@ -31,8 +29,6 @@ function User({ userData }) {
         // });
     }
 
-
-
     useEffect(() => {
         setColor(colors[count - 1 % colors.length]);
     }, [count]);
@@ -40,20 +36,19 @@ function User({ userData }) {
     // function handleClick(){
     //     setColor(['skyblue','yellowgreen','green','yellow','orange','red']);
     // }
-    if (count == 7) {
+    if (count === 7) {
         setCount(6);
     }
 
-    if (count == 7) {
+    if (count === 7) {
         alert('방이 꽉 찼습니다.');
     }
 
-    if (count == 7) {
+    if (count === 7) {
         setColor('red');
     }
 
-    const [tableRows, setTableRows] = useState([
-    ]);
+    const [tableRows, setTableRows] = useState([]);
 
     const [roomNumber, setRoomNumber] = useState(1);
 
@@ -68,38 +63,26 @@ function User({ userData }) {
         setTableRows(newRows);
     };
 
-
-
-
-
     return (
-
         <div>
-            {/* <tr>
-                <th className="Channel">방이름</th>
-            
-                <th className="People"></th>
-            </tr> */}
             <tr>
-                <td className="tdFirst">{userData.name}번방 </td>
-
+                <td className="tdFirst">{user.name}번방 </td>
                 <td className="tdSecond"><button style={{ backgroundColor: color }} onClick={handleClick} ><p className="tdSecond">{count} /6명</p></button></td>
             </tr>
 
+            <button className="createRoom" onClick={addRow}>방 만들기</button>
             <table>
                 <tbody>
-                    <button className="createRoom" onClick={addRow}>방 만들기</button>
-                    {tableRows.map((userData) => (
+                    {tableRows.map((user) => (
 
-                        <tr key={userData.name}>
+                        <tr key={user.name}>
 
-                            <td className="tdFirst">{userData.name + 1}번방 </td>
+                            <td className="tdFirst">{user.name + 1}번방 </td>
 
                             <td className="tdSecond"><button style={{ backgroundColor: color }} onClick={handleClick} >
                                 <p className="tdSecond">{count} /6명</p></button></td>
 
-                            <button onClick={() => deleteRow(userData.id)}>방삭제</button>
-
+                            <td>   <button onClick={() => deleteRow(user.id)}>방삭제</button></td>
                         </tr>
                     ))}
                 </tbody>
@@ -112,7 +95,6 @@ function User({ userData }) {
 
 function UserList() {
 
-
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -121,18 +103,6 @@ function UserList() {
 
     const { loginPlayerId, loginPlayerNickname } = location.state;
     console.log('state', location.state);
-
-    function GameStart(event) {
-        event.preventDefault();
-        navigate('/game', {
-            state: {
-                howManyPlayer: howManyPlayer,
-                loginPlayerId: loginPlayerId,
-                loginPlayerNum: loginPlayerNum,
-                loginPlayerNickname: loginPlayerNickname,
-            },
-        });
-    }
 
     function Exit(event) {
         event.preventDefault();
@@ -143,7 +113,7 @@ function UserList() {
         navigate("/Login");
     }
     const users = [
-        { email: '1', name: '1' }
+        { email: '1', name: '1' },
         // {email:'2', name:'2'},
         // {email:'3', name:'3'},
         // {email:'4', name:'4'},
@@ -161,7 +131,7 @@ function UserList() {
                             onChange={(e) => setHowManyPlayer(parseInt(e.target.value))} // 선택한 값을 저장
                         >
                             {[...Array(5)].map((_, i) => (
-                                <option key={i+2} value={i + 2}>{i + 2}인방</option>
+                                <option key={i + 2} value={i + 2}>{i + 2}인방</option>
                             ))}
                         </select></h3><br />
                     <h3 className="SubTitle2">자신의 위치를 선택하세요
@@ -170,10 +140,10 @@ function UserList() {
                             onChange={(ev) => setLoginPlayerNum(parseInt(ev.target.value))}
                         >
                             {[...Array(6)].map((_, i) => (
-                                <option key={i+1} value={i + 1}>{i + 1}번</option>
+                                <option key={i + 1} value={i + 1}>{i + 1}번</option>
                             ))}
                         </select></h3>
-                        <ToGame navigate={navigate} howManyPlayer={howManyPlayer} loginPlayerId={loginPlayerId} loginPlayerNum={loginPlayerNum} loginPlayerNickname={loginPlayerNickname}/>
+                    <ToGame navigate={navigate} howManyPlayer={howManyPlayer} loginPlayerId={loginPlayerId} loginPlayerNum={loginPlayerNum} loginPlayerNickname={loginPlayerNickname} />
                     {/* <button className="GameStart" onClick={GameStart}>Game Start</button> */}
                     <button className="Exit" onClick={Exit}>Exit</button>
                     <button className="imgdoor" onClick={LoginBtn}>로그아웃</button>
@@ -183,24 +153,14 @@ function UserList() {
                 </div>
 
                 <div>
-                    <table>
-                        <thead>
-                            {/* <tr>
-                <th className="Channel">방이름</th>
-            
-                <th className="People">가나다</th>
-            </tr> */}
-                        </thead>
-                        <tbody>
-                            {users.map((user) => (
-                                <User userData={user} />
-                            ))}
-                        </tbody>
-                    </table>
+                    {users.map((user) => (
+                        <User key={user.email} user={user} />
+                    ))}
                 </div>
             </div>
         </div>
 
     );
 }
+
 export default UserList;
