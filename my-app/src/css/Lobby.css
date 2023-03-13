@@ -177,11 +177,9 @@ td{
   background-position: center;
 }
 
-/* .BackGround{
-  background-image: url(../../../dummy/card-back.png);
-  width: 100%;
-  height: 330px;
-  background-repeat: no-repeat;
-} */
-
-
+.createRoom{
+  
+  width: 100px;
+  /* margin-left: 1500%; */
+   border-radius: 30px;
+} 
