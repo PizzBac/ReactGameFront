@@ -4,11 +4,11 @@ import '../css/reset.css';
 import '../css/Game.css';
 import { GameToLobby } from '../Navigation';
 import Console from './gameBoard/Console';
-import Inner from './gameBoard/Inner';
 import Player from './gameBoard/player/Player';
 import HintBox from './HintBox';
 import ChatWindows from "./chat/ChatWindows";
-import Turn from './gameMechanism/Turn';
+// import Turn from './gameMechanism/Turn';
+import ScrollToTop from './scrollTop';
 
 function Game() {
 
@@ -28,21 +28,31 @@ function Game() {
   const [loginPlayerNumber, setLoginPlayerNumber] = useState(loginPlayerNum);
 
   return (
+    <ScrollToTop>
     <div className="page">
-      <GameToLobby navigate={navigate} loginPlayerId={loginPlayerId} loginPlayerNumber={loginPlayerNum} loginPlayerNickname={loginPlayerNickname} />
-
+      <div className="gameHeader">
+        <div className="lobbyButton">
+          <GameToLobby navigate={navigate} loginPlayerId={loginPlayerId} loginPlayerNumber={loginPlayerNum} loginPlayerNickname={loginPlayerNickname} />
+        </div>
+        <button className="fabicon img"></button>
+      </div>
+      <div className="banker">게임 방송 메세지</div>
       <div className="GameBoard">
         <Console />
-        <Inner />
-        <Player activate={activate} howManyPlayer={howManyPlayer} loginPlayerNumber={loginPlayerNumber} loginPlayerNickname={loginPlayerNickname} />
       </div>
+      <Player activate={activate} howManyPlayer={howManyPlayer} loginPlayerNumber={loginPlayerNumber} loginPlayerNickname={loginPlayerNickname} />
 
       <div className="sideSection">
         <HintBox />
         <ChatWindows loginPlayerNickname={loginPlayerNickname} />
       </div>
     </div >
+    </ScrollToTop>
   );
 }
+
+<div className="hexagon">
+        
+</div>
 
 export default Game;
