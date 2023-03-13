@@ -53,7 +53,7 @@ function Player(props) {
 
   return (
     <div>
-      <Turn players={players} howManyPlayer={players.length} />
+      {/* <Turn players={players} howManyPlayer={players.length} /> */}
       {players.map((player) => (
         <div key={player.player.id} className={`player player${player.player.id} ${activate === true ? "active" : ""}`}>
           <div className={`cardSet ${activate === true ? "active" : ""}`}>
