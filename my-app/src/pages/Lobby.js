@@ -1,10 +1,10 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import '../css/Lobby.css';
-import { useState,useEffect} from "react";
-import { PieChart } from 'react-minimal-pie-chart';
+import { useState, useEffect } from "react";
+import { ToGame } from "../Navigation";
 
-function User({userData}) {
+function User({ user }) {
     const [count, setCount] = useState(0);
     const [color, setColor] = useState('white');
     const colors = ['skyblue', '#04B4AE', 'yellowgreen', 'yellow', 'orange', 'red'];
@@ -15,105 +15,90 @@ function User({userData}) {
     // const { loginPlayerId, loginPlayerNickname } = location.state;
     // console.log('state', location.state);
 
-
     function handleClick(event) {
         setCount(count + 1);
         setColor(colors[count % colors.length]);
-            // event.preventDefault();
-            // navigate('/game', {
-            //     state: {
-            //         howManyPlayer: howManyPlayer,
-            //         loginPlayerId: loginPlayerId,
-            //         loginPlayerNum: loginPlayerNum,
-            //         loginPlayerNickname: loginPlayerNickname,
-            //     },
-            // });
-        }
-      
+        // event.preventDefault();
+        // navigate('/game', {
+        //     state: {
+        //         howManyPlayer: howManyPlayer,
+        //         loginPlayerId: loginPlayerId,
+        //         loginPlayerNum: loginPlayerNum,
+        //         loginPlayerNickname: loginPlayerNickname,
+        //     },
+        // });
+    }
 
-      
-  useEffect(() => {
-    setColor(colors[count-1 % colors.length]);
-  }, [count]);
+    useEffect(() => {
+        setColor(colors[count - 1 % colors.length]);
+    }, [count]);
 
     // function handleClick(){
     //     setColor(['skyblue','yellowgreen','green','yellow','orange','red']);
     // }
-   if(count==7){
-    setCount(6) ;
-   }
+    if (count === 7) {
+        setCount(6);
+    }
 
-   if(count==7){
-    alert('방이 꽉 찼습니다.');
-   }
+    if (count === 7) {
+        alert('방이 꽉 찼습니다.');
+    }
 
-   if(count==7){
-    setColor('red');
-   }
+    if (count === 7) {
+        setColor('red');
+    }
 
-   const [tableRows, setTableRows] = useState([
-  ]);
+    const [tableRows, setTableRows] = useState([]);
 
-  const [roomNumber, setRoomNumber] = useState(1);
+    const [roomNumber, setRoomNumber] = useState(1);
 
-  function addRow(e) {
-    setTableRows([...tableRows, { id: tableRows.length, name: roomNumber }]);
-    setRoomNumber(roomNumber + 1);
-    e.preventDefault();
-  }
-  
-  function deleteRow(id){
-    const newRows = tableRows.filter((row) => row.id !== id);
-    setTableRows(newRows);
-  };
-  
-  
+    function addRow(e) {
+        setTableRows([...tableRows, { id: tableRows.length, name: roomNumber }]);
+        setRoomNumber(roomNumber + 1);
+        e.preventDefault();
+    }
 
+    function deleteRow(id) {
+        const newRows = tableRows.filter((row) => row.id !== id);
+        setTableRows(newRows);
+    };
 
- 
-    return(
-        
-<div>
-    {/* <tr>
-                <th className="Channel">방이름</th>
-            
-                <th className="People"></th>
-            </tr> */}
-        <tr>
-            <td className="tdFirst">{userData.name}번방 </td>
+    return (
+        <div>
 
-            <td className="tdSecond"><button style={{ backgroundColor: color }} onClick={handleClick} ><p className="tdSecond">{count} /6명</p></button></td>
-        </tr>
-       
-        <table>
-          <tbody>
-          <button className="createRoom" onClick={addRow}>방 만들기</button>
-            {tableRows.map((userData) => (
-                
-              <tr key={userData.name}>
-                
-               <td className="tdFirst">{userData.name+1}번방 </td>
+            <button className="createRoom" onClick={addRow}>방 만들기</button>
+            <table>
+            <thead>
+               <tr><td className="tdFirst">{user.name}번방</td>
+              <td className="tdSecond">
+                <button style={{ backgroundColor:color}} onClick={handleClick}>
+                    <p className="tdSecond">{count}/6명</p></button></td></tr>
+            </thead>
+                <tbody>
+                    {tableRows.map((user) => (
 
-               <td className="tdSecond"><button style={{ backgroundColor: color }} onClick={handleClick} >
-                <p className="tdSecond">{count} /6명</p></button></td>
-               
-                  <button onClick={() => deleteRow(userData.id)}>방삭제</button>
-                
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                        <tr key={user.name}>
+
+                            <td className="tdFirst">{user.name + 1}번방 </td>
+
+                            <td className="tdSecond"><button style={{ backgroundColor: color }} onClick={handleClick} >
+                                <p className="tdSecond">{count} /6명</p></button></td>
+
+                            <td>   <button onClick={() => deleteRow(user.id)}>방삭제</button></td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
 
 
     )
-        };
+};
 
-function UserList(){
+function UserList() {
 
-    
-    const navigate=useNavigate();
-    const location= useLocation();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const [howManyPlayer, setHowManyPlayer] = useState(6);
     const [loginPlayerNum, setLoginPlayerNum] = useState(2);
@@ -121,36 +106,24 @@ function UserList(){
     const { loginPlayerId, loginPlayerNickname } = location.state;
     console.log('state', location.state);
 
-    function GameStart(event){
-        event.preventDefault();
-        navigate('/game', {
-            state: {
-                howManyPlayer: howManyPlayer,
-                loginPlayerId: loginPlayerId,
-                loginPlayerNum: loginPlayerNum,
-                loginPlayerNickname: loginPlayerNickname,
-            },
-        });
-    }
-    
-    function Exit(event){
+    function Exit(event) {
         event.preventDefault();
         navigate("/Login");
     }
-    function LoginBtn(event){
+    function LoginBtn(event) {
         event.preventDefault();
         navigate("/Login");
     }
     const users = [
-        {email:'1', name:'1'}
+        { email: '1', name: '1' },
         // {email:'2', name:'2'},
         // {email:'3', name:'3'},
         // {email:'4', name:'4'},
         // {email:'5', name:'5'},
         // {email:'6', name:'6'}
     ];
-    return(
-     <div className="BackGround">
+    return (
+        <div className="BackGround">
             <div>
                 <h1 className="LobbyTitle">Welcome to the Coup!</h1>
                 <div>
@@ -160,7 +133,7 @@ function UserList(){
                             onChange={(e) => setHowManyPlayer(parseInt(e.target.value))} // 선택한 값을 저장
                         >
                             {[...Array(5)].map((_, i) => (
-                                <option key={i+2} value={i + 2}>{i + 2}인방</option>
+                                <option key={i + 2} value={i + 2}>{i + 2}인방</option>
                             ))}
                         </select></h3><br />
                     <h3 className="SubTitle2">자신의 위치를 선택하세요
@@ -169,36 +142,27 @@ function UserList(){
                             onChange={(ev) => setLoginPlayerNum(parseInt(ev.target.value))}
                         >
                             {[...Array(6)].map((_, i) => (
-                                <option key={i+1} value={i + 1}>{i + 1}번</option>
+                                <option key={i + 1} value={i + 1}>{i + 1}번</option>
                             ))}
                         </select></h3>
-                    <button className="GameStart" onClick={GameStart}>Game Start</button>
+                    <ToGame navigate={navigate} howManyPlayer={howManyPlayer} loginPlayerId={loginPlayerId} loginPlayerNum={loginPlayerNum} loginPlayerNickname={loginPlayerNickname} />
+                    {/* <button className="GameStart" onClick={GameStart}>Game Start</button> */}
                     <button className="Exit" onClick={Exit}>Exit</button>
                     <button className="imgdoor" onClick={LoginBtn}>로그아웃</button>
-                <button className="Setting" onClick={LoginBtn}>환경설정</button>
-                {/* <button onClick={addRow}>방 만들기</button> */}
-               
+                    <button className="Setting" onClick={LoginBtn}>환경설정</button>
+                    {/* <button onClick={addRow}>방 만들기</button> */}
+
                 </div>
-      
+
                 <div>
-        <table>
-        <thead>
-            {/* <tr>
-                <th className="Channel">방이름</th>
-            
-                <th className="People">가나다</th>
-            </tr> */}
-        </thead>
-        <tbody>
-          {users.map((user)=>(
-            <User userData={user}/>
-          ))}
-        </tbody>
-    </table>
-    </div>
-        </div>
+                    {users.map((user) => (
+                        <User key={user.email} user={user} />
+                    ))}
+                </div>
+            </div>
         </div>
 
     );
-          }
+}
+
 export default UserList;
