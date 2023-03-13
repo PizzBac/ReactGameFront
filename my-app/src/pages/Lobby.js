@@ -65,13 +65,15 @@ function User({ user }) {
 
     return (
         <div>
-            <tr>
-                <td className="tdFirst">{user.name}번방 </td>
-                <td className="tdSecond"><button style={{ backgroundColor: color }} onClick={handleClick} ><p className="tdSecond">{count} /6명</p></button></td>
-            </tr>
 
             <button className="createRoom" onClick={addRow}>방 만들기</button>
             <table>
+            <thead>
+               <tr><td className="tdFirst">{user.name}번방</td>
+              <td className="tdSecond">
+                <button style={{ backgroundColor:color}} onClick={handleClick}>
+                    <p className="tdSecond">{count}/6명</p></button></td></tr>
+            </thead>
                 <tbody>
                     {tableRows.map((user) => (
 
