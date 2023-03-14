@@ -12,6 +12,7 @@ function WaitingRoom(){
     const [button2Color, setButton2Color]= useState('pink');
     const [ready,setReady] = useState(false);
 
+    
 
     function handleOtherButtonClick(event) {
       event.preventDefault();
@@ -65,7 +66,24 @@ return(
  </button>
  </div>
  
+ 
 
-);}
+);
+// function Square(props) {
+//    return (
+//      <svg width={props.width} height={props.height}>
+//        <rect
+//          x={0}
+//          y={0}
+//          width={props.width}
+//          height={props.height}
+//          stroke="black"
+//          strokeWidth="2"
+//          fill="none"
+//        />
+//      </svg>
+//    );
+//  }
+}
 
 export default WaitingRoom;
