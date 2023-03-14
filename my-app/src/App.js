@@ -4,8 +4,10 @@ import Game from "./game/Game";
 import SignUp from "./pages/SignUp";
 import Lobby from "./pages/Lobby";
 import Tmp from "./pages/Tmp";
+import WaitingRoom from "./pages/WaitingRoom";
 
 function App() {
+  //Route path =뒤에 있는건 무조건 소문자로 써야한다.
   return (
     <Router>
       <Routes>
@@ -14,7 +16,8 @@ function App() {
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/lobby" element={<Lobby />}/>
         <Route path="/game" element={<Game />} />
-        <Route path="/Tmp" element={<Tmp />} />
+        <Route path="/waitingRoom" element={<WaitingRoom />}/>
+        <Route tmp="/tmp" element={<Tmp />}/>
       </Routes>
     </Router>
   );

@@ -18,15 +18,6 @@ function User({ user }) {
     function handleClick(event) {
         setCount(count + 1);
         setColor(colors[count % colors.length]);
-        // event.preventDefault();
-        // navigate('/game', {
-        //     state: {
-        //         howManyPlayer: howManyPlayer,
-        //         loginPlayerId: loginPlayerId,
-        //         loginPlayerNum: loginPlayerNum,
-        //         loginPlayerNickname: loginPlayerNickname,
-        //     },
-        // });
     }
 
     useEffect(() => {
@@ -81,8 +72,9 @@ function User({ user }) {
 
                             <td className="tdFirst">{user.name + 1}번방 </td>
 
-                            <td className="tdSecond"><button style={{ backgroundColor: color }} onClick={handleClick} >
+                            <td className="tdSecond"><button style={{backgroundColor:color}} onClick={handleClick} >
                                 <p className="tdSecond">{count} /6명</p></button></td>
+                                {/*이거 좀 간지나게 바꾸자, 옛날 롤처럼 사람들 차게 */}
 
                             <td>   <button onClick={() => deleteRow(user.id)}>방삭제</button></td>
                         </tr>
@@ -114,20 +106,21 @@ function UserList() {
         event.preventDefault();
         navigate("/Login");
     }
+
+    function WaitingRoom(event){
+        event.preventDefault();
+        navigate("/WaitingRoom");
+        }
     const users = [
         { email: '1', name: '1' },
-        // {email:'2', name:'2'},
-        // {email:'3', name:'3'},
-        // {email:'4', name:'4'},
-        // {email:'5', name:'5'},
-        // {email:'6', name:'6'}
     ];
     return (
         <div className="BackGround">
             <div>
-                <h1 className="LobbyTitle">Welcome to the Coup!</h1>
+                <h1 className="LobbyTitle"><button className="fabicon img"></button> Welcome to the Coup!</h1>
+                {/* 꼭 버튼을 누르는데 사용할 필요 없다. 이런식으로 h1으로 안되는 이미지 같은것도 buttodmf}
                 <div>
-                    <h3 className="SubTitle1">원하는 인원수를 선택하세요
+                    {/* <h3 className="SubTitle1">원하는 인원수를 선택하세요
                         <select
                             value={howManyPlayer} // 현재 선택한 값을 표시
                             onChange={(e) => setHowManyPlayer(parseInt(e.target.value))} // 선택한 값을 저장
@@ -144,12 +137,13 @@ function UserList() {
                             {[...Array(6)].map((_, i) => (
                                 <option key={i + 1} value={i + 1}>{i + 1}번</option>
                             ))}
-                        </select></h3>
+                        </select></h3> */}
                     <ToGame navigate={navigate} howManyPlayer={howManyPlayer} loginPlayerId={loginPlayerId} loginPlayerNum={loginPlayerNum} loginPlayerNickname={loginPlayerNickname} />
                     {/* <button className="GameStart" onClick={GameStart}>Game Start</button> */}
                     <button className="Exit" onClick={Exit}>Exit</button>
                     <button className="imgdoor" onClick={LoginBtn}>로그아웃</button>
                     <button className="Setting" onClick={LoginBtn}>환경설정</button>
+                    <button onClick={WaitingRoom}>대합실로 이동</button>
                     {/* <button onClick={addRow}>방 만들기</button> */}
 
                 </div>
@@ -160,7 +154,7 @@ function UserList() {
                     ))}
                 </div>
             </div>
-        </div>
+   
 
     );
 }
