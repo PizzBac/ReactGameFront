@@ -3,8 +3,12 @@ import React, { useEffect, useState } from 'react';
 function Turn(props) {
     const { howManyPlayer, players } = props;
     const [currentPlayer, setCurrentPlayer] = useState(0);
+    const [whatAction, setWhatAction] = useState("")
     const [isDoubted, setIsDoubted] = useState(false);
+    const [whoDoubt, setWhoDoubt] = useState(null);
     const [isObstructed, setIsObstructed] = useState(false);
+    const [whoObstruct, setWhoObstruct] = useState(null);
+    const [obstructTime, setObstructTime] = useState(Infinity);
 
     const [startButtonDisabled, setStartButtonDisabled] = useState(false);
     const [incomeButtonDisabled, setIncomeButtonDisabled] = useState(!false);
@@ -37,9 +41,9 @@ function Turn(props) {
         setStartButtonDisabled((prev) => !prev);
         setIncomeButtonDisabled((prev) => !prev);
         setForeignAidButtonDisabled((prev) => !prev);
-        setStealButtonDisabled((prev) => !prev);
-        setExchangeButtonDisabled((prev) => !prev);
         setTaxButtonDisabled((prev) => !prev);
+        setExchangeButtonDisabled((prev) => !prev);
+        setStealButtonDisabled((prev) => !prev);
         if (currentplayerCoin >= 3) {
             setAssassinationButtonDisabled((prev) => !prev);
         }
@@ -49,39 +53,67 @@ function Turn(props) {
     }
 
     function IsObstruction() {
-        // 하나하나 반복하는 과정이 아니라 전체 플레이어 모두에게 UI로 화면 띄우는 기능 필요
-        for (const player of players) {
-            // 현재 턴인 플레이어는 방해할 수 없음
-            if (player.myTurn === false) {
-                // 플레이어 방해 여부 확인 기능 필요
+        if (whatAction === "ForeignAid") {
+            for (const player of players) {
+                if (player.buttonPressedTime < obstructTime) {
+                    setWhoObstruct(player);
+                    setObstructTime(player.buttonPressedTime);
+                    player.isObstructing = true;
+                }
             }
-            // 그 외 플레이어들의 방해 여부 확인
-            // 누가 먼저 방해를 요청했는지 확인 필요
-            if (player.isObstructing === true) {
-                setIsObstructed(true);
-            }
+            IsDoubt();
+        } else if (whatAction === "Tax") {
+
+        } else if (whatAction === "Exchange") {
+
+        } else if (whatAction === "Steal") {
+
+        } else if (whatAction === "Assassination") {
+
         }
     }
 
     function IsDoubt() {
-        // 어떤 과정에서 의심이 발생했는지 확인 필요
+        if (whatAction === "ForeignAid") {
+
+        } else if (whatAction === "Tax") {
+
+        } else if (whatAction === "Exchange") {
+
+        } else if (whatAction === "Steal") {
+
+        } else if (whatAction === "Assassination") {
+
+        }
         // 누가 먼저 의심했는지 확인 필요
+        if ("bluff") {
+
+        }
     }
 
     function Income() {
         console.log("소득" + currentPlayer);
+        setWhatAction("Income");
         players[currentPlayer].player.coins = players[currentPlayer].player.coins + 1;
         EndTurn();
     }
 
     function ForeignAid() {
         console.log("원조" + currentPlayer);
+        setWhatAction("ForeignAid");
 
-        IsObstruction();
+        // 방해 여부 확인 필요
+        // 하나하나 반복하는 과정이 아니라 전체 플레이어 모두에게 UI로 화면 띄우는 기능 필요
+        // 플레이어 중 방해를 원하는 플레이어가 있으면 setIsObstructed(Prev => !prev) 설정
+        // 현재 턴인 플레이어는 방해할 수 없도록 해야 함
+        const checkObstruct = window.prompt(
+            
+        );
 
         if (isObstructed) {
+            // 여기서 player.buttonPressedTime 세팅 필요
+            IsObstruction();
             // 방해한 플레이어 의심 과정 필요
-            IsDoubt();
         } else {
             players[currentPlayer].player.coins = players[currentPlayer].player.coins + 2;
             EndTurn();
@@ -214,7 +246,9 @@ function Turn(props) {
                 <button id="steal" onClick={Steal} disabled={stealButtonDisabled}>강탈</button>
                 <button id="assassination" onClick={Assassination} disabled={assassinationButtonDisabled}>암살</button>
                 <button id="coup" onClick={Coup} disabled={coupButtonDisabled}>쿠데타</button>
-                <button id="endTurn" onClick={EndTurn}>턴종료</button>
+                <button id="obstruction" onClick={IsObstruction}>방해</button>
+                <button id="doubt" onClick={IsDoubt}>의심</button>
+                {/* <button id="endTurn" onClick={EndTurn}>턴종료</button> */}
                 <button id="endGame" onClick={EndGame}>게임종료</button>
             </div>
         </div>
