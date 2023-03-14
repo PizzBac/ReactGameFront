@@ -132,7 +132,7 @@
 
 .gameHeader {
   position: relative;
-  background: linear-gradient(to right, #FFBF00,#A9BCF5,#D8F781,#BDBDBD,#00BFFF);
+  background-color: white;
   width: 1680px;
   height: 50px;
 }
@@ -142,6 +142,14 @@
   width: 100px;
   height: 50px;
   float: left;
+}
+
+.tmp-btn {
+  position: relative;
+  width: 100px;
+  height: 50px;
+  float: right;
+  margin-right: 100px;
 }
 
 .fabicon {
@@ -159,20 +167,37 @@
   background-size: cover;
 }
 
-/* 전체적인 아티클들 위치 맞추기 */
-.banker {
-  position: absolute;
-  background-color: green;
-  width: 600px;
-  height: 230px;
-  top:35%;
-  left: 5%;
+.deck {
+  position: relative;
+  float: left;
+  top: 250px;
+  left: 40%;
 }
+.card-dummy {
+  background-image: url(./images/back.png);
+}
+
+.remain-card {
+  color: white;
+  padding-top: 30px;
+  font: bold 1.2vw "TmonMonsori";
+}
+.timezone {
+  position: relative;
+  float: left;
+  width: 650px;
+  height: 30px;
+  top: 43%;
+  background-color: red;
+  border-radius: 5%;
+}
+
+/* 전체적인 아티클들 위치 맞추기 */
 .GameBoard {
   position: absolute;
-  width: 400px;
+  width: 500px;
   height: 100px;
-  top:5%;
+  top:32%;
   left: 48%;
 
 }
@@ -190,7 +215,7 @@
 
 .sideSection {
   /* position: relative; */
-  margin-left: 145vmin;
+  margin-left: 148vmin;
 }
 
 .hintBox {
@@ -378,38 +403,3 @@
   clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%);
 } */
 
-.action1 {
-  transform: rotate(120deg);
-  background-color: skyblue;
-}
-
-.action2 {
-  transform: rotate(240deg);
-  background-color: orange;
-}
-
-.action3 {
-  transform: rotate(360deg);
-  background-color: yellow;
-}
-
-.action2 span {
-  transform: rotate(120deg);
-  position: absolute;
-  top: 40px;
-  margin-left: 110px;
-}
-
-.action1 span {
-  transform: rotate(240deg);
-  position: absolute;
-  margin-top: 45px;
-  margin-left: 120px;
-}
-
-.action3 span {
-  transform: rotate(360deg);
-  position: absolute;
-  margin-top: 40px;
-  margin-left: 110px;
-}
