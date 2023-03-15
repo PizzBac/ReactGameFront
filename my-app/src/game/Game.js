@@ -33,6 +33,7 @@ function Game() {
   return (
     <ScrollToTop>
     <StompSessionProvider url={'ws://javaspringbootcoupgamebackend-env.eba-2u3en2tr.ap-northeast-2.elasticbeanstalk.com/ws'}
+    //이게 webSocket임. 서로 채팅 가능하게 해주는거
     debug={(str) => {
       console.log(str);
     }}

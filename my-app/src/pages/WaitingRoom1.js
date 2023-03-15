@@ -1,6 +1,6 @@
 import React from "react";
 import '../css/WaitingRoom.css';
-import {useLocation, useNavigate } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {ToGame} from "../Navigation"
 import { useState, useEffect } from "react";
 //export로 받을 때에는 {}를 써야 받아온다. 이거 안쓰고 그냥 ToGame 이러면 undefined 취급받음.
@@ -96,15 +96,12 @@ function handleClick6(){
    setReady6(true); //다른 버튼을 누를 준비가 완료되었다는 코드
 }
 
+
 function handleOtherButtonClick(){//얘가 함수형 컴포넌트가 아니라 함수다.
    setButton2Text1('게임시작')
-   setButton2Color1('#FA5858');
-   return(
-    <div>
-        {/* <ToGame navigate={navigate} howManyPlayer={howManyPlayer} loginPlayerId={loginPlayerId} loginPlayerNum={loginPlayerNum} loginPlayerNickname={loginPlayerNickname} /> */}
-              <button className="GameStart" onClick={GameStart}>Game Start</button>
-    </div>
-   );
+  setButton2Color1('#FA5858');
+  location.push('/game');
+
 }
  return(
  <div>
