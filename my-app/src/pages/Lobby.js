@@ -51,7 +51,7 @@ function Lobby(){
         event.preventDefault();
         navigate("/WaitingRoom1");
         }
-    
+
     function handleClick1(event) {
         setCount1(count1 + 1);
         setColor1(colors[count1 % colors.length]);
@@ -78,7 +78,7 @@ function Lobby(){
     }
 
  function moveClick1(event){
-       const button = document.getElementById('countButton6');
+       const button = document.getElementById('countButton1');
        if(button){
         button.click();
        }
@@ -121,32 +121,12 @@ function Lobby(){
         <div>
             <h1 className="LobbyTitle"><button className="fabicon img"></button> Welcome to the Coup!</h1>
                  {/* 꼭 버튼을 누르는데 사용할 필요 없다. 이런식으로 h1으로 안되는 이미지 같은것도 button임 */}
-              
-                     <h3 className="SubTitle1">원하는 인원수를 선택하세요
-                        <select
-                            value={howManyPlayer} // 현재 선택한 값을 표시
-                            onChange={(e) => setHowManyPlayer(parseInt(e.target.value))} // 선택한 값을 저장
-                        >
-                            {[...Array(5)].map((_, i) => (
-                                <option key={i + 2} value={i + 2}>{i + 2}인방</option>
-                            ))}
-                        </select></h3><br />
-                    <h3 className="SubTitle2">자신의 위치를 선택하세요
-                        <select
-                            value={loginPlayerNum}
-                            onChange={(ev) => setLoginPlayerNum(parseInt(ev.target.value))}
-                        >
-                            {[...Array(6)].map((_, i) => (
-                                <option key={i + 1} value={i + 1}>{i + 1}번</option>
-                            ))}
-                        </select></h3> 
+
                     <ToGame navigate={navigate} howManyPlayer={howManyPlayer} loginPlayerId={loginPlayerId} loginPlayerNum={loginPlayerNum} loginPlayerNickname={loginPlayerNickname} />
                     {/* <button className="GameStart" onClick={GameStart}>Game Start</button> */}
                     <button className="Exit" onClick={Exit}>Exit</button>
                     <button className="imgdoor" onClick={LoginBtn}>로그아웃</button>
                     <button className="Setting" onClick={LoginBtn}>환경설정</button>
-                    <button onClick={WaitingRoom1}>대합실로 이동</button>
-                    {/* <button onClick={addRow}>방 만들기</button> */}
 
         <table>
             <tbody>
