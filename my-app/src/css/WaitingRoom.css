@@ -84,3 +84,10 @@
     border-color:white;
   
 }
+
+.rectangle{
+    position: absolute;
+    border-color: green;
+   
+    margin-left: 200px;
+   }
