@@ -35,7 +35,7 @@ function ChatWindows(props) {
             {/* 채팅 목록 */}
             <div className={styles.chatcontainer} >
                 {
-                    chatLog.reduce((item, index) => (
+                    chatLog.map((item, index) => (
                         <div className="text" key={index+1}>
                             {/* <strong>{item.name}:</strong> {item.message} */}
                             <strong>{loginPlayerNickname}:</strong> {item.message}

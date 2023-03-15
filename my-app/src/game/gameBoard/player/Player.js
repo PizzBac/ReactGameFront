@@ -8,15 +8,15 @@ function Player(props) {
   function CreatePlayers() {
     const players = [];
     for (let i = 0; i < howManyPlayer; i++) {
-      let name = `플레이어 ${i + 1}의 닉네임`;
+      let nickName = `플레이어 ${i + 1}의 닉네임`;
       if (i + 1 === loginPlayerNumber) {
-        name = loginPlayerNickname;
+        nickName = loginPlayerNickname;
       }
       players.push({
         table: "룸에서 입장할 때 전달받아야 하는 값",
         player: {
           id: i + 1,
-          name,
+          nickName,
           hand: [],
           coins: 2,
           myTurn: false,
@@ -58,7 +58,7 @@ function Player(props) {
       {players.map((player) => (
         <div key={player.player.id} className={`player player${player.player.id} ${activate === true ? "active" : ""}`}>
           <div className={`cardSet ${activate === true ? "active" : ""}`}>
-            <p className={`card-p${player.player.id} playerId ${activate === true ? "active" : ""}`}># {player.player.name}</p>
+            <p className={`card-p${player.player.id} playerId ${activate === true ? "active" : ""}`}># {player.player.nickName}</p>
             <Card player={player.player} activate={activate} loginPlayerNumber={loginPlayerNumber} />
           </div>
           <Coin player={player.player} activate={activate} />

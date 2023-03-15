@@ -25,7 +25,9 @@ function Turn(props) {
     }
 
     // 플레이어 1부터 시작. 무조건 시작될 때 렌더링 필요.
-    players[currentPlayer].player.myTurn = true;
+    useEffect(() => {
+        players[currentPlayer].player.myTurn = true;
+    }, [currentPlayer]);
 
     function StartTurn() {
         console.log("턴 시작" + currentPlayer);
@@ -106,9 +108,10 @@ function Turn(props) {
         // 하나하나 반복하는 과정이 아니라 전체 플레이어 모두에게 UI로 화면 띄우는 기능 필요
         // 플레이어 중 방해를 원하는 플레이어가 있으면 setIsObstructed(Prev => !prev) 설정
         // 현재 턴인 플레이어는 방해할 수 없도록 해야 함
-        const checkObstruct = window.prompt(
-            
+        const checkObstruct = window.confirm(
+            `${players[currentPlayer].player.nickName}님이 해외 원조를 받으려고 합니다. 방해하시겠습니까? (방해 가능 직업 : 공작)`
         );
+
 
         if (isObstructed) {
             // 여기서 player.buttonPressedTime 세팅 필요
@@ -167,12 +170,12 @@ function Turn(props) {
         //     if (i === currentPlayer || player.coins === 0) {
         //         continue;
         //     }
-        //     stealAvailable.push({ index: i, name: player.name });
+        //     stealAvailable.push({ index: i, nickName: player.nickName });
         // }
 
         // 상대방 선택 UI
         // const opponentIndex = window.prompt(
-        //     stealAvailable.map((p) => `${p.index + 1}. ${p.name}`).join('\n') + '\n\n강탈할 상대방 번호를 입력해주세요. (1~' + stealAvailable.length + ')'
+        //     stealAvailable.map((p) => `${p.index + 1}. ${p.nickName}`).join('\n') + '\n\n강탈할 상대방 번호를 입력해주세요. (1~' + stealAvailable.length + ')'
         // );
 
         // if (opponentIndex === null) {
