@@ -12,7 +12,9 @@
     "react-modal": "^3.16.1",
     "react-progress-simple": "^1.0.4",
     "react-router-dom": "^6.8.2",
+    "react-stomp-hooks": "^2.1.0",
     "react-table": "^7.8.0",
+    "stompjs": "^2.3.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
