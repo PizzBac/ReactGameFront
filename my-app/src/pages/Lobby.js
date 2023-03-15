@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import '../css/Lobby.css';
 import { useState, useEffect } from "react";
 import { ToGame } from "../Navigation";
+import WaitingRoom from "./WaitingRoom";
 
 function User({ user }) {
     const [count, setCount] = useState(0);
@@ -62,7 +63,7 @@ function User({ user }) {
             <thead>
                <tr><td className="tdFirst">{user.name}번방</td>
               <td className="tdSecond">
-                <button style={{ backgroundColor:color}} onClick={handleClick}>
+                <button style={{ backgroundColor:color}}  onClick={()=>{handleClick(); WaitingRoom();}}>
                     <p className="tdSecond">{count}/6명</p></button></td></tr>
             </thead>
                 <tbody>
@@ -160,3 +161,4 @@ function UserList() {
 }
 
 export default UserList;
+

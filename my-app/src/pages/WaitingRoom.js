@@ -31,14 +31,19 @@ function WaitingRoom(){
          event.preventDefault();
          navigate("/game"); //이거 누르면 게임으로 가야함. 이거는 아까 형민이형이 알려준 코드 활용해서 보내야해.
          }
-
+      
       }
 return(
+
+
+
  <div>
+
+
    <button className="readyButton1" 
    onClick={handleClick} style={{backgroundColor:buttonColor}}>{buttonText}
-   </button>
 
+   </button>
 
    <button className="readyButton2" 
    onClick={handleClick} style={{backgroundColor:buttonColor}}>{buttonText}
@@ -64,6 +69,7 @@ return(
  onClick={handleOtherButtonClick} disabled={!ready}
   style={{ backgroundColor:button2Color}}>{button2Text}
  </button>
+
  </div>
  
  
@@ -84,6 +90,6 @@ return(
 //      </svg>
 //    );
 //  }
-}
 
+}
 export default WaitingRoom;
