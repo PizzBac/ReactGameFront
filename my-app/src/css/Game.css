@@ -198,7 +198,7 @@
   width: 500px;
   height: 100px;
   top:32%;
-  left: 48%;
+  left: 55%;
 
 }
 /* .console ul li {
@@ -250,7 +250,7 @@
 .chatBox {
   position: relative;
   width: 50vmin;
-  height: 65vmin;
+  height: 35vmin;
   top: 5vmin;
   background-color: white;
   border-radius: 10%;

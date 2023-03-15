@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from "../../css/TestBoard.module.css";
 import { FaPaperPlane } from "react-icons/fa";
+import ScrollToTop from '../scrollTop';
 // import SockJs from 'sockjs-client';
 
 function ChatWindows(props) {
@@ -29,12 +30,13 @@ function ChatWindows(props) {
     };
 
     return (
+        <ScrollToTop>
         <div className={styles.chatWrapper}>
             {/* 채팅 목록 */}
             <div className={styles.chatcontainer} >
                 {
-                    chatLog.map((item, index) => (
-                        <div className="text" key={index}>
+                    chatLog.reduce((item, index) => (
+                        <div className="text" key={index+1}>
                             {/* <strong>{item.name}:</strong> {item.message} */}
                             <strong>{loginPlayerNickname}:</strong> {item.message}
                         </div>
@@ -65,7 +67,10 @@ function ChatWindows(props) {
                 </label>
             </form>
         </div>
+        </ScrollToTop>
     );
 }
 
 export default ChatWindows;
+
+
