@@ -19,10 +19,13 @@ function Player(props) {
           nickName,
           hand: [],
           coins: 2,
+          isLogin: false,
           myTurn: false,
           actionType: "대기",
           isDoubt: false,
+          doubtButtonPressedTime: Infinity,
           isObstructing: false,
+          obstructButtonPressedTime: Infinity,
           isBluffing: false,
           isOut: false,
         }
@@ -32,8 +35,11 @@ function Player(props) {
   }
   
   // 값 저장
-  function savePlayersData(players) {
+  function savePlayersData(players, turn, action, obstructingPlayer) {
     localStorage.setItem('players', JSON.stringify(players));
+    localStorage.setItem('turn', turn.toString());
+    localStorage.setItem('action', action);
+    localStorage.setItem('obstructingPlayer', obstructingPlayer);
   }
 
   // 값을 불러오는 함수
@@ -45,13 +51,13 @@ function Player(props) {
   let players = loadPlayersData();
   if (!players) {
     players = CreatePlayers();
-    DistributeCards(players);
+    players = DistributeCards(players);
+    const turn = 0;
+    const action = null;
+    const obstructingPlayer = null;
+    savePlayersData(players, turn, action, obstructingPlayer);
+    players = loadPlayersData();
   }
-
-  console.log("Player.js - 플레이어 정보");
-  console.log(players);
-
-  savePlayersData(players);
 
   return (
     <div>
@@ -64,7 +70,7 @@ function Player(props) {
           <Coin player={player.player} activate={activate} />
         </div>
       ))}
-      <Turn players={players} howManyPlayer={players.length} />
+      <Turn howManyPlayer={players.length} />
     </div>
   )
 }
