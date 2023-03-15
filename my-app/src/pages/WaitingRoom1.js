@@ -1,11 +1,14 @@
-import React,{ useState, useEffect } from "react";
+import React from "react";
 import '../css/WaitingRoom.css';
-import { useLocation, useNavigate } from "react-router-dom";
-import { ToGame } from "../Navigation"
+import {useLocation, useNavigate } from "react-router-dom";
+import {ToGame} from "../Navigation"
+import { useState, useEffect } from "react";
+//export로 받을 때에는 {}를 써야 받아온다. 이거 안쓰고 그냥 ToGame 이러면 undefined 취급받음.
+
+
+
 function WaitingRoom1(props){
-
-   const navigate=useNavigate();
-
+   
     const [buttonText1,setButtonText1]= useState('준비');
     const [button2Text1, setButton2Text1]= useState('준비완료')
     const [buttonColor1, setButtonColor1]= useState('#40FF00');
@@ -40,6 +43,13 @@ function WaitingRoom1(props){
     const [button2Text6, setButton2Text6]= useState('준비완료')
     const [buttonColor6, setButtonColor6]= useState('#40FF00');
     const [button2Color6, setButton2Color6]= useState('pink');
+ 
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [howManyPlayer, setHowManyPlayer] = useState(6);
+    const [loginPlayerNum, setLoginPlayerNum] = useState(2);
+   //  const {loginPlayerId, loginPlayerNickname } = location.state;
+    //얘가 반환해주는 함수임. 아무것도 반환값이 없으면 undefined가 default 값이어서 화면이 백지로 뜸.
 
     const [ready1,setReady1] = useState(false);
     const [ready2,setReady2] = useState(false);
@@ -48,22 +58,12 @@ function WaitingRoom1(props){
     const [ready5,setReady5] = useState(false);
     const [ready6,setReady6] = useState(false);
 
-    const{activate, howManyPlayer,loginPlayerNumber, loginPlayerNickname}=props;
-
-      function CreatePlayers(){
-         const players=[];
-         for (let i = 0; i < howManyPlayer; i++) {
-            let nickName = `플레이어 ${i + 1}의 닉네임`;
-              if (i + 1 === loginPlayerNumber) {
-               nickName = loginPlayerNickname;
-               }
-      }
-   } 
-
-    function handleOtherButtonClick(event) {
+    function GameStart(event){
       event.preventDefault();
       navigate("/Game");
   }
+  
+    
  function handleClick1(){
     setButtonText1('준비완료')
     setButtonColor1('skyblue');
@@ -89,28 +89,25 @@ function handleClick5(){
    setButtonColor5('skyblue');
    setReady5(true); //다른 버튼을 누를 준비가 완료되었다는 코드
 }
+
 function handleClick6(){
    setButtonText6('준비완료')
    setButtonColor6('skyblue');
    setReady6(true); //다른 버튼을 누를 준비가 완료되었다는 코드
 }
 
-      function handleOtherButtonClick(event){//얘가 바로 다른 버튼임.
-         setButton2Text1('게임시작')
-         setButton2Color1('#FA5858');
-         if(button2Text1 === '게임시작'){ //여기서 잘 옮기면 됨.
-            
-                 
-               } //이거 누르면 게임으로 가야함. 이거는 아까 형민이형이 알려준 코드 활용해서 보내야해.
-         
-      }
-return(
-
-
-
+function handleOtherButtonClick(){//얘가 함수형 컴포넌트가 아니라 함수다.
+   setButton2Text1('게임시작')
+   setButton2Color1('#FA5858');
+   return(
+    <div>
+        {/* <ToGame navigate={navigate} howManyPlayer={howManyPlayer} loginPlayerId={loginPlayerId} loginPlayerNum={loginPlayerNum} loginPlayerNickname={loginPlayerNickname} /> */}
+              <button className="GameStart" onClick={GameStart}>Game Start</button>
+    </div>
+   );
+}
+ return(
  <div>
-
-
    <button className="readyButton1" 
    onClick={handleClick1} style={{backgroundColor:buttonColor1}}>{buttonText1}
    </button>
@@ -136,31 +133,11 @@ return(
    </button>
 
  <button className="startButton" 
- onClick={handleOtherButtonClick} disabled={!(ready1,ready2,ready3,ready4,ready5,ready6)}
+ onClick={handleOtherButtonClick} disabled={!(ready1,!ready2,ready3,ready4,ready5,ready6)}
   style={{ backgroundColor:button2Color1}}>{button2Text1}
-  
- </button>
+</button>  
 
  </div>
- 
- 
-
 );
-// function Square(props) {
-//    return (
-//      <svg width={props.width} height={props.height}>
-//        <rect
-//          x={0}
-//          y={0}
-//          width={props.width}
-//          height={props.height}
-//          stroke="black"
-//          strokeWidth="2"
-//          fill="none"
-//        />
-//      </svg>
-//    );
-//  }
-
 }
 export default WaitingRoom1;

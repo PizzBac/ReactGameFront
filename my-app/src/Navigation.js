@@ -39,7 +39,7 @@ export function GameToLobby({ navigate, loginPlayerId, loginPlayerNumber, loginP
     );
 }
 
-export function ToGame({ navigate, howManyPlayer, loginPlayerId, loginPlayerNum, loginPlayerNickname}) {
+export function ToGame({navigate, howManyPlayer, loginPlayerId, loginPlayerNum, loginPlayerNickname}) {
     function handleClick(event){
         event.preventDefault();
         localStorage.removeItem('players');
