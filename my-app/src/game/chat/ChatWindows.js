@@ -15,11 +15,11 @@ function ChatWindows(props) {
         messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }, [chatLog]);
 
-  function handleChangeMessage(event){
+    function handleChangeMessage(event) {
         setMessage(event.target.value);
     };
 
-  function handleSubmit(event){
+    function handleSubmit(event) {
         event.preventDefault();
         const newMessage = { message };
         setChatLog([...chatLog, newMessage]);

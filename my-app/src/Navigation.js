@@ -1,5 +1,5 @@
 export function ToSignUp( {navigate} ) {
-    const handleClick = (event) => {
+    function handleClick(event){
         event.preventDefault();
         navigate("/signUp");
     }
@@ -9,7 +9,7 @@ export function ToSignUp( {navigate} ) {
 }
 
 export function LoginToLobby({ navigate, loginPlayerId, loginPlayerNickname }) {
-    const handleClick = (event) => {
+    function handleClick(event){
         event.preventDefault();
         navigate('/Lobby', {
             state: {
@@ -24,7 +24,7 @@ export function LoginToLobby({ navigate, loginPlayerId, loginPlayerNickname }) {
 }
 
 export function GameToLobby({ navigate, loginPlayerId, loginPlayerNumber, loginPlayerNickname }) {
-    const handleClick = (event) => {
+   function handleClick(event){
         event.preventDefault();
         navigate('/Lobby', {
             state: {
@@ -40,7 +40,7 @@ export function GameToLobby({ navigate, loginPlayerId, loginPlayerNumber, loginP
 }
 
 export function ToGame({ navigate, howManyPlayer, loginPlayerId, loginPlayerNum, loginPlayerNickname}) {
-    const handleClick = (event) => {
+    function handleClick(event){
         event.preventDefault();
         localStorage.removeItem('players');
         navigate('/game', {
@@ -53,6 +53,6 @@ export function ToGame({ navigate, howManyPlayer, loginPlayerId, loginPlayerNum,
         });
     }
     return (
-        <button className="GameStart" onClick={handleClick}>게임 시작하기</button>
+        <button className="GameStart" onClick={handleClick}>Game Start</button>
     );
 }
