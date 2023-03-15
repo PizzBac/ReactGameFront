@@ -11,9 +11,10 @@ function ChatWindows(props) {
 
     const stompClient = useStompClient();
     useSubscription("/topic/chat/testlobbyname", (str) => {
-        const msg = JSON.parse(str.body);
-        const Jsonmsg = { message: str.body };
-        setChatLog([...chatLog, Jsonmsg]);
+        console.log(str.body);
+        const object = JSON.parse(str.body);
+
+        setChatLog([...chatLog, object.content]);
     });
 
     // 새로운 메시지가 추가될 때마다 자동으로 스크롤을 아래쪽으로 이동
@@ -52,7 +53,7 @@ function ChatWindows(props) {
                     chatLog.map((item, index) => (
                         <div className="text" key={index+1}>
                             {/* <strong>{item.name}:</strong> {item.message} */}
-                            <strong>{loginPlayerNickname}:</strong> {item.message}
+                            <strong>{item.sender}:</strong> {item.message}
                         </div>
                     ))
                 }
