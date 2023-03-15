@@ -130,7 +130,7 @@ function handleOtherButtonClick(){//얘가 함수형 컴포넌트가 아니라 �
    </button>
 
  <button className="startButton" 
- onClick={handleOtherButtonClick} disabled={!(ready1,!ready2,ready3,ready4,ready5,ready6)}
+ onClick={handleOtherButtonClick} disabled={!ready1 || !ready2 || !ready3 || !ready4 || !ready5 || !ready6}
   style={{ backgroundColor:button2Color1}}>{button2Text1}
 </button>  
 
