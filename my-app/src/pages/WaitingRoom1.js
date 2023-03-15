@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React,{ useState, useEffect } from "react";
 import '../css/WaitingRoom.css';
-
-function WaitingRoom1(){
+import { useLocation, useNavigate } from "react-router-dom";
+import { ToGame } from "../Navigation"
+function WaitingRoom1(props){
 
    const navigate=useNavigate();
 
@@ -48,7 +48,17 @@ function WaitingRoom1(){
     const [ready5,setReady5] = useState(false);
     const [ready6,setReady6] = useState(false);
 
-    
+    const{activate, howManyPlayer,loginPlayerNumber, loginPlayerNickname}=props;
+
+      function CreatePlayers(){
+         const players=[];
+         for (let i = 0; i < howManyPlayer; i++) {
+            let nickName = `플레이어 ${i + 1}의 닉네임`;
+              if (i + 1 === loginPlayerNumber) {
+               nickName = loginPlayerNickname;
+               }
+      }
+   } 
 
     function handleOtherButtonClick(event) {
       event.preventDefault();
@@ -88,11 +98,11 @@ function handleClick6(){
       function handleOtherButtonClick(event){//얘가 바로 다른 버튼임.
          setButton2Text1('게임시작')
          setButton2Color1('#FA5858');
-         if(button2Text1 === '게임시작'){
-         event.preventDefault();
-         navigate("/game"); //이거 누르면 게임으로 가야함. 이거는 아까 형민이형이 알려준 코드 활용해서 보내야해.
-         }
-      
+         if(button2Text1 === '게임시작'){ //여기서 잘 옮기면 됨.
+            
+                 
+               } //이거 누르면 게임으로 가야함. 이거는 아까 형민이형이 알려준 코드 활용해서 보내야해.
+         
       }
 return(
 

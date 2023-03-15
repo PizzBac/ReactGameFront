@@ -114,12 +114,15 @@ th{
   border: 3px solid black;
   padding: 50px;
   width: 200px;
+  border-collapse: collapse;
   border-radius: 300px;
 }
 
 td{
+  border-collapse: collapse;
   border: 2px solid black;
   padding: 50px;
+  border-radius: 300px;
   /* width: 650px; */
 
  
@@ -208,4 +211,11 @@ td{
   font-family:Georgia, 'Times New Roman', Times, serif;
   border-color:white;
   border-color: black;
+}
+
+table{
+  margin: 0 auto; /*수평 중앙 정렬*/
+  margin-top: 100px;
+  border-collapse: collapse;
+  border-radius: 10px;
 }

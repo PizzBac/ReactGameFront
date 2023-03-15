@@ -78,6 +78,10 @@ function Lobby(){
     }
 
  function moveClick1(event){
+       const button = document.getElementById('countButton6');
+       if(button){
+        button.click();
+       }
         event.preventDefault();
         navigate("/waitingRoom1");
     }
@@ -109,18 +113,14 @@ function Lobby(){
     }
 
     if (count1,count2,count3,count4,count5,count6 === 6) {
-        alert('방이 꽉 찼습니다.');
-    }
-
-    if (count1,count2,count3,count4,count5,count6 === 6) {
         (setColor1,setColor2,setColor3,setColor4,setColor5,setColor6)('red');
     }
 
 
     return(
         <div>
-            {/* <h1 className="LobbyTitle"><button className="fabicon img"></button> Welcome to the Coup!</h1>
-                {/* 꼭 버튼을 누르는데 사용할 필요 없다. 이런식으로 h1으로 안되는 이미지 같은것도 buttodmf}
+            <h1 className="LobbyTitle"><button className="fabicon img"></button> Welcome to the Coup!</h1>
+                 {/* 꼭 버튼을 누르는데 사용할 필요 없다. 이런식으로 h1으로 안되는 이미지 같은것도 button임 */}
               
                      <h3 className="SubTitle1">원하는 인원수를 선택하세요
                         <select
@@ -139,7 +139,7 @@ function Lobby(){
                             {[...Array(6)].map((_, i) => (
                                 <option key={i + 1} value={i + 1}>{i + 1}번</option>
                             ))}
-                        </select></h3> */}
+                        </select></h3> 
                     <ToGame navigate={navigate} howManyPlayer={howManyPlayer} loginPlayerId={loginPlayerId} loginPlayerNum={loginPlayerNum} loginPlayerNickname={loginPlayerNickname} />
                     {/* <button className="GameStart" onClick={GameStart}>Game Start</button> */}
                     <button className="Exit" onClick={Exit}>Exit</button>
@@ -150,7 +150,7 @@ function Lobby(){
 
         <table>
             <tbody>
-               <tr><td className="tdFirst">1번방</td><td className="tdSecond"><button className="button" style={{ backgroundColor:color1}} onClick={handleClick1} disabled={count1>=6}>{count1}/6</button><button onClick={moveClick1} className="WaitingRoomButton">입장</button></td></tr>
+               <tr><td className="tdFirst">1번방</td><td className="tdSecond"><button className="button" style={{ backgroundColor:color1}} onClick={handleClick1} disabled={count1>=6} id="countButton6">{count1}/6</button><button onClick={moveClick1} className="WaitingRoomButton">입장</button></td></tr>
                <tr><td className="tdFirst">2번방</td><td className="tdSecond"><button className="button" style={{ backgroundColor:color2}} onClick={handleClick2} disabled={count2>=6}>{count2}/6</button><button onClick={moveClick2} className="WaitingRoomButton">입장</button></td></tr>
                <tr><td className="tdFirst">3번방</td><td className="tdSecond"><button className="button" style={{ backgroundColor:color3}} onClick={handleClick3} disabled={count3>=6}>{count3}/6</button><button onClick={moveClick3} className="WaitingRoomButton">입장</button></td></tr>
                <tr><td className="tdFirst">4번방</td><td className="tdSecond"><button className="button" style={{ backgroundColor:color4}} onClick={handleClick4} disabled={count4>=6}>{count4}/6</button><button onClick={moveClick4} className="WaitingRoomButton">입장</button></td></tr>
