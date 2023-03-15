@@ -10,6 +10,7 @@ import ChatWindows from "./chat/ChatWindows";
 import Banker from './banker';
 // import Turn from './gameMechanism/Turn';
 import ScrollToTop from './scrollTop';
+import { StompSessionProvider } from 'react-stomp-hooks';
 
 function Game() {
 
@@ -31,6 +32,11 @@ function Game() {
 
   return (
     <ScrollToTop>
+    <StompSessionProvider url={'ws://javaspringbootcoupgamebackend-env.eba-2u3en2tr.ap-northeast-2.elasticbeanstalk.com/ws'}
+    debug={(str) => {
+      console.log(str);
+    }}
+    >
     <div className="page">
       <div className="gameHeader">
         <div className="lobbyButton">
@@ -64,6 +70,7 @@ function Game() {
         <ChatWindows loginPlayerId={loginPlayerId} loginPlayerNickname={loginPlayerNickname} />
       </div>
     </div >
+    </StompSessionProvider>
     </ScrollToTop>
   );
 }

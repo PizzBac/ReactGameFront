@@ -2,12 +2,20 @@ import React from 'react';
 import styles from "../../css/TestBoard.module.css";
 import { FaPaperPlane } from "react-icons/fa";
 import ScrollToTop from '../scrollTop';
-// import SockJs from 'sockjs-client';
+import { useSubscription, useStompClient } from 'react-stomp-hooks';
 
 function ChatWindows(props) {
     const { loginPlayerId, loginPlayerNickname } = props;
     const [message, setMessage] = React.useState("");
     const [chatLog, setChatLog] = React.useState([]);
+
+    const stompClient = useStompClient();
+    useSubscription("/topic/chat/testlobbyname", (str) => {
+        console.log(str.body);
+        const object = JSON.parse(str.body);
+
+        setChatLog([...chatLog, object.content]);
+    });
 
     // 새로운 메시지가 추가될 때마다 자동으로 스크롤을 아래쪽으로 이동
     const messagesEndRef = React.useRef(null);
@@ -19,13 +27,20 @@ function ChatWindows(props) {
         setMessage(event.target.value);
     };
 
+
     function handleSubmit(event) {
         event.preventDefault();
         const newMessage = { message };
-        setChatLog([...chatLog, newMessage]);
 
-        //소켓을 사용하여 서버에 메세지를 전송
-        // const socket= new SockJs('http://localhost:8080/chat');
+        if (stompClient) {
+            stompClient.publish({
+                destination: "/app/chat/testlobbyname",
+                body: JSON.stringify(newMessage.message)
+            });
+        } else {
+            console.log("stompClient is null");
+        }
+
         setMessage("");
     };
 
@@ -38,7 +53,7 @@ function ChatWindows(props) {
                     chatLog.map((item, index) => (
                         <div className="text" key={index+1}>
                             {/* <strong>{item.name}:</strong> {item.message} */}
-                            <strong>{loginPlayerNickname}:</strong> {item.message}
+                            <strong>{item.sender}:</strong> {item.message}
                         </div>
                     ))
                 }
