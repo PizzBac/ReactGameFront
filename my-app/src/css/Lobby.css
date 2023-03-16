@@ -18,7 +18,7 @@ width: 700px;
 .Exit{
   position: absolute;
   top:87.5%;
-  right: 15%;
+  right: 33%;
   border: 1px solid orange;
   background-color: red;
   border-radius: 10px;
@@ -68,19 +68,19 @@ width: 700px;
 
 .SubTitle1{
   position: absolute;
-  top:66%;
-  left: 5%;
+  top:22%;
+  left: 30%;
   font-size: 25px;
-  background-color: aqua;
+  /* background-color: aqua; */
 }
 
 
 .SubTitle2{
   position: absolute;
-  top: 66%;
-  left: 40%;
+  top: 22%;
+  left: 60%;
   font-size: 25px;
-  background-color: blueviolet;
+  /* background-color: blueviolet; */
 }
 
 
@@ -203,11 +203,11 @@ td{
 }
 
 .WaitingRoomButton{
-  width: 100px;
+  width: 1300px;
   height: 40px;
   margin-left: 30px;
   border-radius: 99px;
-  font-size: 25px;
+  font-size: 32px;
   font-family:Georgia, 'Times New Roman', Times, serif;
   border-color:white;
   border-color: black;
@@ -218,4 +218,26 @@ table{
   margin-top: 100px;
   border-collapse: collapse;
   border-radius: 10px;
+}
+
+.select1{
+  font-size: 30px; 
+  margin-top: 60px;
+  border-radius: 10px;
+  background-color: yellowgreen;
+}
+
+.select2{
+  font-size: 30px;
+  margin-top: 20px;
+  border-radius: 10px;
+  background-color: orange;
+}
+
+.select1 option:checked{
+  background-color:salmon
+}
+
+.select2 option:checked{
+  background-color: aqua;
 }

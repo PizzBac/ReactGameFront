@@ -1,5 +1,7 @@
 export function SaveDeckData(deck) {
     localStorage.setItem('deck', JSON.stringify(deck));
+    //deck은 배열이다. stringfy를 써서 string값으로 변환시켜줌.
+    //Card.js 에서 이미 배열로 만들어놨다.
 }
 
 export function LoadDeckData() {
