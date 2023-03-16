@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { cardImages, shuffleDeck } from '../gameBoard/player/card/Card';
 import { SaveDeckData, LoadDeckData, SaveTotalPlayersData, LoadTotalPlayersData, SavePlayersData, LoadPlayersData, SaveTurnData, LoadTurnData, SaveActionData, LoadActionData, SaveObstructingPlayer, LoadObstructingPlayer, SaveDoubtingPlayer, LoadDoubtingPlayer } from './ExchangeServerInfo';
-import { ActionButtonState, AfterSelectActionDisableActionButton } from './ActionButtonState';
+import { StartTurn } from './StartTurn';
+import { ActionButtonState, AfterSelectActionDisableActionButton } from './SelectAction';
 import { EndGame } from './EndGame';
 
 function Turn(props) {
@@ -38,33 +39,17 @@ function Turn(props) {
     let doubtingPlayer = LoadDoubtingPlayer();
 
     useEffect(() => {
-        StartTurn();
+        StartTurn(
+            incomeButtonDisabled, setIncomeButtonDisabled,
+            foreignAidButtonDisabled, setForeignAidButtonDisabled,
+            taxButtonDisabled, setTaxButtonDisabled,
+            exchangeButtonDisabled, setExchangeButtonDisabled,
+            stealButtonDisabled, setStealButtonDisabled,
+            assassinationButtonDisabled, setAssassinationButtonDisabled,
+            coupButtonDisabled, setCoupButtonDisabled,
+            players, turn,
+        );
     }, []);
-
-    function StartTurn() {
-        console.log((turn + 1) + "번 플레이어의 턴 시작");
-        players[turn].player.myTurn = !(players[turn].player.myTurn);
-        SavePlayersData(players);
-        players = LoadPlayersData();
-        return SelectAction();
-    }
-
-    function SelectAction() {
-        console.log((turn + 1) + "번 플레이어가 행동 선택 중");
-        const currentTurnPlayerCoin = players[turn].player.coins;
-
-        setIncomeButtonDisabled((prev) => !prev);
-        setForeignAidButtonDisabled((prev) => !prev);
-        // setTaxButtonDisabled((prev) => !prev);
-        // setExchangeButtonDisabled((prev) => !prev);
-        // setStealButtonDisabled((prev) => !prev);
-        if (currentTurnPlayerCoin >= 3) {
-            setAssassinationButtonDisabled((prev) => !prev);
-        }
-        // if (currentTurnPlayerCoin >= 7) {
-        //     setCoupButtonDisabled((prev) => !prev);
-        // }
-    }
 
     function Income() {
         console.log((turn + 1) + "번 플레이어가 소득 선택");
@@ -252,7 +237,16 @@ function Turn(props) {
         if (totalPlayers < 2) {
             EndGame();
         }
-        StartTurn();
+        StartTurn(
+            incomeButtonDisabled, setIncomeButtonDisabled,
+            foreignAidButtonDisabled, setForeignAidButtonDisabled,
+            taxButtonDisabled, setTaxButtonDisabled,
+            exchangeButtonDisabled, setExchangeButtonDisabled,
+            stealButtonDisabled, setStealButtonDisabled,
+            assassinationButtonDisabled, setAssassinationButtonDisabled,
+            coupButtonDisabled, setCoupButtonDisabled,
+            players, turn,
+        );
     }
 
     return (
