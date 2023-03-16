@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { cardImages, shuffleDeck } from '../gameBoard/player/card/Card';
 import { SaveDeckData, LoadDeckData, SaveTotalPlayersData, LoadTotalPlayersData, SavePlayersData, LoadPlayersData, SaveTurnData, LoadTurnData, SaveActionData, LoadActionData, SaveObstructingPlayer, LoadObstructingPlayer, SaveDoubtingPlayer, LoadDoubtingPlayer } from './ExchangeServerInfo';
+import { ActionButtonState, AfterSelectActionDisableActionButton } from './ActionButtonState';
+import { EndGame } from './EndGame';
 
 function Turn(props) {
     const { howManyPlayer } = props;
@@ -15,10 +17,15 @@ function Turn(props) {
     const [whoObstruct, setWhoObstruct] = useState(null);
     const [obstructTime, setObstructTime] = useState(Infinity);
 
-    const [startButtonDisabled, setStartButtonDisabled] = useState(false);
-    const [incomeButtonDisabled, setIncomeButtonDisabled] = useState(!false);
-    const [foreignAidButtonDisabled, setForeignAidButtonDisabled] = useState(!false);
-    const [assassinationButtonDisabled, setAssassinationButtonDisabled] = useState(!false);
+    const {
+        incomeButtonDisabled, setIncomeButtonDisabled,
+        foreignAidButtonDisabled, setForeignAidButtonDisabled,
+        taxButtonDisabled, setTaxButtonDisabled,
+        exchangeButtonDisabled, setExchangeButtonDisabled,
+        stealButtonDisabled, setStealButtonDisabled,
+        assassinationButtonDisabled, setAssassinationButtonDisabled,
+        coupButtonDisabled, setCoupButtonDisabled,
+    } = ActionButtonState();
 
     SaveTotalPlayersData(6);
 
@@ -34,47 +41,59 @@ function Turn(props) {
         StartTurn();
     }, []);
 
-    useEffect(() => {
-        return () => {
-            console.log(players);
-        }
-    }, [LoadPlayersData]);
-
     function StartTurn() {
+        console.log((turn + 1) + "번 플레이어의 턴 시작");
         players[turn].player.myTurn = !(players[turn].player.myTurn);
         SavePlayersData(players);
         players = LoadPlayersData();
-        console.log((turn + 1) + "번 플레이어의 턴 시작");
-        console.log(players);
         return SelectAction();
     }
 
-    // 행동 선택
     function SelectAction() {
+        console.log((turn + 1) + "번 플레이어가 행동 선택 중");
         const currentTurnPlayerCoin = players[turn].player.coins;
-        setStartButtonDisabled((prev) => !prev);
+
         setIncomeButtonDisabled((prev) => !prev);
         setForeignAidButtonDisabled((prev) => !prev);
+        // setTaxButtonDisabled((prev) => !prev);
+        // setExchangeButtonDisabled((prev) => !prev);
+        // setStealButtonDisabled((prev) => !prev);
         if (currentTurnPlayerCoin >= 3) {
             setAssassinationButtonDisabled((prev) => !prev);
         }
-
-        console.log((turn + 1) + "번 플레이어가 행동 선택 중");
-        console.log(players);
+        // if (currentTurnPlayerCoin >= 7) {
+        //     setCoupButtonDisabled((prev) => !prev);
+        // }
     }
 
     function Income() {
         console.log((turn + 1) + "번 플레이어가 소득 선택");
-        console.log(players);
-
+        AfterSelectActionDisableActionButton(
+            incomeButtonDisabled, setIncomeButtonDisabled,
+            foreignAidButtonDisabled, setForeignAidButtonDisabled,
+            taxButtonDisabled, setTaxButtonDisabled,
+            exchangeButtonDisabled, setExchangeButtonDisabled,
+            stealButtonDisabled, setStealButtonDisabled,
+            assassinationButtonDisabled, setAssassinationButtonDisabled,
+            coupButtonDisabled, setCoupButtonDisabled,
+        );
         action = "Income";
+        SaveActionData(action);
         players[turn].player.coins = players[turn].player.coins + 1;
         EndTurn();
     }
 
     function ForeignAid() {
         console.log((turn + 1) + "번 플레이어가 해외 원조 선택");
-        console.log(players);
+        AfterSelectActionDisableActionButton(
+            incomeButtonDisabled, setIncomeButtonDisabled,
+            foreignAidButtonDisabled, setForeignAidButtonDisabled,
+            taxButtonDisabled, setTaxButtonDisabled,
+            exchangeButtonDisabled, setExchangeButtonDisabled,
+            stealButtonDisabled, setStealButtonDisabled,
+            assassinationButtonDisabled, setAssassinationButtonDisabled,
+            coupButtonDisabled, setCoupButtonDisabled,
+        );
         action = "ForeignAid";
         SaveActionData(action);
 
@@ -100,6 +119,7 @@ function Turn(props) {
     }
 
     function IsObstruction() {
+        console.log("방해");
         if (action === "ForeignAid") {
             // 브로드캐스팅
             if (players[loginPlayer].player.obstructButtonPressedTime < obstructTime) {
@@ -110,9 +130,7 @@ function Turn(props) {
                 SaveObstructingPlayer(obstructingPlayer);
                 obstructingPlayer = LoadObstructingPlayer();
             }
-
             console.log(`${obstructingPlayer.nickName}` + "님이 방해 시도");
-            console.log(players);
             IsDoubt();
         } else if (action === "Tax") {
 
@@ -126,6 +144,7 @@ function Turn(props) {
     }
 
     function IsDoubt() {
+        console.log("의심");
         if (action === "ForeignAid") {
             const checkDoubt = window.confirm(
                 `${obstructingPlayer.nickName}님이 해외 원조를 막으려고 합니다. ${obstructingPlayer.nickName}님이 공작이라는 것을 의심하시겠습니까?`
@@ -152,6 +171,7 @@ function Turn(props) {
     }
 
     function CheckBluff() {
+        console.log("블러핑 체크");
         if (action === "ForeignAid") {
             // 브로드캐스팅
             if (players[loginPlayer].player.doubtButtonPressedTime < doubtTime) {
@@ -161,8 +181,8 @@ function Turn(props) {
                 doubtingPlayer = LoadDoubtingPlayer();
             }
 
-            const hasDuke = false;
-            obstructingPlayer.player.hand.forEach((card) => {
+            let hasDuke = false;
+            obstructingPlayer.hand.forEach((card) => {
                 if (card.type === "duke") {
                     hasDuke = true;
                 }
@@ -181,7 +201,7 @@ function Turn(props) {
                 const checkNotOpenedHands = doubtingPlayer.hand.filter((card) => card.isOpen === false).length;
 
                 if (checkNotOpenedHands === 2) {
-                    // doubtingPlayer가 자신의 hand에서 isOpen = true로 바꿀 카드를 선택할 수 있도록 함
+                    // doubtingPlayer가 자신의 hand에서 isOpen = true로 바꿀 카드를 선택할 수 있도록 해야 함
                     const closedHandIndex = Math.floor(Math.random() * 2);
                     doubtingPlayer.hand[closedHandIndex].isOpen = true;
                 } else if (checkNotOpenedHands === 1) {
@@ -196,7 +216,7 @@ function Turn(props) {
                 SaveDeckData(deck);
                 EndTurn();
             } else {
-                obstructingPlayer.player.hand.forEach((card) => {
+                obstructingPlayer.hand.forEach((card) => {
                     if (card.type === "duke") {
                         card.isOpen = true;
                     }
@@ -215,20 +235,13 @@ function Turn(props) {
         }
     }
 
-    function OpenCard() {
-
-    }
-
-    function ExchangeCard() {
-
-    }
-
     function Assassination() {
         console.log("암살");
         EndTurn();
     }
 
     function EndTurn() {
+        console.log("턴 종료");
         players[turn].player.myTurn = !(players[turn].player.myTurn);
         turn = (turn + 1) % howManyPlayer;
         SavePlayersData(players);
@@ -236,36 +249,18 @@ function Turn(props) {
         SaveTurnData(turn);
         turn = LoadTurnData();
 
-        setStartButtonDisabled((prev) => !prev);
-        setIncomeButtonDisabled((prev) => !prev);
-        setForeignAidButtonDisabled((prev) => !prev);
-        if (assassinationButtonDisabled === false) {
-            setAssassinationButtonDisabled((prev) => !prev);
-        }
-
-        // 플레이어 남은 카드 장수 확인 필요
-
         if (totalPlayers < 2) {
             EndGame();
         }
         StartTurn();
     }
 
-    function EndGame() {
-        console.log("게임 종료");
-    }
-
     return (
         <div>
             <div style={{ position: 'absolute', backgroundColor: '#FFFFFF', right: 30, bottom: 30, height: 30 }}>
-                <button id="startTurn" onClick={StartTurn} disabled={startButtonDisabled}>턴시작</button>
                 <button id="income" onClick={Income} disabled={incomeButtonDisabled}>소득</button>
                 <button id="foreignAid" onClick={ForeignAid} disabled={foreignAidButtonDisabled}>해외원조</button>
                 <button id="assassination" onClick={Assassination} disabled={assassinationButtonDisabled}>암살</button>
-                <button id="obstruction" onClick={IsObstruction}>방해</button>
-                <button id="doubt" onClick={IsDoubt}>의심</button>
-                {/* <button id="endTurn" onClick={EndTurn}>턴종료</button> */}
-                <button id="endGame" onClick={EndGame}>게임종료</button>
             </div>
         </div>
     )
