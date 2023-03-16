@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { cardImages, shuffleDeck } from '../gameBoard/player/card/Card';
+import { SaveDeckData, LoadDeckData, SaveTotalPlayersData, LoadTotalPlayersData, SavePlayersData, LoadPlayersData, SaveTurnData, LoadTurnData, SaveActionData, LoadActionData, SaveObstructingPlayer, LoadObstructingPlayer, SaveDoubtingPlayer, LoadDoubtingPlayer } from './ExchangeServerInfo';
 
 function Turn(props) {
     const { howManyPlayer } = props;
@@ -8,8 +10,8 @@ function Turn(props) {
 
     const [yesDoubt, setYesDoubt] = useState(false);
     const [whoDoubt, setWhoDoubt] = useState(null);
+    const [doubtTime, setDoubtTime] = useState(Infinity);
 
-    const [yesObstruct, setYesObstruct] = useState(false);
     const [whoObstruct, setWhoObstruct] = useState(null);
     const [obstructTime, setObstructTime] = useState(Infinity);
 
@@ -18,68 +20,33 @@ function Turn(props) {
     const [foreignAidButtonDisabled, setForeignAidButtonDisabled] = useState(!false);
     const [assassinationButtonDisabled, setAssassinationButtonDisabled] = useState(!false);
 
-    function savePlayersData(players) {
-        localStorage.setItem('players', JSON.stringify(players));
-    }
-    function loadPlayersData() {
-        const players = localStorage.getItem('players');
-        return players ? JSON.parse(players) : null;
-    }
+    SaveTotalPlayersData(6);
 
-    function saveTurnData(turn) {
-        localStorage.setItem('turn', turn.toString());
-    }
-    function loadTurnData() {
-        let turn = localStorage.getItem('turn');
-        turn = turn ? parseInt(turn) : 0;
-        return turn;
-    }
-
-    function saveActionData(action) {
-        localStorage.setItem('action', action);
-    }
-    function loadActionData() {
-        let action = localStorage.getItem('action');
-        action = action ? action : null;
-        return turn;
-    }
-
-    function saveObstructingPlayer(obstructingPlayer) {
-        localStorage.setItem('obstructingPlayer', obstructingPlayer);
-    }
-    function loadObstructingPlayer() {
-        let obstructingPlayer = localStorage.getItem('obstructingPlayer');
-        obstructingPlayer = obstructingPlayer ? obstructingPlayer : null;
-        return obstructingPlayer;
-    }
-
-    let players = loadPlayersData();
-    let turn = loadTurnData();
-    let action = loadActionData();
-    let obstructingPlayer = loadObstructingPlayer();
+    let deck = LoadDeckData();
+    let totalPlayers = LoadTotalPlayersData();
+    let players = LoadPlayersData();
+    let turn = LoadTurnData();
+    let action = LoadActionData();
+    let obstructingPlayer = LoadObstructingPlayer();
+    let doubtingPlayer = LoadDoubtingPlayer();
 
     useEffect(() => {
         StartTurn();
     }, []);
 
     useEffect(() => {
-        savePlayersData(players);
-        players = loadPlayersData();
-        saveTurnData(turn);
-        turn = loadTurnData();
-        saveActionData(action);
-        action = loadActionData();
-        saveObstructingPlayer(obstructingPlayer);
-        obstructingPlayer = loadObstructingPlayer();
-    });
+        return () => {
+            console.log(players);
+        }
+    }, [LoadPlayersData]);
 
     function StartTurn() {
-        console.log(players);
-        console.log((turn + 1) + "번 플레이어의 턴 시작");
         players[turn].player.myTurn = !(players[turn].player.myTurn);
-        savePlayersData(players);
-        players = loadPlayersData();
-        SelectAction();
+        SavePlayersData(players);
+        players = LoadPlayersData();
+        console.log((turn + 1) + "번 플레이어의 턴 시작");
+        console.log(players);
+        return SelectAction();
     }
 
     // 행동 선택
@@ -91,10 +58,15 @@ function Turn(props) {
         if (currentTurnPlayerCoin >= 3) {
             setAssassinationButtonDisabled((prev) => !prev);
         }
+
+        console.log((turn + 1) + "번 플레이어가 행동 선택 중");
+        console.log(players);
     }
 
     function Income() {
         console.log((turn + 1) + "번 플레이어가 소득 선택");
+        console.log(players);
+
         action = "Income";
         players[turn].player.coins = players[turn].player.coins + 1;
         EndTurn();
@@ -102,23 +74,25 @@ function Turn(props) {
 
     function ForeignAid() {
         console.log((turn + 1) + "번 플레이어가 해외 원조 선택");
+        console.log(players);
         action = "ForeignAid";
+        SaveActionData(action);
 
         // 현재 턴인 플레이어 제외한 다른 플레이어들에게 UI로 화면 띄우는 기능 필요
         // 서버에서 브로드캐스팅해야 함
-        const startTime = new Date().getTime();
-        const checkObstruct = window.confirm(
-            `${players[turn].player.nickName}님이 해외 원조를 받으려고 합니다. 방해하시겠습니까? (방해 가능 직업 : 공작)`
-        );
-        const endTime = new Date().getTime();
-        const buttonPressedTime = endTime - startTime;
+        let checkObstruct = false;
+        if (players[loginPlayer].player.myTurn === false) {
+            checkObstruct = window.confirm(
+                `${players[turn].player.nickName}님이 해외 원조를 받으려고 합니다. 방해하시겠습니까? (방해 가능 직업 : 공작)`
+            );
+        }
+        const obstructButtonPressedTime = new Date().getTime();
+
         if (checkObstruct) {
-            players[loginPlayer].player.obstructButtonPressedTime = buttonPressedTime;
-            savePlayersData(players);
-            players = loadPlayersData();
-            setYesObstruct(prev => !prev);
+            players[loginPlayer].player.obstructButtonPressedTime = obstructButtonPressedTime;
+            SavePlayersData(players);
+            players = LoadPlayersData();
             IsObstruction();
-            console.log("의심");
         } else {
             players[turn].player.coins = players[turn].player.coins + 2;
             EndTurn();
@@ -128,14 +102,17 @@ function Turn(props) {
     function IsObstruction() {
         if (action === "ForeignAid") {
             // 브로드캐스팅
-            for (const player of players) {
-                if (player.buttonPressedTime < obstructTime) {
-                    player.isObstructing = true;
-                    obstructingPlayer = player;
-                    saveObstructingPlayer(obstructingPlayer);
-                    obstructingPlayer = loadObstructingPlayer();
-                }
+            if (players[loginPlayer].player.obstructButtonPressedTime < obstructTime) {
+                players[loginPlayer].player.isObstructing = true;
+                SavePlayersData(players);
+                players = LoadPlayersData();
+                obstructingPlayer = players[loginPlayer].player;
+                SaveObstructingPlayer(obstructingPlayer);
+                obstructingPlayer = LoadObstructingPlayer();
             }
+
+            console.log(`${obstructingPlayer.nickName}` + "님이 방해 시도");
+            console.log(players);
             IsDoubt();
         } else if (action === "Tax") {
 
@@ -151,15 +128,18 @@ function Turn(props) {
     function IsDoubt() {
         if (action === "ForeignAid") {
             const checkDoubt = window.confirm(
-                `${obstructingPlayer.nickName}님이 해외 원조를 막으려고 합니다. 의심하시겠습니까? (해외 원조 방해 가능 직업 : 공작)`
+                `${obstructingPlayer.nickName}님이 해외 원조를 막으려고 합니다. ${obstructingPlayer.nickName}님이 공작이라는 것을 의심하시겠습니까?`
             );
+            const doubtButtonPressedTime = new Date().getTime();
 
-            for (const player of players) {
-                if (checkDoubt === true) {
-                    player.player.buttonPressedTime = new Date().getTime();
-                    setYesDoubt(prev => !prev);
-                }
-            };
+            if (checkDoubt) {
+                players[loginPlayer].player.doubtButtonPressedTime = doubtButtonPressedTime;
+                SavePlayersData(players);
+                players = LoadPlayersData();
+                CheckBluff();
+            } else {
+                EndTurn();
+            }
         } else if (action === "Tax") {
 
         } else if (action === "Exchange") {
@@ -169,10 +149,78 @@ function Turn(props) {
         } else if (action === "Assassination") {
 
         }
-        // 누가 먼저 의심했는지 확인 필요
-        if ("bluff") {
+    }
+
+    function CheckBluff() {
+        if (action === "ForeignAid") {
+            // 브로드캐스팅
+            if (players[loginPlayer].player.doubtButtonPressedTime < doubtTime) {
+                players[loginPlayer].player.isDoubt = true;
+                doubtingPlayer = players[loginPlayer].player;
+                SaveDoubtingPlayer(doubtingPlayer);
+                doubtingPlayer = LoadDoubtingPlayer();
+            }
+
+            const hasDuke = false;
+            obstructingPlayer.player.hand.forEach((card) => {
+                if (card.type === "duke") {
+                    hasDuke = true;
+                }
+            });
+
+            if (hasDuke) {
+                let obstructingPlayerDukeIndex = obstructingPlayer.hand.findIndex(card => card.type === "duke");
+                obstructingPlayer.hand[obstructingPlayerDukeIndex] = {
+                    type: deck.pop(),
+                    image: cardImages[deck[deck.length - 1]],
+                    isOpen: false,
+                };
+                deck.push("duke");
+                shuffleDeck(deck);
+
+                const checkNotOpenedHands = doubtingPlayer.hand.filter((card) => card.isOpen === false).length;
+
+                if (checkNotOpenedHands === 2) {
+                    // doubtingPlayer가 자신의 hand에서 isOpen = true로 바꿀 카드를 선택할 수 있도록 함
+                    const closedHandIndex = Math.floor(Math.random() * 2);
+                    doubtingPlayer.hand[closedHandIndex].isOpen = true;
+                } else if (checkNotOpenedHands === 1) {
+                    const closedHandIndex = doubtingPlayer.hand.findIndex((card) => card.isOpen === false);
+                    doubtingPlayer.hand[closedHandIndex].isOpen = true;
+                    doubtingPlayer.isOut = true;
+                    SaveDoubtingPlayer(doubtingPlayer);
+                    SaveTotalPlayersData(totalPlayers - 1);
+                }
+
+                SavePlayersData(players);
+                SaveDeckData(deck);
+                EndTurn();
+            } else {
+                obstructingPlayer.player.hand.forEach((card) => {
+                    if (card.type === "duke") {
+                        card.isOpen = true;
+                    }
+                });
+                players[turn].player.coins = players[turn].player.coins + 2;
+                EndTurn();
+            }
+        } else if (action === "Tax") {
+
+        } else if (action === "Exchange") {
+
+        } else if (action === "Steal") {
+
+        } else if (action === "Assassination") {
 
         }
+    }
+
+    function OpenCard() {
+
+    }
+
+    function ExchangeCard() {
+
     }
 
     function Assassination() {
@@ -183,10 +231,10 @@ function Turn(props) {
     function EndTurn() {
         players[turn].player.myTurn = !(players[turn].player.myTurn);
         turn = (turn + 1) % howManyPlayer;
-        savePlayersData(players);
-        players = loadPlayersData();
-        saveTurnData(turn);
-        turn = loadTurnData();
+        SavePlayersData(players);
+        players = LoadPlayersData();
+        SaveTurnData(turn);
+        turn = LoadTurnData();
 
         setStartButtonDisabled((prev) => !prev);
         setIncomeButtonDisabled((prev) => !prev);
@@ -195,7 +243,9 @@ function Turn(props) {
             setAssassinationButtonDisabled((prev) => !prev);
         }
 
-        if (howManyPlayer < 2) {
+        // 플레이어 남은 카드 장수 확인 필요
+
+        if (totalPlayers < 2) {
             EndGame();
         }
         StartTurn();

@@ -1,9 +1,11 @@
 import { DistributeCards, Card } from './card/Card';
 import Coin from './coin/Coin';
 import Turn from '../../gameMechanism/Turn';
+import { useState } from 'react';
 
 function Player(props) {
   const { activate, howManyPlayer, loginPlayerNumber, loginPlayerNickname } = props;
+  const [playersData, setPlayersData] = useState();
 
   function CreatePlayers() {
     const players = [];
@@ -15,7 +17,7 @@ function Player(props) {
       players.push({
         table: "룸에서 입장할 때 전달받아야 하는 값",
         player: {
-          id: i + 1,
+          id: i,
           nickName,
           hand: [],
           coins: 2,
@@ -33,13 +35,14 @@ function Player(props) {
     }
     return players;
   }
-  
+
   // 값 저장
-  function savePlayersData(players, turn, action, obstructingPlayer) {
+  function savePlayersData(players, turn, action, obstructingPlayer, doubtingPlayer) {
     localStorage.setItem('players', JSON.stringify(players));
     localStorage.setItem('turn', turn.toString());
     localStorage.setItem('action', action);
     localStorage.setItem('obstructingPlayer', obstructingPlayer);
+    localStorage.setItem('doubtingPlayer', doubtingPlayer);
   }
 
   // 값을 불러오는 함수
@@ -55,9 +58,14 @@ function Player(props) {
     const turn = 0;
     const action = null;
     const obstructingPlayer = null;
-    savePlayersData(players, turn, action, obstructingPlayer);
+    const doubtingPlayer = null;
+    savePlayersData(players, turn, action, obstructingPlayer, doubtingPlayer);
     players = loadPlayersData();
   }
+
+  // function LoadPlayersData(newPlayersData) {
+  //   setPlayersData(newPlayersData);
+  // }
 
   return (
     <div>
@@ -71,6 +79,7 @@ function Player(props) {
         </div>
       ))}
       <Turn howManyPlayer={players.length} />
+      {/* {playersData ? (<Turn howManyPlayer={players.length} LoadPlayersData={LoadPlayersData}/>) : (<div>loading</div>)} */}
     </div>
   )
 }
