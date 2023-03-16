@@ -128,7 +128,7 @@ function handleOtherButtonClick(event){//얘가 함수형 컴포넌트가 아니
       setGameStart(true); // 모든 버튼들이 활성화되었을 때만 게임스타트가 가능하게 하는 코드 만드는 중
     }
    setButton2Text1('게임시작')
-   setButton2Color1('#FA5858');
+   setButton2Color1('red');
    event.preventDefault();
    localStorage.removeItem('players');
    
