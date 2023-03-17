@@ -1,14 +1,14 @@
 import React from "react";
-import { useLocation, useNavigate} from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import '../css/Lobby.css';
 import { useState, useEffect } from "react";
 import { ToGame } from "../Navigation";
-import {WaitingRoom1} from "./WaitingRoom1";
-import {WaitingRoom2} from "./WaitingRoom2";
-import {WaitingRoom3} from "./WaitingRoom3";
-import {WaitingRoom4} from "./WaitingRoom4";
-import {WaitingRoom5} from "./WaitingRoom5";
-import {WaitingRoom6} from "./WaitingRoom6";
+import { WaitingRoom1 } from "./WaitingRoom1";
+import { WaitingRoom2 } from "./WaitingRoom2";
+import { WaitingRoom3 } from "./WaitingRoom3";
+import { WaitingRoom4 } from "./WaitingRoom4";
+import { WaitingRoom5 } from "./WaitingRoom5";
+import { WaitingRoom6 } from "./WaitingRoom6";
 import { withSubscription } from "react-stomp-hooks";
 import { ReactDOMServer } from "react";
 
@@ -80,98 +80,96 @@ function Lobby() {
     }
 
     function moveClick1(event) {
-        const userResponse1= window.confirm('1번방에 입장하시겠습니까?');
-        if(userResponse1){
+        const userResponse1 = window.confirm('1번방에 입장하시겠습니까?');
+        if (userResponse1) {
             event.preventDefault();
-        navigate('/WaitingRoom1', {
-            state: {
-                howManyPlayer: howManyPlayer,
-                loginPlayerId: loginPlayerId,
-                loginPlayerNum: loginPlayerNum,
-                loginPlayerNickname: loginPlayerNickname,
-            },
-        });
-    }else{
-    }  
+            navigate('/WaitingRoom1', {
+                state: {
+                    howManyPlayer: howManyPlayer,
+                    loginPlayerId: loginPlayerId,
+                    loginPlayerNum: loginPlayerNum,
+                    loginPlayerNickname: loginPlayerNickname,
+                },
+            });
+        } else {
+        }
     }
- 
+
     function moveClick2(event) {
-        const userResponse2= window.confirm('2번방에 입장하시겠습니까?');
-        if(userResponse2){
+        const userResponse2 = window.confirm('2번방에 입장하시겠습니까?');
+        if (userResponse2) {
             event.preventDefault();
-        navigate('/WaitingRoom2', {
-            state: {
-                howManyPlayer: howManyPlayer,
-                loginPlayerId: loginPlayerId,
-                loginPlayerNum: loginPlayerNum,
-                loginPlayerNickname: loginPlayerNickname,
-            },
-        });
-    }else{
-    }  
+            navigate('/WaitingRoom2', {
+                state: {
+                    howManyPlayer: howManyPlayer,
+                    loginPlayerId: loginPlayerId,
+                    loginPlayerNum: loginPlayerNum,
+                    loginPlayerNickname: loginPlayerNickname,
+                },
+            });
+        } else {
+        }
     }
     function moveClick3(event) {
-        const userResponse3= window.confirm('3번방에 입장하시겠습니까?');
-        if(userResponse3){
+        const userResponse3 = window.confirm('3번방에 입장하시겠습니까?');
+        if (userResponse3) {
             event.preventDefault();
-        navigate('/WaitingRoom3', {
-            state: {
-                howManyPlayer: howManyPlayer,
-                loginPlayerId: loginPlayerId,
-                loginPlayerNum: loginPlayerNum,
-                loginPlayerNickname: loginPlayerNickname,
-            },
-        });
-    }else{
-    }  
+            navigate('/WaitingRoom3', {
+                state: {
+                    howManyPlayer: howManyPlayer,
+                    loginPlayerId: loginPlayerId,
+                    loginPlayerNum: loginPlayerNum,
+                    loginPlayerNickname: loginPlayerNickname,
+                },
+            });
+        } else {
+        }
     }
     function moveClick4(event) {
-        const userResponse4= window.confirm('4번방에 입장하시겠습니까?');
-        if(userResponse4){
+        const userResponse4 = window.confirm('4번방에 입장하시겠습니까?');
+        if (userResponse4) {
             event.preventDefault();
-        navigate('/WaitingRoom4', {
-            state: {
-                howManyPlayer: howManyPlayer,
-                loginPlayerId: loginPlayerId,
-                loginPlayerNum: loginPlayerNum,
-                loginPlayerNickname: loginPlayerNickname,
-            },
-        });
-    }else{
-    }  
+            navigate('/WaitingRoom4', {
+                state: {
+                    howManyPlayer: howManyPlayer,
+                    loginPlayerId: loginPlayerId,
+                    loginPlayerNum: loginPlayerNum,
+                    loginPlayerNickname: loginPlayerNickname,
+                },
+            });
+        } else {
+        }
     }
     function moveClick5(event) {
-        const userResponse5= window.confirm('5번방에 입장하시겠습니까?');
-        if(userResponse5){
+        const userResponse5 = window.confirm('5번방에 입장하시겠습니까?');
+        if (userResponse5) {
             event.preventDefault();
-        navigate('/WaitingRoom5', {
-            state: {
-                howManyPlayer: howManyPlayer,
-                loginPlayerId: loginPlayerId,
-                loginPlayerNum: loginPlayerNum,
-                loginPlayerNickname: loginPlayerNickname,
-            },
-        });
-    }else{
-    }  
+            navigate('/WaitingRoom5', {
+                state: {
+                    howManyPlayer: howManyPlayer,
+                    loginPlayerId: loginPlayerId,
+                    loginPlayerNum: loginPlayerNum,
+                    loginPlayerNickname: loginPlayerNickname,
+                },
+            });
+        } else {
+        }
     }
     function moveClick6(event) {
-        const userResponse6= window.confirm('6번방에 입장하시겠습니까?');
-        if(userResponse6){
+        const userResponse6 = window.confirm('6번방에 입장하시겠습니까?');
+        if (userResponse6) {
             event.preventDefault();
-        navigate('/WaitingRoom6', {
-            state: {
-                howManyPlayer: howManyPlayer,
-                loginPlayerId: loginPlayerId,
-                loginPlayerNum: loginPlayerNum,
-                loginPlayerNickname: loginPlayerNickname,
-            },
-        });
-    }else{
-    }  
+            navigate('/WaitingRoom6', {
+                state: {
+                    howManyPlayer: howManyPlayer,
+                    loginPlayerId: loginPlayerId,
+                    loginPlayerNum: loginPlayerNum,
+                    loginPlayerNickname: loginPlayerNickname,
+                },
+            });
+        } else {
+        }
     }
-
-
 
     if (count1, count2, count3, count4, count5, count6 === 6) {
         (setCount1, setCount2, setCount3, setCount4, setCount5, setCount6)(6);
@@ -181,18 +179,17 @@ function Lobby() {
         (setColor1, setColor2, setColor3, setColor4, setColor5, setColor6)('red');
     }
 
-
     return (
         <div>
             <h1 className="LobbyTitle"><button className="fabicon img"></button> Welcome to the Coup!</h1>
             {/* 꼭 버튼을 누르는데 사용할 필요 없다. 이런식으로 h1으로 안되는 이미지 같은것도 button임 */}
 
-            {/* <ToGame navigate={navigate} howManyPlayer={howManyPlayer} loginPlayerId={loginPlayerId} loginPlayerNum={loginPlayerNum} loginPlayerNickname={loginPlayerNickname} /> */}
+            <ToGame navigate={navigate} howManyPlayer={howManyPlayer} loginPlayerId={loginPlayerId} loginPlayerNum={loginPlayerNum} loginPlayerNickname={loginPlayerNickname} />
             {/* <button className="GameStart" onClick={GameStart}>Game Start</button> */}
             <button className="Exit" onClick={Exit}>Exit</button>
             <button className="imgdoor" onClick={LoginBtn}>로그아웃</button>
             <button className="Setting" onClick={LoginBtn}>환경설정</button>
-             {/* <h3 className="SubTitle1">원하는 인원수를 선택하세요
+            {/* <h3 className="SubTitle1">원하는 인원수를 선택하세요
      <select
     value={howManyPlayer} // 현재 선택한 값을 표시
     onChange={(e) => setHowManyPlayer(parseInt(e.target.value))} // 선택한 값을 저장
@@ -226,11 +223,8 @@ function Lobby() {
         </div>
         //div도 딱히 위치를 지정해주지 않아도 위에다 올려놓으면 위에다 배치됨 기본적으로
 
-
-
     );
 }
-
 
 export default Lobby;
 

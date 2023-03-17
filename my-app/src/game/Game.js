@@ -30,7 +30,6 @@ function Game() {
   // 입장한 플레이어 좌석 번호에 따라서 본인 카드만 앞면이 보이게 설정
   const [loginPlayerNumber, setLoginPlayerNumber] = useState(loginPlayerNum);
 
-
   return (
     <ScrollToTop>
       {/* <StompSessionProvider url={'ws://javaspringbootcoupgamebackend-env.eba-2u3en2tr.ap-northeast-2.elasticbeanstalk.com/ws'}

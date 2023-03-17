@@ -91,9 +91,9 @@ export function Card(props) {
       {player.hand.map((card, index) => (
         <img
           key={index}
-          className={`card card-p${player.id} card${index + 1} ${activate === true ? "active" : ""}`}
+          className={`card card-p${player.id + 1} card${index + 1} ${activate === true ? "active" : ""}`}
           src={
-            player.id === loginPlayerNumber
+            player.id + 1 === loginPlayerNumber
               ? card.image.front
               : card.image.back
           }
