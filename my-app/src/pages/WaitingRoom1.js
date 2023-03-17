@@ -72,14 +72,35 @@ function WaitingRoom1(props){
     const [ready6,setReady6] = useState(true);
     //원래 false로 바꿔야 하는데 일단 해결을 못해서 true로 잠깐 바꿔둠
 
- 
+
+    function LoadHowManyPlayer(){
+        let howManyPlayer = localStorage.getItem('howManyPlayer');
+        howManyPlayer = howManyPlayer ? parseInt(howManyPlayer) : 0;
+        return howManyPlayer;
+    }
+
+    function LoadLoginPlayerNum(){
+      let loginPlayerNum = localStorage.getItem('loginPlayerNum'); //1. 저장한다.
+      loginPlayerNum = loginPlayerNum ? parseInt(loginPlayerNum) : 0; //2. 불러온다.
+      return loginPlayerNum; //3. 맞으면 반환한다.
+  }
+    // setLoginPlayerNum(LoadLoginPlayerNum());
+    // setHowManyPlayer(LoadHowManyPlayer()); 
+    //이제 얘네를 넣고 싶은곳에 써야 한다.
+    //ㄷ=
+    
+
+   
+
+    
+    
  function handleClick1(){
    setButtonText1('준비완료')
    setButtonColor1('skyblue');
    setButtonDisabled1(true);
   setNumActiveButtons(numActiveButtons + 1);
    setReady1(true); //다른 버튼을 누를 준비가 완료되었다는 코드
-   handleOtherButtonClick();
+  //  handleOtherButtonClick();
   };
  function handleClick2(){
    setButtonText2('준비완료')
@@ -87,7 +108,7 @@ function WaitingRoom1(props){
    setButtonDisabled2(true);
   setNumActiveButtons(numActiveButtons + 1);
    setReady2(true); //다른 버튼을 누를 준비가 완료되었다는 코드
-   handleOtherButtonClick();
+  //  handleOtherButtonClick();
 }
 function handleClick3(){
    setButtonText3('준비완료')
@@ -95,7 +116,7 @@ function handleClick3(){
    setButtonDisabled3(true);
   setNumActiveButtons(numActiveButtons + 1);
    setReady3(true); //다른 버튼을 누를 준비가 완료되었다는 코드
-   handleOtherButtonClick();
+  //  handleOtherButtonClick();
 }
 function handleClick4(){
    setButtonText4('준비완료')
@@ -103,7 +124,7 @@ function handleClick4(){
    setButtonDisabled4(true);
   setNumActiveButtons(numActiveButtons + 1);
    setReady4(true); //다른 버튼을 누를 준비가 완료되었다는 코드
-   handleOtherButtonClick();
+  //  handleOtherButtonClick();
 }
 function handleClick5(){
    setButtonText5('준비완료')
@@ -111,7 +132,7 @@ function handleClick5(){
    setButtonDisabled5(true);
   setNumActiveButtons(numActiveButtons + 1);
    setReady5(true); //다른 버튼을 누를 준비가 완료되었다는 코드
-   handleOtherButtonClick();
+  //  handleOtherButtonClick();
 }
 
 function handleClick6(){
@@ -120,7 +141,7 @@ function handleClick6(){
    setButtonDisabled6(true);
    setNumActiveButtons(numActiveButtons + 1);
    setReady6(true); //다른 버튼을 누를 준비가 완료되었다는 코드
-   handleOtherButtonClick();
+  //  handleOtherButtonClick();
 }
 
 function handleOtherButtonClick(event){//얘가 함수형 컴포넌트가 아니라 함수다.
@@ -143,6 +164,7 @@ function handleOtherButtonClick(event){//얘가 함수형 컴포넌트가 아니
 }
  return(
  <div style={{ backgroundColor: 'yellow' }}> 
+ {/*오 handleOtherClick 비활성화 하니까 배경색이 먹네 */}
 <button
   className="readyButton1" onClick={handleClick1} disabled={buttonDisabled1}style={{ backgroundColor: buttonColor1 }}>
   {buttonText1}
@@ -176,65 +198,7 @@ function handleOtherButtonClick(event){//얘가 함수형 컴포넌트가 아니
   >
     {button2Text1}
   </button>
-         <h3 className="SubTitle1">[원하는 인원수를 선택하세요]
-         <select className="select1"
-  value={howManyPlayer}
-  size="5"
-  onChange={(e) => {
-    const selectedValue = parseInt(e.target.value);
-    setHowManyPlayer(selectedValue);
-    if(selectedValue===7){
-      setButtonDisabled6(false); // 6번째 버튼 활성화
-      setButtonDisabled5(false); // 5번째 버튼 활성화
-      setButtonDisabled4(false); // 4번째 버튼 활성화
-      setButtonDisabled3(false); // 3번째 버튼 활성화
-      setButtonDisabled2(false); // 2번째 버튼 활성화
-      setButtonDisabled1(false); // 1번째 버튼 활성화
-    }
-    else if (selectedValue === 6){
-      setButtonDisabled6(true); // 6번째 버튼 비활성화
-      setButtonDisabled5(false); // 5번째 버튼 활성화
-      setButtonDisabled4(false); // 4번째 버튼 활성화
-      setButtonDisabled3(false); // 3번째 버튼 활성화
-      setButtonDisabled2(false); // 2번째 버튼 활성화
-      setButtonDisabled1(false); // 1번째 버튼 활성화
-    } else if (selectedValue === 5) {
-      setButtonDisabled6(true); // 6번째 버튼 비활성화
-      setButtonDisabled5(true); // 5번째 버튼 비활성화
-      setButtonDisabled4(false); // 4번째 버튼 활성화
-      setButtonDisabled3(false); // 3번째 버튼 활성화
-      setButtonDisabled2(false); // 2번째 버튼 활성화
-      setButtonDisabled1(false); // 1번째 버튼 활성화
-    } else if(selectedValue===4) {
-      setButtonDisabled6(true); // 6번째 버튼 비활성화
-      setButtonDisabled5(true); // 5번째 버튼 비활성화
-      setButtonDisabled4(true); // 4번째 버튼 비활성화
-      setButtonDisabled3(false); // 3번째 버튼 활성화
-      setButtonDisabled2(false); // 2번째 버튼 활성화
-      setButtonDisabled1(false); // 1번째 버튼 활성화
-    } else if(selectedValue===3){
-      setButtonDisabled6(true); // 6번째 버튼 비활성화
-      setButtonDisabled5(true); // 5번째 버튼 비활성화
-      setButtonDisabled4(true); // 4번째 버튼 비활성화
-      setButtonDisabled3(true); // 3번째 버튼 비활성화
-      setButtonDisabled2(false); // 2번째 버튼 활성화
-      setButtonDisabled1(false); // 1번째 버튼 활성화
-  } 
-  }}
->
-  {[...Array(5)].map((_, i) => (
-    <option key={i + 2} value={i + 3}>{i + 2}인방</option>
-  ))}
-</select></h3>
-    <h3 className="SubTitle2">[자신의 위치를 선택하세요]
-        <select className="select2"
-          value={loginPlayerNum}
-         onChange={(ev) => setLoginPlayerNum(parseInt(ev.target.value))}
-          size="6">
-         {[...Array(6)].map((_, i) => (
-          <option key={i + 1} value={i + 1}>{i + 1}번</option>
-                 ))}
-               </select></h3> 
+  
  </div>
 );
 }
