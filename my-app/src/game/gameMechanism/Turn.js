@@ -30,6 +30,8 @@ function Turn(props) {
 
     SaveTotalPlayersData(6);
 
+    // 푸시용으로 일부 수정
+
     let deck = LoadDeckData();
     let totalPlayers = LoadTotalPlayersData();
     let players = LoadPlayersData();
