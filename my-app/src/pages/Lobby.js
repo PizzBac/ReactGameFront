@@ -320,8 +320,6 @@ function Lobby() {
 
 
 
-
-
                     <tr>{/*3번째 테이블 행*/}
                     <td className="tdFirst">3번방</td> 
                     <td>

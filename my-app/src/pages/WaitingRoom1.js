@@ -75,8 +75,8 @@ function WaitingRoom1(props){
 
 
     useEffect(() => {
-      const loginPlayerNum = LoadLoginPlayerNum();
-      const howManyPlayer = LoadHowManyPlayer();
+     loginPlayerNum = LoadLoginPlayerNum();
+     howManyPlayer = LoadHowManyPlayer();
       if (loginPlayerNum !== loginPlayerNumState) {
         setLoginPlayerNum(loginPlayerNum);
       }
@@ -99,7 +99,6 @@ function WaitingRoom1(props){
     setLoginPlayerNum(LoadLoginPlayerNum());
     setHowManyPlayer(LoadHowManyPlayer()); 
     //이제 얘네를 넣고 싶은곳에 써야 한다.
-    //ㄷ=
     
 
    
