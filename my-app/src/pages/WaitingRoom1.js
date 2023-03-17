@@ -48,6 +48,7 @@ function WaitingRoom1(props){
     const location = useLocation();
     const [howManyPlayer, setHowManyPlayer] = useState(3);
     const [loginPlayerNum, setLoginPlayerNum] = useState(2); 
+    const [loginPlayerNumState, howManyPlayerState] =useState();
     const {loginPlayerId,loginPlayerNickname} = location.state;
    
    const [buttonDisabled1, setButtonDisabled1] = useState(false);
@@ -73,7 +74,18 @@ function WaitingRoom1(props){
     //원래 false로 바꿔야 하는데 일단 해결을 못해서 true로 잠깐 바꿔둠
 
 
-    function LoadHowManyPlayer(){
+    useEffect(() => {
+      const loginPlayerNum = LoadLoginPlayerNum();
+      const howManyPlayer = LoadHowManyPlayer();
+      if (loginPlayerNum !== loginPlayerNumState) {
+        setLoginPlayerNum(loginPlayerNum);
+      }
+      if (howManyPlayer !== howManyPlayerState) {
+        setHowManyPlayer(howManyPlayer);
+      }
+    }, [loginPlayerNumState, howManyPlayerState]);
+
+    function LoadHowManyPlayer(){//가나다
         let howManyPlayer = localStorage.getItem('howManyPlayer');
         howManyPlayer = howManyPlayer ? parseInt(howManyPlayer) : 0;
         return howManyPlayer;
@@ -84,8 +96,8 @@ function WaitingRoom1(props){
       loginPlayerNum = loginPlayerNum ? parseInt(loginPlayerNum) : 0; //2. 불러온다.
       return loginPlayerNum; //3. 맞으면 반환한다.
   }
-    // setLoginPlayerNum(LoadLoginPlayerNum());
-    // setHowManyPlayer(LoadHowManyPlayer()); 
+    setLoginPlayerNum(LoadLoginPlayerNum());
+    setHowManyPlayer(LoadHowManyPlayer()); 
     //이제 얘네를 넣고 싶은곳에 써야 한다.
     //ㄷ=
     
@@ -192,10 +204,14 @@ function handleOtherButtonClick(event){//얘가 함수형 컴포넌트가 아니
    
   <button
     className="startButton"
-    onClick={handleOtherButtonClick}
-    disabled={!(ready1 && ready2 && ready3 &&ready4 && ready5 && ready6)} //여기를 바꿔야 함. 버튼 누르면 전부 활성화 되게
+    onClick={() => {
+      setLoginPlayerNum(LoadLoginPlayerNum());
+      setHowManyPlayer(LoadHowManyPlayer());
+      handleOtherButtonClick();
+    }}
+    disabled={!(ready1 && ready2 && ready3 && ready4 && ready5 && ready6)} //여기를 바꿔야 함. 버튼 누르면 전부 활성화 되게
     style={{ backgroundColor: button2Color1 }}
-  >
+  > 
     {button2Text1}
   </button>
   

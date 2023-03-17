@@ -120,7 +120,7 @@ function Lobby() {
     }  
     }
 
-    function SaveRoomData(howManyPlayer,loginPlayerNum){
+    function SaveRoomData(howManyPlayer,loginPlayerNum){ //얘가 핵심이다.
       localStorage.setItem('howManyPlayer',howManyPlayer.toString()); //JSON.stringfy() 이건 배열을 문자열로 변환
       localStorage.setItem('loginPlayerNum',loginPlayerNum.toString()); // JSON.parse() 문자열을 배열로 전환
     }
