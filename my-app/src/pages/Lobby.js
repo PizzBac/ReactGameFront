@@ -218,7 +218,7 @@ function Lobby() {
             <h1 className="LobbyTitle"><button className="fabicon img"></button> Welcome to the Coup!</h1>
             {/* 꼭 버튼을 누르는데 사용할 필요 없다. 이런식으로 h1으로 안되는 이미지 같은것도 button임 */}
 
-            {/* <ToGame navigate={navigate} howManyPlayer={howManyPlayer} loginPlayerId={loginPlayerId} loginPlayerNum={loginPlayerNum} loginPlayerNickname={loginPlayerNickname} /> */}
+            <ToGame navigate={navigate} howManyPlayer={howManyPlayer} loginPlayerId={loginPlayerId} loginPlayerNum={loginPlayerNum} loginPlayerNickname={loginPlayerNickname} />
             {/* <button className="GameStart" onClick={GameStart}>Game Start</button> */}
             {/* <button className="Exit" onClick={Exit}>Exit</button> */}
             <button className="imgdoor" onClick={LoginBtn}>로그아웃</button>

@@ -204,11 +204,11 @@ function handleOtherButtonClick(event){//얘가 함수형 컴포넌트가 아니
    
   <button
     className="startButton"
-    onClick={() => {
-      setLoginPlayerNum(LoadLoginPlayerNum());
-      setHowManyPlayer(LoadHowManyPlayer());
-      handleOtherButtonClick();
-    }}
+    // onClick={() => {
+    //   setLoginPlayerNum(LoadLoginPlayerNum());
+    //   setHowManyPlayer(LoadHowManyPlayer());
+    //   handleOtherButtonClick();
+    // }}
     disabled={!(ready1 && ready2 && ready3 && ready4 && ready5 && ready6)} //여기를 바꿔야 함. 버튼 누르면 전부 활성화 되게
     style={{ backgroundColor: button2Color1 }}
   > 

@@ -5,11 +5,6 @@ import SignUp from "./pages/SignUp";
 import Lobby from "./pages/Lobby";
 import Tmp from "./pages/Tmp";
 import WaitingRoom1 from "./pages/WaitingRoom1";
-import WaitingRoom2 from "./pages/WaitingRoom2";
-import WaitingRoom3 from "./pages/WaitingRoom3";
-import WaitingRoom4 from "./pages/WaitingRoom4";
-import WaitingRoom5 from "./pages/WaitingRoom5";
-import WaitingRoom6 from "./pages/WaitingRoom6";
 // import MyComponent from "./pages/MyComponent";
 import ReactStompHook from "./pages/reactStompHook";
 
