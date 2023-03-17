@@ -1,4 +1,4 @@
-깃허브에서 이 파일을 열면 플로우차트 바로 보입니다.
+깃허브에서 이 파일을 열면 플로우차트 바로 볼 수 있습니다.
 
 vscode에서 플로우차트 보는 방법
 1. vscode 'Markdown Preview Mermaid Support' extension 설치

@@ -103,6 +103,28 @@ function Turn(props) {
         }
     }
 
+    function Tax() {
+        console.log((turn + 1) + "번 플레이어가 세금 징수를 하려고 한다.");
+        AfterSelectActionDisableActionButton(
+            incomeButtonDisabled, setIncomeButtonDisabled,
+            foreignAidButtonDisabled, setForeignAidButtonDisabled,
+            taxButtonDisabled, setTaxButtonDisabled,
+            exchangeButtonDisabled, setExchangeButtonDisabled,
+            stealButtonDisabled, setStealButtonDisabled,
+            assassinationButtonDisabled, setAssassinationButtonDisabled,
+            coupButtonDisabled, setCoupButtonDisabled,
+        );
+        action = "Tax";
+        SaveActionData(action);
+
+        IsDoubt();
+    }
+
+    function Assassination() {
+        console.log("암살");
+        EndTurn();
+    }
+
     function IsObstruction() {
         console.log("방해");
         if (action === "ForeignAid") {
@@ -117,8 +139,6 @@ function Turn(props) {
             }
             console.log(`${obstructingPlayer.nickName}` + "님이 방해 시도");
             IsDoubt();
-        } else if (action === "Tax") {
-
         } else if (action === "Exchange") {
 
         } else if (action === "Steal") {
@@ -131,9 +151,40 @@ function Turn(props) {
     function IsDoubt() {
         console.log("의심");
         if (action === "ForeignAid") {
-            const checkDoubt = window.confirm(
-                `${obstructingPlayer.nickName}님이 해외 원조를 막으려고 합니다. ${obstructingPlayer.nickName}님이 공작이라는 것을 의심하시겠습니까?`
-            );
+            let checkDoubt = false;
+            if (players[loginPlayer].player !== obstructingPlayer) {
+                checkDoubt = window.confirm(
+                    `${obstructingPlayer.nickName}님이 해외 원조를 막으려고 합니다. (해외 원조 방해 가능 직업 : 공작) ${obstructingPlayer.nickName}님을 의심하시겠습니까?`
+                );
+            }
+            const doubtButtonPressedTime = new Date().getTime();
+
+            if (checkDoubt) {
+                players[loginPlayer].player.doubtButtonPressedTime = doubtButtonPressedTime;
+                SavePlayersData(players);
+                players = LoadPlayersData();
+
+                // 브로드캐스팅
+                if (players[loginPlayer].player.doubtButtonPressedTime < doubtTime) {
+                    players[loginPlayer].player.isDoubt = true;
+                    doubtingPlayer = players[loginPlayer].player;
+                    SaveDoubtingPlayer(doubtingPlayer);
+                    doubtingPlayer = LoadDoubtingPlayer();
+                }
+
+                CheckBluff();
+            } else {
+                EndTurn();
+            }
+        }
+        else if (action === "Tax") {
+            // 브로드캐스팅
+            let checkDoubt = false;
+            if (players[loginPlayer].player.myTurn === false) {
+                checkDoubt = window.confirm(
+                    `${players[turn].player.nickName}님이 세금 징수를 하려고 합니다. 의심하시겠습니까? (세금 징수 가능 직업 : 공작)`
+                );
+            }
             const doubtButtonPressedTime = new Date().getTime();
 
             if (checkDoubt) {
@@ -142,15 +193,18 @@ function Turn(props) {
                 players = LoadPlayersData();
                 CheckBluff();
             } else {
+                players[turn].player.coins = players[turn].player.coins + 3;
                 EndTurn();
             }
-        } else if (action === "Tax") {
 
-        } else if (action === "Exchange") {
+        }
+        else if (action === "Exchange") {
 
-        } else if (action === "Steal") {
+        }
+        else if (action === "Steal") {
 
-        } else if (action === "Assassination") {
+        }
+        else if (action === "Assassination") {
 
         }
     }
@@ -158,13 +212,6 @@ function Turn(props) {
     function CheckBluff() {
         console.log("블러핑 체크");
         if (action === "ForeignAid") {
-            // 브로드캐스팅
-            if (players[loginPlayer].player.doubtButtonPressedTime < doubtTime) {
-                players[loginPlayer].player.isDoubt = true;
-                doubtingPlayer = players[loginPlayer].player;
-                SaveDoubtingPlayer(doubtingPlayer);
-                doubtingPlayer = LoadDoubtingPlayer();
-            }
 
             let hasDuke = false;
             obstructingPlayer.hand.forEach((card) => {
@@ -174,6 +221,7 @@ function Turn(props) {
             });
 
             if (hasDuke) {
+                console.log("블러핑 아니었음. 의심 실패.");
                 let obstructingPlayerDukeIndex = obstructingPlayer.hand.findIndex(card => card.type === "duke");
                 obstructingPlayer.hand[obstructingPlayerDukeIndex] = {
                     type: deck.pop(),
@@ -201,6 +249,7 @@ function Turn(props) {
                 SaveDeckData(deck);
                 EndTurn();
             } else {
+                console.log("블러핑이었음");
                 obstructingPlayer.hand.forEach((card) => {
                     if (card.type === "duke") {
                         card.isOpen = true;
@@ -209,20 +258,19 @@ function Turn(props) {
                 players[turn].player.coins = players[turn].player.coins + 2;
                 EndTurn();
             }
-        } else if (action === "Tax") {
-
-        } else if (action === "Exchange") {
-
-        } else if (action === "Steal") {
-
-        } else if (action === "Assassination") {
+        }
+        else if (action === "Tax") {
 
         }
-    }
+        else if (action === "Exchange") {
 
-    function Assassination() {
-        console.log("암살");
-        EndTurn();
+        }
+        else if (action === "Steal") {
+
+        }
+        else if (action === "Assassination") {
+
+        }
     }
 
     function EndTurn() {
