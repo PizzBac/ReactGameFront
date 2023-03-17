@@ -30,8 +30,6 @@ function Turn(props) {
 
     SaveTotalPlayersData(6);
 
-    // 푸시용으로 일부 수정
-
     let deck = LoadDeckData();
     let totalPlayers = LoadTotalPlayersData();
     let players = LoadPlayersData();
@@ -39,6 +37,7 @@ function Turn(props) {
     let action = LoadActionData();
     let obstructingPlayer = LoadObstructingPlayer();
     let doubtingPlayer = LoadDoubtingPlayer();
+    let doubtingPlayerSeatNumber = 999;
 
     useEffect(() => {
         StartTurn(
@@ -87,7 +86,7 @@ function Turn(props) {
         // 현재 턴인 플레이어 제외한 다른 플레이어들에게 UI로 화면 띄우는 기능 필요
         // 서버에서 브로드캐스팅해야 함
         let checkObstruct = false;
-        if (players[loginPlayer].player.myTurn === false) {
+        if (players[loginPlayer].player.myTurn == false) {
             checkObstruct = window.confirm(
                 `${players[turn].player.nickName}님이 해외 원조를 받으려고 합니다. 방해하시겠습니까? (방해 가능 직업 : 공작)`
             );
@@ -100,6 +99,7 @@ function Turn(props) {
             players = LoadPlayersData();
             IsObstruction();
         } else {
+            console.log((turn + 1) + "번 플레이어가 2코인 획득");
             players[turn].player.coins = players[turn].player.coins + 2;
             EndTurn();
         }
@@ -129,7 +129,7 @@ function Turn(props) {
 
     function IsObstruction() {
         console.log("방해");
-        if (action === "ForeignAid") {
+        if (action == "ForeignAid") {
             // 브로드캐스팅
             if (players[loginPlayer].player.obstructButtonPressedTime < obstructTime) {
                 players[loginPlayer].player.isObstructing = true;
@@ -141,20 +141,21 @@ function Turn(props) {
             }
             console.log(`${obstructingPlayer.nickName}` + "님이 방해 시도");
             IsDoubt();
-        } else if (action === "Exchange") {
+        } else if (action == "Exchange") {
 
-        } else if (action === "Steal") {
+        } else if (action == "Steal") {
 
-        } else if (action === "Assassination") {
+        } else if (action == "Assassination") {
 
         }
     }
 
     function IsDoubt() {
         console.log("의심");
-        if (action === "ForeignAid") {
+        if (action == "ForeignAid") {
             let checkDoubt = false;
-            if (players[loginPlayer].player !== obstructingPlayer) {
+            console.log(obstructingPlayer);
+            if (players[loginPlayer].player.id != obstructingPlayer.id) {
                 checkDoubt = window.confirm(
                     `${obstructingPlayer.nickName}님이 해외 원조를 막으려고 합니다. (해외 원조 방해 가능 직업 : 공작) ${obstructingPlayer.nickName}님을 의심하시겠습니까?`
                 );
@@ -169,20 +170,23 @@ function Turn(props) {
                 // 브로드캐스팅
                 if (players[loginPlayer].player.doubtButtonPressedTime < doubtTime) {
                     players[loginPlayer].player.isDoubt = true;
+                    doubtingPlayerSeatNumber = players[loginPlayer].player.id;
                     doubtingPlayer = players[loginPlayer].player;
                     SaveDoubtingPlayer(doubtingPlayer);
                     doubtingPlayer = LoadDoubtingPlayer();
                 }
 
                 CheckBluff();
-            } else {
+            }
+            else {
+                console.log(`${obstructingPlayer.nickName}님의 해외 원조 방해 성공`)
                 EndTurn();
             }
         }
-        else if (action === "Tax") {
+        else if (action == "Tax") {
             // 브로드캐스팅
             let checkDoubt = false;
-            if (players[loginPlayer].player.myTurn === false) {
+            if (players[loginPlayer].player.myTurn == false) {
                 checkDoubt = window.confirm(
                     `${players[turn].player.nickName}님이 세금 징수를 하려고 합니다. 의심하시겠습니까? (세금 징수 가능 직업 : 공작)`
                 );
@@ -191,40 +195,43 @@ function Turn(props) {
 
             if (checkDoubt) {
                 players[loginPlayer].player.doubtButtonPressedTime = doubtButtonPressedTime;
+                doubtingPlayerSeatNumber = players[loginPlayer].player.id;
                 SavePlayersData(players);
                 players = LoadPlayersData();
                 CheckBluff();
-            } else {
+            }
+            else {
+                console.log(`의심 플레이어 없으므로 ${players[turn].player.nickName}님이 3코인 획득`)
                 players[turn].player.coins = players[turn].player.coins + 3;
                 EndTurn();
             }
 
         }
-        else if (action === "Exchange") {
+        else if (action == "Exchange") {
 
         }
-        else if (action === "Steal") {
+        else if (action == "Steal") {
 
         }
-        else if (action === "Assassination") {
+        else if (action == "Assassination") {
 
         }
     }
 
     function CheckBluff() {
         console.log("블러핑 체크");
-        if (action === "ForeignAid") {
+        if (action == "ForeignAid") {
 
             let hasDuke = false;
             obstructingPlayer.hand.forEach((card) => {
-                if (card.type === "duke") {
+                if (card.type == "duke" && card.isOpen == false) {
                     hasDuke = true;
                 }
             });
 
             if (hasDuke) {
                 console.log("블러핑 아니었음. 의심 실패.");
-                let obstructingPlayerDukeIndex = obstructingPlayer.hand.findIndex(card => card.type === "duke");
+                let obstructingPlayerDukeIndex = obstructingPlayer.hand.findIndex(card => card.type == "duke");
                 obstructingPlayer.hand[obstructingPlayerDukeIndex] = {
                     type: deck.pop(),
                     image: cardImages[deck[deck.length - 1]],
@@ -233,14 +240,14 @@ function Turn(props) {
                 deck.push("duke");
                 shuffleDeck(deck);
 
-                const checkNotOpenedHands = doubtingPlayer.hand.filter((card) => card.isOpen === false).length;
+                const checkNotOpenedHands = doubtingPlayer.hand.filter((card) => card.isOpen == false).length;
 
-                if (checkNotOpenedHands === 2) {
+                if (checkNotOpenedHands == 2) {
                     // doubtingPlayer가 자신의 hand에서 isOpen = true로 바꿀 카드를 선택할 수 있도록 해야 함
                     const closedHandIndex = Math.floor(Math.random() * 2);
                     doubtingPlayer.hand[closedHandIndex].isOpen = true;
-                } else if (checkNotOpenedHands === 1) {
-                    const closedHandIndex = doubtingPlayer.hand.findIndex((card) => card.isOpen === false);
+                } else if (checkNotOpenedHands == 1) {
+                    const closedHandIndex = doubtingPlayer.hand.findIndex((card) => card.isOpen == false);
                     doubtingPlayer.hand[closedHandIndex].isOpen = true;
                     doubtingPlayer.isOut = true;
                     SaveDoubtingPlayer(doubtingPlayer);
@@ -253,7 +260,7 @@ function Turn(props) {
             } else {
                 console.log("블러핑이었음");
                 obstructingPlayer.hand.forEach((card) => {
-                    if (card.type === "duke") {
+                    if (card.type == "duke") {
                         card.isOpen = true;
                     }
                 });
@@ -261,16 +268,61 @@ function Turn(props) {
                 EndTurn();
             }
         }
-        else if (action === "Tax") {
+        else if (action == "Tax") {
+
+            let hasDuke = false;
+            players[turn].player.hand.forEach((card) => {
+                if (card.type == "duke" && card.isOpen == false) {
+                    hasDuke = true;
+                }
+            });
+            
+            if (hasDuke) {
+                console.log("블러핑 아니었음. 의심 실패.");
+                let currentTurnPlayerDukeIndex = players[turn].player.hand.findIndex(card => card.type == "duke");
+                players[turn].player.hand[currentTurnPlayerDukeIndex] = {
+                    type: deck.pop(),
+                    image: cardImages[deck[deck.length - 1]],
+                    isOpen: false,
+                };
+                deck.push("duke");
+                shuffleDeck(deck);
+
+                const checkNotOpenedHands = players[doubtingPlayerSeatNumber].player.hand.filter((card) => card.isOpen == false).length;
+
+                if (checkNotOpenedHands == 2) {
+                    // doubtingPlayer가 자신의 hand에서 isOpen = true로 바꿀 카드를 선택할 수 있도록 해야 함
+                    const closedHandIndex = Math.floor(Math.random() * 2);
+                    players[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
+                } else if (checkNotOpenedHands == 1) {
+                    const closedHandIndex = players[doubtingPlayerSeatNumber].player.hand.findIndex((card) => card.isOpen == false);
+                    players[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
+                    players[doubtingPlayerSeatNumber].player.isOut = true;
+                    SaveDoubtingPlayer(players[doubtingPlayerSeatNumber].player);
+                    SaveTotalPlayersData(totalPlayers - 1);
+                }
+                players[turn].player.coins = players[turn].player.coins + 3;
+                SavePlayersData(players);
+                SaveDeckData(deck);
+                console.log(`${players[turn].player.nickName}님이 3코인 획득`);
+                EndTurn();
+            } else {
+                console.log("블러핑이었으므로 3코인 획득하지 못함");
+                players[turn].player.hand.forEach((card) => {
+                    if (card.type == "duke") {
+                        card.isOpen = true;
+                    }
+                });
+                EndTurn();
+            }
+        }
+        else if (action == "Exchange") {
 
         }
-        else if (action === "Exchange") {
+        else if (action == "Steal") {
 
         }
-        else if (action === "Steal") {
-
-        }
-        else if (action === "Assassination") {
+        else if (action == "Assassination") {
 
         }
     }
@@ -304,6 +356,7 @@ function Turn(props) {
             <div style={{ position: 'absolute', backgroundColor: '#FFFFFF', right: 30, bottom: 30, height: 30 }}>
                 <button id="income" onClick={Income} disabled={incomeButtonDisabled}>소득</button>
                 <button id="foreignAid" onClick={ForeignAid} disabled={foreignAidButtonDisabled}>해외원조</button>
+                <button id="tax" onClick={Tax} disabled={taxButtonDisabled}>세금징수</button>
                 <button id="assassination" onClick={Assassination} disabled={assassinationButtonDisabled}>암살</button>
             </div>
         </div>
