@@ -52,8 +52,8 @@ function Player(props) {
   }
 
   let players = loadPlayersData();
-  if (!players) {
-    players = CreatePlayers();
+  if (!players) { //만약 1픽에 플레이어가 없다면
+    players = CreatePlayers(); //내가 1픽이 되는 것이다.
     players = DistributeCards(players);
     const turn = 0;
     const action = null;

@@ -4,11 +4,6 @@ import '../css/Lobby.css';
 import { useState, useEffect } from "react";
 import { ToGame } from "../Navigation";
 import {WaitingRoom1} from "./WaitingRoom1";
-import {WaitingRoom2} from "./WaitingRoom2";
-import {WaitingRoom3} from "./WaitingRoom3";
-import {WaitingRoom4} from "./WaitingRoom4";
-import {WaitingRoom5} from "./WaitingRoom5";
-import {WaitingRoom6} from "./WaitingRoom6";
 import { withSubscription } from "react-stomp-hooks";
 import { ReactDOMServer } from "react";
 
@@ -34,11 +29,40 @@ function Lobby() {
 
     const navigate = useNavigate();
     const location = useLocation();
-
+    
+    //선택지를 다 독립적으로 만들기 위해서 howManyPlayer, loginPlayerNum, selectedPlayerNum 등등을 6개씩 만듦
     const [howManyPlayer, setHowManyPlayer] = useState(6);
+    const [howManyPlayer1, setHowManyPlayer1] = useState(6);
+    const [howManyPlayer2, setHowManyPlayer2] = useState(6);
+    const [howManyPlayer3, setHowManyPlayer3] = useState(6);
+    const [howManyPlayer4, setHowManyPlayer4] = useState(6);
+    const [howManyPlayer5, setHowManyPlayer5] = useState(6);
+    const [howManyPlayer6, setHowManyPlayer6] = useState(6);
+
     const [loginPlayerNum, setLoginPlayerNum] = useState(2);
+    const [loginPlayerNum1, setLoginPlayerNum1] = useState(2);
+    const [loginPlayerNum2, setLoginPlayerNum2] = useState(2);
+    const [loginPlayerNum3, setLoginPlayerNum3] = useState(2);
+    const [loginPlayerNum4, setLoginPlayerNum4] = useState(2);
+    const [loginPlayerNum5, setLoginPlayerNum5] = useState(2);
+    const [loginPlayerNum6, setLoginPlayerNum6] = useState(2);
+    
+    const [selectedPlayerNum, setSelectedPlayerNum]= useState();
+    const [selectedPlayerNum1, setSelectedPlayerNum1]= useState();
+    const [selectedPlayerNum2, setSelectedPlayerNum2]= useState();
+    const [selectedPlayerNum3, setSelectedPlayerNum3]= useState();
+    const [selectedPlayerNum4, setSelectedPlayerNum4]= useState();
+    const [selectedPlayerNum5, setSelectedPlayerNum5]= useState();
+    const [selectedPlayerNum6, setSelectedPlayerNum6]= useState();
 
     const { loginPlayerId, loginPlayerNickname } = location.state;
+    const { loginPlayerId1, loginPlayerNickname1 } = location.state;
+    const { loginPlayerId2, loginPlayerNickname2 } = location.state;
+    const { loginPlayerId3, loginPlayerNickname3 } = location.state;
+    const { loginPlayerId4, loginPlayerNickname4 } = location.state;
+    const { loginPlayerId5, loginPlayerNickname5 } = location.state;
+    const { loginPlayerId6, loginPlayerNickname6 } = location.state;
+    
     console.log('state', location.state);
 
     function Exit(event) {
@@ -80,91 +104,98 @@ function Lobby() {
     }
 
     function moveClick1(event) {
-        const userResponse1= window.confirm('1번방에 입장하시겠습니까?');
+        const userResponse1= window.confirm('방에 입장하시겠습니까?');
         if(userResponse1){
             event.preventDefault();
+            SaveRoomData(howManyPlayer,loginPlayerNum); //얘는 함수 끌어다 쓴거임. 별 의미 없음.
         navigate('/WaitingRoom1', {
             state: {
-                howManyPlayer: howManyPlayer,
-                loginPlayerId: loginPlayerId,
-                loginPlayerNum: loginPlayerNum,
-                loginPlayerNickname: loginPlayerNickname,
+                howManyPlayer: howManyPlayer1,
+                loginPlayerId: loginPlayerId2,
+                loginPlayerNum: loginPlayerNum3,
+                loginPlayerNickname: loginPlayerNickname4,
             },
         });
-    }else{
+           }else{
     }  
+    }
+
+    function SaveRoomData(howManyPlayer,loginPlayerNum){
+      localStorage.setItem('howManyPlayer',howManyPlayer.toString()); //JSON.stringfy() 이건 배열을 문자열로 변환
+      localStorage.setItem('loginPlayerNum',loginPlayerNum.toString()); // JSON.parse() 문자열을 배열로 전환
     }
  
     function moveClick2(event) {
-        const userResponse2= window.confirm('2번방에 입장하시겠습니까?');
+        const userResponse2= window.confirm('방에 입장하시겠습니까?');
         if(userResponse2){
             event.preventDefault();
-        navigate('/WaitingRoom2', {
-            state: {
-                howManyPlayer: howManyPlayer,
-                loginPlayerId: loginPlayerId,
-                loginPlayerNum: loginPlayerNum,
-                loginPlayerNickname: loginPlayerNickname,
-            },
-        });
+            navigate('/WaitingRoom1', {
+              state: {
+                  howManyPlayer: howManyPlayer2,
+                  loginPlayerId: loginPlayerId2,
+                  loginPlayerNum: loginPlayerNum2,
+                  loginPlayerNickname: loginPlayerNickname2,
+              },
+          });
     }else{
+      
     }  
     }
     function moveClick3(event) {
-        const userResponse3= window.confirm('3번방에 입장하시겠습니까?');
+        const userResponse3= window.confirm('방에 입장하시겠습니까?');
         if(userResponse3){
             event.preventDefault();
-        navigate('/WaitingRoom3', {
+        navigate('/WaitingRoom1', {
             state: {
-                howManyPlayer: howManyPlayer,
-                loginPlayerId: loginPlayerId,
-                loginPlayerNum: loginPlayerNum,
-                loginPlayerNickname: loginPlayerNickname,
+                howManyPlayer: howManyPlayer3,
+                loginPlayerId: loginPlayerId3,
+                loginPlayerNum: loginPlayerNum3,
+                loginPlayerNickname: loginPlayerNickname3,
             },
         });
     }else{
     }  
     }
     function moveClick4(event) {
-        const userResponse4= window.confirm('4번방에 입장하시겠습니까?');
+        const userResponse4= window.confirm('방에 입장하시겠습니까?');
         if(userResponse4){
             event.preventDefault();
-        navigate('/WaitingRoom4', {
+        navigate('/WaitingRoom1', {
             state: {
-                howManyPlayer: howManyPlayer,
-                loginPlayerId: loginPlayerId,
-                loginPlayerNum: loginPlayerNum,
-                loginPlayerNickname: loginPlayerNickname,
+                howManyPlayer: howManyPlayer4,
+                loginPlayerId: loginPlayerId4,
+                loginPlayerNum: loginPlayerNum4,
+                loginPlayerNickname: loginPlayerNickname4,
             },
         });
     }else{
     }  
     }
     function moveClick5(event) {
-        const userResponse5= window.confirm('5번방에 입장하시겠습니까?');
+        const userResponse5= window.confirm('방에 입장하시겠습니까?');
         if(userResponse5){
             event.preventDefault();
-        navigate('/WaitingRoom5', {
+        navigate('/WaitingRoom1', {
             state: {
-                howManyPlayer: howManyPlayer,
-                loginPlayerId: loginPlayerId,
-                loginPlayerNum: loginPlayerNum,
-                loginPlayerNickname: loginPlayerNickname,
+                howManyPlayer: howManyPlayer5,
+                loginPlayerId: loginPlayerId5,
+                loginPlayerNum: loginPlayerNum5,
+                loginPlayerNickname: loginPlayerNickname5,
             },
         });
     }else{
     }  
     }
     function moveClick6(event) {
-        const userResponse6= window.confirm('6번방에 입장하시겠습니까?');
+        const userResponse6= window.confirm('방에 입장하시겠습니까?');
         if(userResponse6){
             event.preventDefault();
-        navigate('/WaitingRoom6', {
+        navigate('/WaitingRoom1', {
             state: {
-                howManyPlayer: howManyPlayer,
-                loginPlayerId: loginPlayerId,
-                loginPlayerNum: loginPlayerNum,
-                loginPlayerNickname: loginPlayerNickname,
+                howManyPlayer: howManyPlayer6,
+                loginPlayerId: loginPlayerId6,
+                loginPlayerNum: loginPlayerNum6,
+                loginPlayerNickname: loginPlayerNickname6,
             },
         });
     }else{
@@ -189,42 +220,286 @@ function Lobby() {
 
             {/* <ToGame navigate={navigate} howManyPlayer={howManyPlayer} loginPlayerId={loginPlayerId} loginPlayerNum={loginPlayerNum} loginPlayerNickname={loginPlayerNickname} /> */}
             {/* <button className="GameStart" onClick={GameStart}>Game Start</button> */}
-            <button className="Exit" onClick={Exit}>Exit</button>
+            {/* <button className="Exit" onClick={Exit}>Exit</button> */}
             <button className="imgdoor" onClick={LoginBtn}>로그아웃</button>
             <button className="Setting" onClick={LoginBtn}>환경설정</button>
-             {/* <h3 className="SubTitle1">원하는 인원수를 선택하세요
-     <select
-    value={howManyPlayer} // 현재 선택한 값을 표시
-    onChange={(e) => setHowManyPlayer(parseInt(e.target.value))} // 선택한 값을 저장
+            <table>
+                <tbody>      
+
+
+
+                <tr>{/*첫번째 테이블 행*/}
+  <td className="tdFirst">1번방</td>
+  <td>
+    <div>
+      <h3 className="SubTitle1">원하는 인원수를 선택하세요
+        <select
+          value={howManyPlayer1} //현재 선택한 값을 표시
+          onChange={(e1) => {
+            setHowManyPlayer1(parseInt(e1.target.value));
+            setSelectedPlayerNum1(parseInt(e1.target.value) + 1);
+          }} //선택한 값을 저장
         >
-         {[...Array(5)].map((_, i) => (
-           <option key={i + 2} value={i + 2}>{i + 2}인방</option>
-              ))}
-        </select></h3><br />
-    <h3 className="SubTitle2">자신의 위치를 선택하세요
+          {[...Array(5)].map((_, i) => (
+            <option key={i + 2} value={i + 2}>{
+              i + 2}인방</option>
+          ))}
+        </select>
+        {selectedPlayerNum > 0 && (
+          <div>
+            {[...Array(selectedPlayerNum1)].map((_, i) => (
+              <span key={i} className="circle"></span>
+            ))}
+          </div>
+          )}
+      </h3><br />
+      <h3 className="SubTitle2">자신의 위치를 선택하세요
         <select
           value={loginPlayerNum}
-         onChange={(ev) => setLoginPlayerNum(parseInt(ev.target.value))}
-       >
-         {[...Array(6)].map((_, i) => (
-          <option key={i + 1} value={i + 1}>{i + 1}번</option>
-                 ))}
-               </select></h3>  */}
+          onChange={(ev1) => setLoginPlayerNum1(parseInt(ev1.target.value))}
+        >
+          {[...Array(6)].map((_, i) => (
+            <option key={`room1-${i + 1}`} value={i + 1}>{i + 1}번</option>
+          ))}
+        </select>
+      </h3>
+    </div>
+  </td>
+  <td className="tdSecond">
+    <button onClick={moveClick1} className="WaitingRoomButton">입장</button>
+  </td>
+</tr>
 
-            <table>
-                <tbody>
-                    {/* <button className="button" style={{ backgroundColor:color1}} onClick={handleClick1} disabled={count1>=6} id="countButton6">{count1}/6</button> */}
-                    {/*이거 필요없어서 지운 버튼임. 근데 나쁘진 않아서 주석으로 남겨만 둠. 지워도 됨.*/}
-                    <tr><td className="tdFirst">1번방</td><td className="tdSecond"><button onClick={moveClick1} className="WaitingRoomButton">입장</button></td></tr>
-                    <tr><td className="tdFirst">2번방</td><td className="tdSecond"><button onClick={moveClick2} className="WaitingRoomButton">입장</button></td></tr>
-                    <tr><td className="tdFirst">3번방</td><td className="tdSecond"><button onClick={moveClick3} className="WaitingRoomButton">입장</button></td></tr>
-                    <tr><td className="tdFirst">4번방</td><td className="tdSecond"><button onClick={moveClick4} className="WaitingRoomButton">입장</button></td></tr>
-                    <tr><td className="tdFirst">5번방</td><td className="tdSecond"><button onClick={moveClick5} className="WaitingRoomButton">입장</button></td></tr>
-                    <tr><td className="tdFirst">6번방</td><td className="tdSecond"><button onClick={moveClick6} className="WaitingRoomButton">입장</button></td></tr>
+
+
+
+
+<tr>{/*두번째 테이블 행 */}
+  <td className="tdFirst">2번방</td>
+
+  <td>
+    <div>
+      <h3 className="SubTitle1">원하는 인원수를 선택하세요
+  <select
+    value={howManyPlayer2} // 현재 선택한 값을 표시
+    onChange={(e2) => {
+      setHowManyPlayer2(parseInt(e2.target.value));
+      setSelectedPlayerNum2(parseInt(e2.target.value) + 1);
+    }} // 선택한 값을 저장
+  >
+    {[...Array(5)].map((_, i) => (
+      <option key={`room2-${i + 2}`} value={i + 2}>{i + 2}인방</option>
+    ))}
+  </select>
+</h3><br />
+      <h3 className="SubTitle2">자신의 위치를 선택하세요
+        <select
+          value={loginPlayerNum2}
+          onChange={(ev2) => setLoginPlayerNum2(parseInt(ev2.target.value))}
+          
+        >
+          {[...Array(6)].map((_, i) => (
+            <option key={`room2-${i + 1}`} value={i + 1}>{i + 1}번</option>
+          ))}
+        </select>
+      </h3>
+    </div>
+  </td>
+  <td className="tdSecond">
+    <button onClick={moveClick2} className="WaitingRoomButton">입장</button>
+    {selectedPlayerNum2 > 0 && selectedPlayerNum2 <= 7 && (
+    <div>
+      {[...Array(selectedPlayerNum2-1)].map((_, i) => (
+        <span key={`room2-circle-${i}`} className="circle"></span>
+      ))}
+    </div>
+  )}
+  </td>
+</tr>
+
+
+
+
+
+
+                    <tr>{/*3번째 테이블 행*/}
+                    <td className="tdFirst">3번방</td> 
+                    <td>
+    <div>
+      <h3 className="SubTitle1">원하는 인원수를 선택하세요
+        <select
+          value={howManyPlayer3} //현재 선택한 값을 표시
+          onChange={(e3) => {
+            setHowManyPlayer3(parseInt(e3.target.value));
+            setSelectedPlayerNum3(parseInt(e3.target.value) + 1);
+          }} //선택한 값을 저장
+        >
+          {[...Array(5)].map((_, i) => (
+            <option key={i + 2} value={i + 2}>{
+              i + 2}인방</option>
+          ))}
+        </select>
+        {selectedPlayerNum3 > 0 && (
+          <div>
+            {[...Array(selectedPlayerNum3)].map((_, i) => (
+              <span key={i} className="circle"></span>
+            ))}
+          </div>
+          )}
+      </h3><br />
+      <h3 className="SubTitle2">자신의 위치를 선택하세요
+        <select
+          value={loginPlayerNum}
+          onChange={(ev3) => setLoginPlayerNum3(parseInt(ev3.target.value))}
+        >
+          {[...Array(6)].map((_, i) => (
+            <option key={`room1-${i + 1}`} value={i + 1}>{i + 1}번</option>
+          ))}
+        </select>
+      </h3>
+    </div>
+  </td>
+               <td className="tdSecond"><button onClick={moveClick3} className="WaitingRoomButton">입장</button>
+               </td>
+               </tr>
+
+
+
+
+
+                    <tr>{/*4번째 테이블 행*/}
+                        <td className="tdFirst">4번방</td> 
+                        <td>
+    <div>
+      <h3 className="SubTitle1">원하는 인원수를 선택하세요
+        <select
+          value={howManyPlayer4} //현재 선택한 값을 표시
+          onChange={(e4) => {
+            setHowManyPlayer4(parseInt(e4.target.value));
+            setSelectedPlayerNum4(parseInt(e4.target.value) + 1);
+          }} //선택한 값을 저장
+        >
+          {[...Array(5)].map((_, i) => (
+            <option key={i + 2} value={i + 2}>{
+              i + 2}인방</option>
+          ))}
+        </select>
+        {selectedPlayerNum4 > 0 && (
+          <div>
+            {[...Array(selectedPlayerNum4)].map((_, i) => (
+              <span key={i} className="circle"></span>
+            ))}
+          </div>
+          )}
+      </h3><br />
+      <h3 className="SubTitle2">자신의 위치를 선택하세요
+        <select
+          value={loginPlayerNum4}
+          onChange={(ev4) => setLoginPlayerNum4(parseInt(ev4.target.value))}
+        >
+          {[...Array(6)].map((_, i) => (
+            <option key={`room1-${i + 1}`} value={i + 1}>{i + 1}번</option>
+          ))}
+        </select>
+      </h3>
+    </div>
+  </td>
+               <td className="tdSecond"><button onClick={moveClick4} className="WaitingRoomButton">입장</button>
+               </td>
+               </tr>
+
+
+
+
+
+                    <tr>{/*5번째 테이블 행*/}
+                        <td className="tdFirst">5번방</td> 
+                        <td>
+    <div>
+      <h3 className="SubTitle1">원하는 인원수를 선택하세요
+        <select
+          value={howManyPlayer5} //현재 선택한 값을 표시
+          onChange={(e5) => {
+            setHowManyPlayer5(parseInt(e5.target.value));
+            setSelectedPlayerNum5(parseInt(e5.target.value) + 1);
+          }} //선택한 값을 저장
+        >
+          {[...Array(5)].map((_, i) => (
+            <option key={i + 2} value={i + 2}>{
+              i + 2}인방</option>
+          ))}
+        </select>
+        {selectedPlayerNum5 > 0 && (
+          <div>
+            {[...Array(selectedPlayerNum5)].map((_, i) => (
+              <span key={i} className="circle"></span>
+            ))}
+          </div>
+          )}
+      </h3><br />
+      <h3 className="SubTitle2">자신의 위치를 선택하세요
+        <select
+          value={loginPlayerNum5}
+          onChange={(ev5) => setLoginPlayerNum5(parseInt(ev5.target.value))}
+        >
+          {[...Array(6)].map((_, i) => (
+            <option key={`room1-${i + 1}`} value={i + 1}>{i + 1}번</option>
+          ))}
+        </select>
+      </h3>
+    </div>
+  </td>
+               <td className="tdSecond"><button onClick={moveClick5} className="WaitingRoomButton">입장</button>
+               </td>
+               </tr>
+
+
+
+
+                    <tr>{/*6번째 테이블 행*/}
+                        <td className="tdFirst">6번방</td> 
+                        <td>
+    <div>
+      <h3 className="SubTitle1">원하는 인원수를 선택하세요
+        <select
+          value={howManyPlayer1} //현재 선택한 값을 표시
+          onChange={(e6) => {
+            setHowManyPlayer6(parseInt(e6.target.value));
+            setSelectedPlayerNum6(parseInt(e6.target.value) + 1);
+          }} //선택한 값을 저장
+        >
+          {[...Array(5)].map((_, i) => (
+            <option key={i + 2} value={i + 2}>{
+              i + 2}인방</option>
+          ))}
+        </select>
+        {selectedPlayerNum6 > 0 && (
+          <div>
+            {[...Array(selectedPlayerNum6)].map((_, i) => (
+              <span key={i} className="circle"></span>
+            ))}
+          </div>
+          )}
+      </h3><br />
+      <h3 className="SubTitle2">자신의 위치를 선택하세요
+        <select
+          value={loginPlayerNum6}
+          onChange={(ev6) => setLoginPlayerNum6(parseInt(ev6.target.value))}
+        >
+          {[...Array(6)].map((_, i) => (
+            <option key={`room1-${i + 1}`} value={i + 1}>{i + 1}번</option>
+          ))}
+        </select>
+      </h3>
+    </div>
+  </td>
+               <td className="tdSecond"><button onClick={moveClick6} className="WaitingRoomButton">입장</button>
+               </td>
+               </tr>
                 </tbody>
             </table>
         </div>
-        //div도 딱히 위치를 지정해주지 않아도 위에다 올려놓으면 위에다 배치됨 기본적으로
+    
 
 
 
