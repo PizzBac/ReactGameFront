@@ -1,0 +1,79 @@
+게임 시작
+
+1) 현재 턴 플레이어
+{"type":"CHOICE","userMessage":"액션을 고르시오.","content":["Income","ForeignAid","Tax","Exchange","Steal"]}
+10코인 이상 있을 경우
+{"type":"CHOICE","userMessage":"액션을 고르시오","content":["Coup"]}
+
+2) 액션 실행 
+
+- Income
+
+
+- ForeignAid
+액션 플레이어 외 나머지 플레이어가 방해
+{"type":"CHOICE","userMessage":"iH2rd는 ForeignAid를 하려고 한다.","content":["Block (Duke)","Pass"]}
+방해 플레이어의 외 나머지 플레이어가 방해에 대한 의심
+{"type":"CHOICE","userMessage":"m30BD는 Block를 하기 위해 Duke를 가지고 있다고 주장한다.","content":["Challenge","Pass"]}
+의심 성공 / 실패 시 카드 한 장 희생
+{"type":"CHOICE","userMessage":"버릴 카드를 선택하세요","content":["Captain","Captain"]}
+
+
+- Coup
+액션 플레이어가 대상 지정
+{"type":"CHOICE","userMessage":"대상을 선택하세요.","content":["qd0fg","Yv4Xh"]}
+대상 플레이어가 카드 한 장 희생
+{"type":"CHOICE","userMessage":"버릴 카드를 선택하세요","content":["Captain","Captain"]}
+
+
+- Tax
+액션 플레이어 외 나머지 플레이어가 의심
+{"type":"CHOICE","userMessage":"m30BD는 Tax를 하기 위해 Duke를 가지고 있다고 주장한다.","content":["Challenge","Pass"]}
+의심 성공 / 실패 시 카드 한 장 희생 
+{"type":"CHOICE","userMessage":"버릴 카드를 선택하세요","content":["Captain","Captain"]}
+
+
+- Assassinate
+액션 플레이어가 대상 지정
+{"type":"CHOICE","userMessage":"대상을 선택하세요.","content":["qd0fg","Yv4Xh"]}
+대상 플레이어가 방해 혹은 의심
+{"type":"CHOICE","userMessage":"m30BD는 Assassinate를 하기 위해 Assassin를 가지고 있다고 주장한다.","content":["Block (Contessa)","Challenge","Pass"]}
+액션 플레이어, 대상 플레이어 외 나머지 플레이어가 액션에 대한 의심
+{"type":"CHOICE","userMessage":"m30BD는 Assassinate를 하기 위해 Assassin를 가지고 있다고 주장한다.","content":["Challenge","Pass"]}
+
+   - Assassinate 성공 시 대상 플레이어 카드 한 장 희생 (모든 플레이어가 의심 / 방해 하지 않은 경우)
+   {"type":"CHOICE","userMessage":"버릴 카드를 선택하세요","content":["Captain","Captain"]}
+
+   - 의심 성공 / 실패 시 카드 한 장 희생 (의심한 플레이어가 있을 경우)
+   {"type":"CHOICE","userMessage":"버릴 카드를 선택하세요","content":["Captain","Captain"]}
+
+   - 방해 플레이어 외 나머지 플레이어가 방해에 대한 의심 (의심에 실패하거나 방해한 플레이어만 있을 경우)
+   {"type":"CHOICE","userMessage":"iH2rd는 Block를 하기 위해 Contessa를 가지고 있다고 주장한다.","content":["Challenge","Pass"]}
+   의심 성공 / 실패 시 카드 한 장 희생
+   {"type":"CHOICE","userMessage":"버릴 카드를 선택하세요","content":["Captain","Captain"]}
+   Assassinate 성공 시 대상 플레이어 카드 한 장 희생
+   {"type":"CHOICE","userMessage":"버릴 카드를 선택하세요","content":["Captain","Captain"]}
+
+
+- Exchange
+액션 플레이어 외 나머지 플레이어가 의심
+{"type":"CHOICE","userMessage":"m30BD는 Exchange를 하기 위해 Ambassador를 가지고 있다고 주장한다.","content":["Challenge","Pass"]}
+의심 성공 / 실패 시 카드 한 장 희생
+{"type":"CHOICE","userMessage":"버릴 카드를 선택하세요","content":["Captain","Captain"]}
+
+
+- Steal
+액션을 선택한 플레이어가 대상을 지정
+{"type":"CHOICE","userMessage":"대상을 선택하세요.","content":["qd0fg","Yv4Xh"]}
+대상 플레이어가 방해 혹은 의심
+{"type":"CHOICE","userMessage":"m30BD는 Steal를 하기 위해 Captain를 가지고 있다고 주장한다.","content":["Block (Ambassador)","Block (Captain)","Challenge","Pass"]}
+액션 플레이어, 대상 플레이어 외 나머지 플레이어가 액션에 대한 의심
+{"type":"CHOICE","userMessage":"m30BD는 Steal를 하기 위해 Captain를 가지고 있다고 주장한다.","content":["Challenge","Pass"]}
+
+- 의심 성공 / 실패 시 카드 한 장 희생 (의심한 플레이가 있을 경우)
+{"type":"CHOICE","userMessage":"버릴 카드를 선택하세요","content":["Captain","Captain"]}
+
+- 방해 플레이어 외 나머지 플레이어가 방해에 대한 의심 (의심에 실패하거나 방해한 플레이어만 있을 경우)
+{"type":"CHOICE","userMessage":"m30BD는 Block를 하기 위해 Captain를 가지고 있다고 주장한다.","content":["Challenge","Pass"]}
+의심 성공 / 실패 시 카드 한 장 희생
+{"type":"CHOICE","userMessage":"버릴 카드를 선택하세요","content":["Captain","Captain"]}

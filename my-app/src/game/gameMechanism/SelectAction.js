@@ -36,7 +36,7 @@ export function SelectAction(
 
     setIncomeButtonDisabled((prev) => !prev);
     setForeignAidButtonDisabled((prev) => !prev);
-    // setTaxButtonDisabled((prev) => !prev);
+    setTaxButtonDisabled((prev) => !prev);
     // setExchangeButtonDisabled((prev) => !prev);
     // setStealButtonDisabled((prev) => !prev);
     if (currentTurnPlayerCoin >= 3) {
@@ -63,9 +63,9 @@ export function AfterSelectActionDisableActionButton(
     if (foreignAidButtonDisabled === false) {
         setForeignAidButtonDisabled((prev) => !prev);
     }
-    // if(taxButtonDisabled === false) {
-    //     setTaxButtonDisabled((prev) => !prev);
-    // }
+    if(taxButtonDisabled === false) {
+        setTaxButtonDisabled((prev) => !prev);
+    }
     // if(exchangeButtonDisabled === false) {
     //     setExchangeButtonDisabled((prev) => !prev);
     // }

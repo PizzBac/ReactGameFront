@@ -25,11 +25,6 @@ function App() {
         <Route path="/lobby" element={<Lobby />}/>
         <Route path="/game" element={<Game />} />
         <Route path="/waitingRoom1" element={<WaitingRoom1 />}/>
-        <Route path="/waitingRoom2" element={<WaitingRoom2 />}/>
-        <Route path="/waitingRoom3" element={<WaitingRoom3 />}/>
-        <Route path="/waitingRoom4" element={<WaitingRoom4 />}/>
-        <Route path="/waitingRoom5" element={<WaitingRoom5 />}/>
-        <Route path="/waitingRoom6" element={<WaitingRoom6 />}/>
         <Route tmp="/tmp" element={<Tmp />}/>
         {/* <Route path="/myComponent" element={<MyComponent />}/> */}
         

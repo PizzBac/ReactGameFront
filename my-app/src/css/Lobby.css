@@ -66,23 +66,6 @@ width: 700px;
  text-align: center;
 }
 
-.SubTitle1{
-  position: absolute;
-  top:22%;
-  left: 30%;
-  font-size: 25px;
-  /* background-color: aqua; */
-}
-
-
-.SubTitle2{
-  position: absolute;
-  top: 22%;
-  left: 60%;
-  font-size: 25px;
-  /* background-color: blueviolet; */
-}
-
 
 .SubTitle3{
   position: absolute;
@@ -144,7 +127,7 @@ td{
 
 .tdSecond{
   font-size: 30px;
-  width: 1300px;
+  width: 50px;
   /* border-radius: 300px; */
   text-align: right;
   height: 30px;
@@ -203,7 +186,7 @@ td{
 }
 
 .WaitingRoomButton{
-  width: 1300px;
+  width: 300px;
   height: 40px;
   margin-left: 30px;
   border-radius: 99px;
@@ -240,4 +223,25 @@ table{
 
 .select2 option:checked{
   background-color: aqua;
+}
+
+.SubTitle1{
+  font-size: 20px;
+  color: red;
+
+}
+
+.SubTitle2{
+  font-size: 20px;
+  color: blue;
+}
+
+.circle {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin-right: 5px;
+  background: pink;
 }
