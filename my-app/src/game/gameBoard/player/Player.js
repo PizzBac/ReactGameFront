@@ -1,10 +1,11 @@
 import { DistributeCards, Card } from './card/Card';
 import Coin from './coin/Coin';
 import Turn from '../../gameMechanism/Turn';
-import { SavePlayersData, LoadPlayersData } from '../../gameMechanism/ExchangeServerInfo';
+import { useState } from 'react';
 
 function Player(props) {
   const { activate, howManyPlayer, loginPlayerNumber, loginPlayerNickname } = props;
+  const [playersData, setPlayersData] = useState();
 
   function CreatePlayers() {
     const players = [];
@@ -44,24 +45,34 @@ function Player(props) {
     localStorage.setItem('doubtingPlayer', doubtingPlayer);
   }
 
-  let players = LoadPlayersData();
-  if (!players) {
-    players = CreatePlayers();
+  // 값을 불러오는 함수
+  function loadPlayersData() {
+    const players = localStorage.getItem('players');
+    return players ? JSON.parse(players) : null;
+  }
+
+  let players = loadPlayersData();
+  if (!players) { //만약 1픽에 플레이어가 없다면
+    players = CreatePlayers(); //내가 1픽이 되는 것이다.
     players = DistributeCards(players);
     const turn = 0;
     const action = null;
     const obstructingPlayer = null;
     const doubtingPlayer = null;
     savePlayersData(players, turn, action, obstructingPlayer, doubtingPlayer);
-    players = LoadPlayersData();
+    players = loadPlayersData();
   }
+
+  // function LoadPlayersData(newPlayersData) {
+  //   setPlayersData(newPlayersData);
+  // }
 
   return (
     <div>
       {players.map((player) => (
-        <div key={player.player.id + 1} className={`player player${player.player.id + 1} ${activate === true ? "active" : ""}`}>
+        <div key={player.player.id} className={`player player${player.player.id} ${activate === true ? "active" : ""}`}>
           <div className={`cardSet ${activate === true ? "active" : ""}`}>
-            <p className={`card-p${player.player.id + 1} playerId ${activate === true ? "active" : ""}`}># {player.player.nickName}</p>
+            <p className={`card-p${player.player.id} playerId ${activate === true ? "active" : ""}`}># {player.player.nickName}</p>
             <Card player={player.player} activate={activate} loginPlayerNumber={loginPlayerNumber} />
           </div>
           <Coin player={player.player} activate={activate} />
