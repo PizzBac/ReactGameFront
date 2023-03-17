@@ -24,7 +24,8 @@ function Game() {
   // 매번 다시 렌더링되지 않으려면 가장 상위 컴포넌트에 있어야 함
   const [activate, setActivate] = useState(false);
   useEffect(() => {
-    setActivate((prev) => !prev);
+    setActivate((prev) => !prev); //false에서 true로 바뀌는 것 뿐임. 
+    // transport=0 하면 아마 안 보일거임. Activate 쓰면 됨
   }, []);
 
   // 입장한 플레이어 좌석 번호에 따라서 본인 카드만 앞면이 보이게 설정
