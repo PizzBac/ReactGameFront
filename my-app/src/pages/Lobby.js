@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import '../css/Lobby.css';
 import { useState, useEffect } from "react";
 import { ToGame } from "../Navigation";
+import { LoadLoginPlayerId, LoadLoginPlayerNickname } from "../game/gameMechanism/ExchangeServerInfo";
 import { WaitingRoom1 } from "./WaitingRoom1";
 import { WaitingRoom2 } from "./WaitingRoom2";
 import { WaitingRoom3 } from "./WaitingRoom3";
@@ -37,9 +38,8 @@ function Lobby() {
 
     const [howManyPlayer, setHowManyPlayer] = useState(6);
     const [loginPlayerNum, setLoginPlayerNum] = useState(2);
-
-    const { loginPlayerId, loginPlayerNickname } = location.state;
-    console.log('state', location.state);
+    const [loginPlayerId, setLoginPlayerId] = useState(LoadLoginPlayerId());
+    const [loginPlayerNickname, setLoginPlayerNickname] = useState(LoadLoginPlayerNickname());
 
     function Exit(event) {
         event.preventDefault();

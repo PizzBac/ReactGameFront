@@ -1,5 +1,5 @@
-export function ToSignUp( {navigate} ) {
-    function handleClick(event){
+export function ToSignUp({ navigate }) {
+    function handleClick(event) {
         event.preventDefault();
         navigate("/signUp");
     }
@@ -8,15 +8,21 @@ export function ToSignUp( {navigate} ) {
     );
 }
 
-export function LoginToLobby({ navigate, loginPlayerId, loginPlayerNickname }) {
-    function handleClick(event){
+export function LoginToLobby({ navigate, loginPlayerId, loginPlayerNickname, SaveLoginData }) {
+    function handleClick(event) {
         event.preventDefault();
-        navigate('/Lobby', {
-            state: {
-                loginPlayerId: loginPlayerId,
-                loginPlayerNickname: loginPlayerNickname,
-            },
-        });
+        
+        if (loginPlayerId === "" || loginPlayerNickname === "") {
+            alert("아이디와 닉네임을 입력해주세요.");
+        } else {
+            SaveLoginData(loginPlayerId, loginPlayerNickname);
+            navigate('/Lobby', {
+                state: {
+                    loginPlayerId: loginPlayerId,
+                    loginPlayerNickname: loginPlayerNickname,
+                },
+            });
+        }
     };
     return (
         <button className="LoginBtn" type="submit" onClick={handleClick}>로그인</button>
@@ -24,7 +30,7 @@ export function LoginToLobby({ navigate, loginPlayerId, loginPlayerNickname }) {
 }
 
 export function GameToLobby({ navigate, loginPlayerId, loginPlayerNumber, loginPlayerNickname }) {
-   function handleClick(event){
+    function handleClick(event) {
         event.preventDefault();
         navigate('/Lobby', {
             state: {
@@ -39,8 +45,8 @@ export function GameToLobby({ navigate, loginPlayerId, loginPlayerNumber, loginP
     );
 }
 
-export function ToGame({navigate, howManyPlayer, loginPlayerId, loginPlayerNum, loginPlayerNickname}) {
-    function handleClick(event){
+export function ToGame({ navigate, howManyPlayer, loginPlayerId, loginPlayerNum, loginPlayerNickname }) {
+    function handleClick(event) {
         event.preventDefault();
         localStorage.removeItem('players');
         navigate('/game', {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { cardImages, shuffleDeck } from '../gameBoard/player/card/Card';
-import { SaveDeckData, LoadDeckData, SaveTotalPlayersData, LoadTotalPlayersData, SavePlayersData, LoadPlayersData, SaveTurnData, LoadTurnData, SaveActionData, LoadActionData, SaveObstructingPlayer, LoadObstructingPlayer, SaveDoubtingPlayer, LoadDoubtingPlayer } from './ExchangeServerInfo';
+import { SaveDeckData, LoadDeckData, SaveTotalPlayersData, LoadTotalPlayersData, SavePlayersData, LoadPlayersData, SaveTurnData, LoadTurnData, SaveActionData, LoadActionData } from './ExchangeServerInfo';
 import { StartTurn } from './StartTurn';
 import { ActionButtonState, AfterSelectActionDisableActionButton } from './SelectAction';
 import { EndGame } from './EndGame';
@@ -35,8 +35,6 @@ function Turn(props) {
     let players = LoadPlayersData();
     let turn = LoadTurnData();
     let action = LoadActionData();
-    let obstructingPlayer = LoadObstructingPlayer();
-    let doubtingPlayer = LoadDoubtingPlayer();
     let doubtingPlayerSeatNumber = 999;
     let obstructingPlayerSeatNumber = 999;
 
@@ -154,8 +152,28 @@ function Turn(props) {
         action = "Steal";
         SaveActionData(action);
 
-        // 대상 지정 필요
-        // 코인 0개면 선택 불가능
+    // 강탈 대상 플레이어 지정할 수 있게 함
+   
+
+        // const [showModal, setShowModal] = useState(true);
+        // const [targetPlayer, setTargetPlayer] = useState(null);
+
+        // const handleTargetPlayerSelection = (player) => {
+        //     if (player.coins > 0) {
+        //         setTargetPlayer(player);
+        //         setShowModal(false);
+        //     }
+        // };
+
+        // const playersWithoutCurrentPlayer = players.filter((player) => player.id != turn);
+        // const stealTargetOptions = playersWithoutCurrentPlayer.map((player) => ({
+        //     label: `Player ${player.id + 1} (${player.coins} coins)`,
+        //     value: player
+        // }));
+
+        // if (players[loginPlayer].player.id != players[turn].player.id) {
+        //      // 대상의 코인이 0개면 선택 불가능
+        // }
 
         IsDoubt();
     }
@@ -193,21 +211,22 @@ function Turn(props) {
             let checkDoubt = false;
             if (players[loginPlayer].player.id != players[obstructingPlayerSeatNumber].player.id) {
                 checkDoubt = window.confirm(
-                    `${players[obstructingPlayerSeatNumber].player.nickName}님이 해외 원조를 막으려고 합니다. (해외 원조 방해 가능 직업 : 공작) ${obstructingPlayer.nickName}님을 의심하시겠습니까?`
+                    `${players[obstructingPlayerSeatNumber].player.nickName}님이 해외 원조를 막으려고 합니다. (해외 원조 방해 가능 직업 : 공작) ${players[obstructingPlayerSeatNumber].player.nickName}님을 의심하시겠습니까?`
                 );
             }
             const doubtButtonPressedTime = new Date().getTime();
 
             if (checkDoubt) {
                 players[loginPlayer].player.doubtButtonPressedTime = doubtButtonPressedTime;
-                SavePlayersData(players);
-                players = LoadPlayersData();
 
                 // 브로드캐스팅
                 if (players[loginPlayer].player.doubtButtonPressedTime < doubtTime) {
                     players[loginPlayer].player.isDoubt = true;
                     doubtingPlayerSeatNumber = players[loginPlayer].player.id;
                 }
+
+                SavePlayersData(players);
+                players = LoadPlayersData();
 
                 CheckBluff();
             }
@@ -289,7 +308,7 @@ function Turn(props) {
                 };
                 deck.push("duke");
                 shuffleDeck(deck);
-                
+
                 const checkNotOpenedHands = players[doubtingPlayerSeatNumber].player.hand.filter((card) => card.isOpen == false).length;
 
                 if (checkNotOpenedHands == 2) {
@@ -318,7 +337,6 @@ function Turn(props) {
                     const closedHandIndex = players[doubtingPlayerSeatNumber].player.hand.findIndex((card) => card.isOpen == false);
                     players[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
                     players[doubtingPlayerSeatNumber].player.isOut = true;
-                    SaveDoubtingPlayer(players[doubtingPlayerSeatNumber].player);
                     SaveTotalPlayersData(totalPlayers - 1);
                 }
                 players[turn].player.coins = players[turn].player.coins + 2;
@@ -357,7 +375,6 @@ function Turn(props) {
                     const closedHandIndex = players[doubtingPlayerSeatNumber].player.hand.findIndex((card) => card.isOpen == false);
                     players[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
                     players[doubtingPlayerSeatNumber].player.isOut = true;
-                    SaveDoubtingPlayer(players[doubtingPlayerSeatNumber].player);
                     SaveTotalPlayersData(totalPlayers - 1);
                 }
                 players[turn].player.coins = players[turn].player.coins + 3;
@@ -377,7 +394,6 @@ function Turn(props) {
                     const closedHandIndex = players[doubtingPlayerSeatNumber].player.hand.findIndex((card) => card.isOpen == false);
                     players[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
                     players[doubtingPlayerSeatNumber].player.isOut = true;
-                    SaveDoubtingPlayer(players[doubtingPlayerSeatNumber].player);
                     SaveTotalPlayersData(totalPlayers - 1);
                 }
                 SavePlayersData(players);
@@ -414,7 +430,6 @@ function Turn(props) {
                     const closedHandIndex = players[doubtingPlayerSeatNumber].player.hand.findIndex((card) => card.isOpen == false);
                     players[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
                     players[doubtingPlayerSeatNumber].player.isOut = true;
-                    SaveDoubtingPlayer(players[doubtingPlayerSeatNumber].player);
                     SaveTotalPlayersData(totalPlayers - 1);
                 }
 
@@ -434,7 +449,6 @@ function Turn(props) {
                     const closedHandIndex = players[doubtingPlayerSeatNumber].player.hand.findIndex((card) => card.isOpen == false);
                     players[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
                     players[doubtingPlayerSeatNumber].player.isOut = true;
-                    SaveDoubtingPlayer(players[doubtingPlayerSeatNumber].player);
                     SaveTotalPlayersData(totalPlayers - 1);
                 }
                 SavePlayersData(players);
@@ -477,6 +491,18 @@ function Turn(props) {
 
     return (
         <div>
+            {/* <>
+                {showModal && (
+                    <Modal>
+                        <h2>Select a player to steal from:</h2>
+                        <Select
+                            options={stealTargetOptions}
+                            onChange={(selectedOption) => handleTargetPlayerSelection(selectedOption.value)}
+                        />
+                    </Modal>
+                )}
+                {!showModal && IsDoubt()}
+            </> */}
             <div style={{ position: 'absolute', backgroundColor: '#FFFFFF', right: 30, bottom: 30, height: 30 }}>
                 <button id="income" onClick={Income} disabled={incomeButtonDisabled}>소득</button>
                 <button id="foreignAid" onClick={ForeignAid} disabled={foreignAidButtonDisabled}>해외원조</button>

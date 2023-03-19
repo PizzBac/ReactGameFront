@@ -1,3 +1,18 @@
+export function SaveLoginData(loginPlayerId, loginPlayerNickname) {
+    localStorage.setItem('loginPlayerId', loginPlayerId);
+    localStorage.setItem('loginPlayerNickname', loginPlayerNickname);
+}
+
+export function LoadLoginPlayerId() {
+    const loginPlayerId = localStorage.getItem('loginPlayerId');
+    return loginPlayerId ? loginPlayerId : "아이디 없음";
+}
+
+export function LoadLoginPlayerNickname() {
+    const loginPlayerNickname = localStorage.getItem('loginPlayerNickname');
+    return loginPlayerNickname ? loginPlayerNickname : "닉네임 없음";
+}
+
 export function SaveDeckData(deck) {
     localStorage.setItem('deck', JSON.stringify(deck));
     //deck은 배열이다. stringfy를 써서 string값으로 변환시켜줌.
@@ -46,22 +61,4 @@ export function LoadActionData() {
     let action = localStorage.getItem('action');
     action = action ? action : null;
     return action;
-}
-
-export function SaveObstructingPlayer(obstructingPlayer) {
-    localStorage.setItem('obstructingPlayer', JSON.stringify(obstructingPlayer));
-}
-
-export function LoadObstructingPlayer() {
-    const obstructingPlayer = localStorage.getItem('obstructingPlayer');
-    return obstructingPlayer ? JSON.parse(obstructingPlayer) : null;
-}
-
-export function SaveDoubtingPlayer(doubtingPlayer) {
-    localStorage.setItem('doubtingPlayer', JSON.stringify(doubtingPlayer));
-}
-
-export function LoadDoubtingPlayer() {
-    const doubtingPlayer = localStorage.getItem('doubtingPlayer');
-    return doubtingPlayer ? JSON.parse(doubtingPlayer) : null;
 }
