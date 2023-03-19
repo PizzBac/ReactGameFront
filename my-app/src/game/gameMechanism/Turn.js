@@ -7,7 +7,7 @@ import { EndGame } from './EndGame';
 
 function Turn(props) {
     const { howManyPlayer } = props;
-    const [loginPlayer, setLoginPlayer] = useState(1);
+    const [loginPlayerSeatNumber, setLoginPlayerSeatNumber] = useState(1);
     const [whatAction, setWhatAction] = useState("")
     const [whosTurn, setWhosTurn] = useState("")
 
@@ -31,8 +31,8 @@ function Turn(props) {
     SaveTotalPlayersData(6);
 
     let deck = LoadDeckData();
-    let totalPlayers = LoadTotalPlayersData();
-    let players = LoadPlayersData();
+    let totalLoginPlayersNumber = LoadTotalPlayersData();
+    let playersData = LoadPlayersData();
     let turn = LoadTurnData();
     let action = LoadActionData();
     let doubtingPlayerSeatNumber = 999;
@@ -47,7 +47,7 @@ function Turn(props) {
             stealButtonDisabled, setStealButtonDisabled,
             assassinationButtonDisabled, setAssassinationButtonDisabled,
             coupButtonDisabled, setCoupButtonDisabled,
-            players, turn,
+            playersData, turn,
         );
     }, []);
 
@@ -64,7 +64,7 @@ function Turn(props) {
         );
         action = "Income";
         SaveActionData(action);
-        players[turn].player.coins = players[turn].player.coins + 1;
+        playersData[turn].player.coins = playersData[turn].player.coins + 1;
         EndTurn();
     }
 
@@ -85,21 +85,21 @@ function Turn(props) {
         // 현재 턴인 플레이어 제외한 다른 플레이어들에게 UI로 화면 띄우는 기능 필요
         // 서버에서 브로드캐스팅해야 함
         let checkObstruct = false;
-        if (players[loginPlayer].player.myTurn == false) {
+        if (playersData[loginPlayerSeatNumber].player.myTurn == false) {
             checkObstruct = window.confirm(
-                `${players[turn].player.nickName}님이 해외 원조를 받으려고 합니다. 방해하시겠습니까? (방해 가능 직업 : 공작)`
+                `${playersData[turn].player.nickName}님이 해외 원조를 받으려고 합니다. 방해하시겠습니까? (방해 가능 직업 : 공작)`
             );
         }
         const obstructButtonPressedTime = new Date().getTime();
 
         if (checkObstruct) {
-            players[loginPlayer].player.obstructButtonPressedTime = obstructButtonPressedTime;
-            SavePlayersData(players);
-            players = LoadPlayersData();
+            playersData[loginPlayerSeatNumber].player.obstructButtonPressedTime = obstructButtonPressedTime;
+            SavePlayersData(playersData);
+            playersData = LoadPlayersData();
             IsObstruction();
         } else {
             console.log((turn + 1) + "번 플레이어가 2코인 획득");
-            players[turn].player.coins = players[turn].player.coins + 2;
+            playersData[turn].player.coins = playersData[turn].player.coins + 2;
             EndTurn();
         }
     }
@@ -165,13 +165,13 @@ function Turn(props) {
         //     }
         // };
 
-        // const playersWithoutCurrentPlayer = players.filter((player) => player.id != turn);
+        // const playersWithoutCurrentPlayer = playersData.filter((player) => player.id != turn);
         // const stealTargetOptions = playersWithoutCurrentPlayer.map((player) => ({
         //     label: `Player ${player.id + 1} (${player.coins} coins)`,
         //     value: player
         // }));
 
-        // if (players[loginPlayer].player.id != players[turn].player.id) {
+        // if (playersData[loginPlayerSeatNumber].player.id != playersData[turn].player.id) {
         //      // 대상의 코인이 0개면 선택 불가능
         // }
 
@@ -190,13 +190,13 @@ function Turn(props) {
         console.log("방해");
         if (action == "ForeignAid") {
             // 브로드캐스팅
-            if (players[loginPlayer].player.obstructButtonPressedTime < obstructTime) {
-                players[loginPlayer].player.isObstructing = true;
-                SavePlayersData(players);
-                players = LoadPlayersData();
-                obstructingPlayerSeatNumber = players[loginPlayer].player.id;
+            if (playersData[loginPlayerSeatNumber].player.obstructButtonPressedTime < obstructTime) {
+                playersData[loginPlayerSeatNumber].player.isObstructing = true;
+                SavePlayersData(playersData);
+                playersData = LoadPlayersData();
+                obstructingPlayerSeatNumber = playersData[loginPlayerSeatNumber].player.id;
             }
-            console.log(`${players[obstructingPlayerSeatNumber].player.nickName}` + "님이 방해 시도");
+            console.log(`${playersData[obstructingPlayerSeatNumber].player.nickName}` + "님이 방해 시도");
             IsDoubt();
         } else if (action == "Steal") {
 
@@ -209,73 +209,73 @@ function Turn(props) {
         console.log("의심");
         if (action == "ForeignAid") {
             let checkDoubt = false;
-            if (players[loginPlayer].player.id != players[obstructingPlayerSeatNumber].player.id) {
+            if (playersData[loginPlayerSeatNumber].player.id != playersData[obstructingPlayerSeatNumber].player.id) {
                 checkDoubt = window.confirm(
-                    `${players[obstructingPlayerSeatNumber].player.nickName}님이 해외 원조를 막으려고 합니다. (해외 원조 방해 가능 직업 : 공작) ${players[obstructingPlayerSeatNumber].player.nickName}님을 의심하시겠습니까?`
+                    `${playersData[obstructingPlayerSeatNumber].player.nickName}님이 해외 원조를 막으려고 합니다. (해외 원조 방해 가능 직업 : 공작) ${playersData[obstructingPlayerSeatNumber].player.nickName}님을 의심하시겠습니까?`
                 );
             }
             const doubtButtonPressedTime = new Date().getTime();
 
             if (checkDoubt) {
-                players[loginPlayer].player.doubtButtonPressedTime = doubtButtonPressedTime;
+                playersData[loginPlayerSeatNumber].player.doubtButtonPressedTime = doubtButtonPressedTime;
 
                 // 브로드캐스팅
-                if (players[loginPlayer].player.doubtButtonPressedTime < doubtTime) {
-                    players[loginPlayer].player.isDoubt = true;
-                    doubtingPlayerSeatNumber = players[loginPlayer].player.id;
+                if (playersData[loginPlayerSeatNumber].player.doubtButtonPressedTime < doubtTime) {
+                    playersData[loginPlayerSeatNumber].player.isDoubt = true;
+                    doubtingPlayerSeatNumber = playersData[loginPlayerSeatNumber].player.id;
                 }
 
-                SavePlayersData(players);
-                players = LoadPlayersData();
+                SavePlayersData(playersData);
+                playersData = LoadPlayersData();
 
                 CheckBluff();
             }
             else {
-                console.log(`${players[obstructingPlayerSeatNumber].player.nickName}님의 해외 원조 방해 성공`)
+                console.log(`${playersData[obstructingPlayerSeatNumber].player.nickName}님의 해외 원조 방해 성공`)
                 EndTurn();
             }
         }
         else if (action == "Tax") {
             // 브로드캐스팅
             let checkDoubt = false;
-            if (players[loginPlayer].player.myTurn == false) {
+            if (playersData[loginPlayerSeatNumber].player.myTurn == false) {
                 checkDoubt = window.confirm(
-                    `${players[turn].player.nickName}님이 세금 징수를 하려고 합니다. 의심하시겠습니까? (세금 징수 가능 직업 : 공작)`
+                    `${playersData[turn].player.nickName}님이 세금 징수를 하려고 합니다. 의심하시겠습니까? (세금 징수 가능 직업 : 공작)`
                 );
             }
             const doubtButtonPressedTime = new Date().getTime();
 
             if (checkDoubt) {
-                players[loginPlayer].player.doubtButtonPressedTime = doubtButtonPressedTime;
-                doubtingPlayerSeatNumber = players[loginPlayer].player.id;
-                SavePlayersData(players);
-                players = LoadPlayersData();
+                playersData[loginPlayerSeatNumber].player.doubtButtonPressedTime = doubtButtonPressedTime;
+                doubtingPlayerSeatNumber = playersData[loginPlayerSeatNumber].player.id;
+                SavePlayersData(playersData);
+                playersData = LoadPlayersData();
                 CheckBluff();
             }
             else {
-                console.log(`의심 플레이어 없으므로 ${players[turn].player.nickName}님이 3코인 획득`)
-                players[turn].player.coins = players[turn].player.coins + 3;
+                console.log(`의심 플레이어 없으므로 ${playersData[turn].player.nickName}님이 3코인 획득`)
+                playersData[turn].player.coins = playersData[turn].player.coins + 3;
                 EndTurn();
             }
         }
         else if (action == "Exchange") {
             let checkDoubt = false;
-            if (players[loginPlayer].player.myTurn == false) {
+            if (playersData[loginPlayerSeatNumber].player.myTurn == false) {
                 checkDoubt = window.confirm(
-                    `${players[turn].player.nickName}님이 카드 교환을 시도합니다. 의심하시겠습니까? (카드 교환 가능 직업 : 외교관)`
+                    `${playersData[turn].player.nickName}님이 카드 교환을 시도합니다. 의심하시겠습니까? (카드 교환 가능 직업 : 외교관)`
                 );
             }
             const doubtButtonPressedTime = new Date().getTime();
 
             if (checkDoubt) {
-                players[loginPlayer].player.doubtButtonPressedTime = doubtButtonPressedTime;
-                doubtingPlayerSeatNumber = players[loginPlayer].player.id;
-                SavePlayersData(players);
-                players = LoadPlayersData();
+                playersData[loginPlayerSeatNumber].player.doubtButtonPressedTime = doubtButtonPressedTime;
+                doubtingPlayerSeatNumber = playersData[loginPlayerSeatNumber].player.id;
+                SavePlayersData(playersData);
+                playersData = LoadPlayersData();
                 CheckBluff();
             }
             else {
-                console.log(`의심 플레이어 없으므로 ${players[turn].player.nickName}님이 카드교환을 진행합니다.`)
+                console.log(`의심 플레이어 없으므로 ${playersData[turn].player.nickName}님이 카드교환을 진행합니다.`)
                 // 카드 교환 메커니즘 작성 필요
                 EndTurn();
             }
@@ -292,7 +292,7 @@ function Turn(props) {
         console.log("블러핑 체크");
         if (action == "ForeignAid") {
             let hasDuke = false;
-            players[obstructingPlayerSeatNumber].player.hand.forEach((card) => {
+            playersData[obstructingPlayerSeatNumber].player.hand.forEach((card) => {
                 if (card.type == "duke" && card.isOpen == false) {
                     hasDuke = true;
                 }
@@ -300,8 +300,8 @@ function Turn(props) {
 
             if (hasDuke) {
                 console.log("블러핑 아니었음. 의심 실패.");
-                let obstructingPlayerDukeIndex = players[obstructingPlayerSeatNumber].player.hand.findIndex(card => card.type == "duke");
-                players[obstructingPlayerSeatNumber].player.hand[obstructingPlayerDukeIndex] = {
+                let obstructingPlayerDukeIndex = playersData[obstructingPlayerSeatNumber].player.hand.findIndex(card => card.type == "duke");
+                playersData[obstructingPlayerSeatNumber].player.hand[obstructingPlayerDukeIndex] = {
                     type: deck.pop(),
                     image: cardImages[deck[deck.length - 1]],
                     isOpen: false,
@@ -309,38 +309,38 @@ function Turn(props) {
                 deck.push("duke");
                 shuffleDeck(deck);
 
-                const checkNotOpenedHands = players[doubtingPlayerSeatNumber].player.hand.filter((card) => card.isOpen == false).length;
+                const checkNotOpenedHands = playersData[doubtingPlayerSeatNumber].player.hand.filter((card) => card.isOpen == false).length;
 
                 if (checkNotOpenedHands == 2) {
                     // doubtingPlayer가 자신의 hand에서 isOpen = true로 바꿀 카드를 선택할 수 있도록 해야 함
                     const closedHandIndex = Math.floor(Math.random() * 2);
-                    players[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
+                    playersData[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
                 } else if (checkNotOpenedHands == 1) {
-                    const closedHandIndex = players[doubtingPlayerSeatNumber].player.hand.findIndex((card) => card.isOpen == false);
-                    players[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
-                    players[doubtingPlayerSeatNumber].player.isOut = true;
-                    SaveTotalPlayersData(totalPlayers - 1);
+                    const closedHandIndex = playersData[doubtingPlayerSeatNumber].player.hand.findIndex((card) => card.isOpen == false);
+                    playersData[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
+                    playersData[doubtingPlayerSeatNumber].player.isOut = true;
+                    SaveTotalPlayersData(totalLoginPlayersNumber - 1);
                 }
 
-                SavePlayersData(players);
+                SavePlayersData(playersData);
                 SaveDeckData(deck);
                 EndTurn();
             } else {
                 console.log("블러핑이었으므로 블러핑한 플레이어의 카드 한 장 오픈하고 현재 턴 플레이어 2코인 획득");
-                const checkNotOpenedHands = players[turn].player.hand.filter((card) => card.isOpen == false).length;
+                const checkNotOpenedHands = playersData[turn].player.hand.filter((card) => card.isOpen == false).length;
 
                 if (checkNotOpenedHands == 2) {
                     // doubtingPlayer가 자신의 hand에서 isOpen = true로 바꿀 카드를 선택할 수 있도록 해야 함
                     const closedHandIndex = Math.floor(Math.random() * 2);
-                    players[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
+                    playersData[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
                 } else if (checkNotOpenedHands == 1) {
-                    const closedHandIndex = players[doubtingPlayerSeatNumber].player.hand.findIndex((card) => card.isOpen == false);
-                    players[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
-                    players[doubtingPlayerSeatNumber].player.isOut = true;
-                    SaveTotalPlayersData(totalPlayers - 1);
+                    const closedHandIndex = playersData[doubtingPlayerSeatNumber].player.hand.findIndex((card) => card.isOpen == false);
+                    playersData[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
+                    playersData[doubtingPlayerSeatNumber].player.isOut = true;
+                    SaveTotalPlayersData(totalLoginPlayersNumber - 1);
                 }
-                players[turn].player.coins = players[turn].player.coins + 2;
-                SavePlayersData(players);
+                playersData[turn].player.coins = playersData[turn].player.coins + 2;
+                SavePlayersData(playersData);
                 SaveDeckData(deck);
                 EndTurn();
             }
@@ -348,7 +348,7 @@ function Turn(props) {
         else if (action == "Tax") {
 
             let hasDuke = false;
-            players[turn].player.hand.forEach((card) => {
+            playersData[turn].player.hand.forEach((card) => {
                 if (card.type == "duke" && card.isOpen == false) {
                     hasDuke = true;
                 }
@@ -356,8 +356,8 @@ function Turn(props) {
 
             if (hasDuke) {
                 console.log("블러핑 아니었음. 의심 실패.");
-                let currentTurnPlayerDukeIndex = players[turn].player.hand.findIndex(card => card.type == "duke");
-                players[turn].player.hand[currentTurnPlayerDukeIndex] = {
+                let currentTurnPlayerDukeIndex = playersData[turn].player.hand.findIndex(card => card.type == "duke");
+                playersData[turn].player.hand[currentTurnPlayerDukeIndex] = {
                     type: deck.pop(),
                     image: cardImages[deck[deck.length - 1]],
                     isOpen: false,
@@ -365,45 +365,45 @@ function Turn(props) {
                 deck.push("duke");
                 shuffleDeck(deck);
 
-                const checkNotOpenedHands = players[doubtingPlayerSeatNumber].player.hand.filter((card) => card.isOpen == false).length;
+                const checkNotOpenedHands = playersData[doubtingPlayerSeatNumber].player.hand.filter((card) => card.isOpen == false).length;
 
                 if (checkNotOpenedHands == 2) {
                     // doubtingPlayer가 자신의 hand에서 isOpen = true로 바꿀 카드를 선택할 수 있도록 해야 함
                     const closedHandIndex = Math.floor(Math.random() * 2);
-                    players[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
+                    playersData[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
                 } else if (checkNotOpenedHands == 1) {
-                    const closedHandIndex = players[doubtingPlayerSeatNumber].player.hand.findIndex((card) => card.isOpen == false);
-                    players[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
-                    players[doubtingPlayerSeatNumber].player.isOut = true;
-                    SaveTotalPlayersData(totalPlayers - 1);
+                    const closedHandIndex = playersData[doubtingPlayerSeatNumber].player.hand.findIndex((card) => card.isOpen == false);
+                    playersData[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
+                    playersData[doubtingPlayerSeatNumber].player.isOut = true;
+                    SaveTotalPlayersData(totalLoginPlayersNumber - 1);
                 }
-                players[turn].player.coins = players[turn].player.coins + 3;
-                SavePlayersData(players);
+                playersData[turn].player.coins = playersData[turn].player.coins + 3;
+                SavePlayersData(playersData);
                 SaveDeckData(deck);
-                console.log(`${players[turn].player.nickName}님이 3코인 획득`);
+                console.log(`${playersData[turn].player.nickName}님이 3코인 획득`);
                 EndTurn();
             } else {
                 console.log("블러핑이었으므로 3코인 획득하지 못하고 카드 한 장 오픈");
-                const checkNotOpenedHands = players[turn].player.hand.filter((card) => card.isOpen == false).length;
+                const checkNotOpenedHands = playersData[turn].player.hand.filter((card) => card.isOpen == false).length;
 
                 if (checkNotOpenedHands == 2) {
                     // doubtingPlayer가 자신의 hand에서 isOpen = true로 바꿀 카드를 선택할 수 있도록 해야 함
                     const closedHandIndex = Math.floor(Math.random() * 2);
-                    players[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
+                    playersData[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
                 } else if (checkNotOpenedHands == 1) {
-                    const closedHandIndex = players[doubtingPlayerSeatNumber].player.hand.findIndex((card) => card.isOpen == false);
-                    players[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
-                    players[doubtingPlayerSeatNumber].player.isOut = true;
-                    SaveTotalPlayersData(totalPlayers - 1);
+                    const closedHandIndex = playersData[doubtingPlayerSeatNumber].player.hand.findIndex((card) => card.isOpen == false);
+                    playersData[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
+                    playersData[doubtingPlayerSeatNumber].player.isOut = true;
+                    SaveTotalPlayersData(totalLoginPlayersNumber - 1);
                 }
-                SavePlayersData(players);
+                SavePlayersData(playersData);
                 SaveDeckData(deck);
                 EndTurn();
             }
         }
         else if (action == "Exchange") {
             let hasAmbassador = false;
-            players[turn].player.hand.forEach((card) => {
+            playersData[turn].player.hand.forEach((card) => {
                 if (card.type == "ambassador" && card.isOpen == false) {
                     hasAmbassador = true;
                 }
@@ -411,8 +411,8 @@ function Turn(props) {
 
             if (hasAmbassador) {
                 console.log("블러핑 아니었음. 의심 실패.");
-                let currentTurnPlayerAmbassadorIndex = players[turn].player.hand.findIndex(card => card.type == "ambassador");
-                players[turn].player.hand[currentTurnPlayerAmbassadorIndex] = {
+                let currentTurnPlayerAmbassadorIndex = playersData[turn].player.hand.findIndex(card => card.type == "ambassador");
+                playersData[turn].player.hand[currentTurnPlayerAmbassadorIndex] = {
                     type: deck.pop(),
                     image: cardImages[deck[deck.length - 1]],
                     isOpen: false,
@@ -420,38 +420,38 @@ function Turn(props) {
                 deck.push("ambassador");
                 shuffleDeck(deck);
 
-                const checkNotOpenedHands = players[doubtingPlayerSeatNumber].player.hand.filter((card) => card.isOpen == false).length;
+                const checkNotOpenedHands = playersData[doubtingPlayerSeatNumber].player.hand.filter((card) => card.isOpen == false).length;
 
                 if (checkNotOpenedHands == 2) {
                     // doubtingPlayer가 자신의 hand에서 isOpen = true로 바꿀 카드를 선택할 수 있도록 해야 함
                     const closedHandIndex = Math.floor(Math.random() * 2);
-                    players[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
+                    playersData[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
                 } else if (checkNotOpenedHands == 1) {
-                    const closedHandIndex = players[doubtingPlayerSeatNumber].player.hand.findIndex((card) => card.isOpen == false);
-                    players[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
-                    players[doubtingPlayerSeatNumber].player.isOut = true;
-                    SaveTotalPlayersData(totalPlayers - 1);
+                    const closedHandIndex = playersData[doubtingPlayerSeatNumber].player.hand.findIndex((card) => card.isOpen == false);
+                    playersData[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
+                    playersData[doubtingPlayerSeatNumber].player.isOut = true;
+                    SaveTotalPlayersData(totalLoginPlayersNumber - 1);
                 }
 
-                SavePlayersData(players);
+                SavePlayersData(playersData);
                 SaveDeckData(deck);
                 // ExchangeCards();
                 EndTurn();
             } else {
                 console.log("블러핑이었으므로 카드 교환 실패하고 카드 한 장 오픈");
-                const checkNotOpenedHands = players[turn].player.hand.filter((card) => card.isOpen == false).length;
+                const checkNotOpenedHands = playersData[turn].player.hand.filter((card) => card.isOpen == false).length;
 
                 if (checkNotOpenedHands == 2) {
                     // doubtingPlayer가 자신의 hand에서 isOpen = true로 바꿀 카드를 선택할 수 있도록 해야 함
                     const closedHandIndex = Math.floor(Math.random() * 2);
-                    players[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
+                    playersData[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
                 } else if (checkNotOpenedHands == 1) {
-                    const closedHandIndex = players[doubtingPlayerSeatNumber].player.hand.findIndex((card) => card.isOpen == false);
-                    players[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
-                    players[doubtingPlayerSeatNumber].player.isOut = true;
-                    SaveTotalPlayersData(totalPlayers - 1);
+                    const closedHandIndex = playersData[doubtingPlayerSeatNumber].player.hand.findIndex((card) => card.isOpen == false);
+                    playersData[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
+                    playersData[doubtingPlayerSeatNumber].player.isOut = true;
+                    SaveTotalPlayersData(totalLoginPlayersNumber - 1);
                 }
-                SavePlayersData(players);
+                SavePlayersData(playersData);
                 SaveDeckData(deck);
                 EndTurn();
             }
@@ -467,14 +467,14 @@ function Turn(props) {
 
     function EndTurn() {
         console.log("턴 종료");
-        players[turn].player.myTurn = !(players[turn].player.myTurn);
+        playersData[turn].player.myTurn = !(playersData[turn].player.myTurn);
         turn = (turn + 1) % howManyPlayer;
-        SavePlayersData(players);
-        players = LoadPlayersData();
+        SavePlayersData(playersData);
+        playersData = LoadPlayersData();
         SaveTurnData(turn);
         turn = LoadTurnData();
 
-        if (totalPlayers < 2) {
+        if (totalLoginPlayersNumber < 2) {
             EndGame();
         }
         StartTurn(
@@ -485,7 +485,7 @@ function Turn(props) {
             stealButtonDisabled, setStealButtonDisabled,
             assassinationButtonDisabled, setAssassinationButtonDisabled,
             coupButtonDisabled, setCoupButtonDisabled,
-            players, turn,
+            playersData, turn,
         );
     }
 

@@ -11,7 +11,7 @@ import Banker from './banker';
 // import Turn from './gameMechanism/Turn';
 import ScrollToTop from './scrollTop';
 import { StompSessionProvider } from 'react-stomp-hooks';
-
+import { LoadDeckData } from './gameMechanism/ExchangeServerInfo';
 
 function Game() {
 
@@ -54,7 +54,7 @@ function Game() {
           <Banker />
           <div className="deck">
             <img className="card card-dummy img"></img>
-            <p className="remain-card">남은 카드: 5</p>
+            <p className="remain-card">남은 카드: {LoadDeckData().length}</p>
           </div>
           <div className="GameBoard">
             <Console />
