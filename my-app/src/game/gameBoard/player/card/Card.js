@@ -36,30 +36,6 @@ export function shuffleDeck(array) {
 
 export function DistributeCards(players) {
 
-  // 카드 이미지 설정
-  // const cardImages = {
-  //   assassin: {
-  //     front: require("../../../../css/images/assassin.png"),
-  //     back: require("../../../../css/images/back.png"),
-  //   },
-  //   contessa: {
-  //     front: require("../../../../css/images/contessa.png"),
-  //     back: require("../../../../css/images/back.png"),
-  //   },
-  //   duke: {
-  //     front: require("../../../../css/images/duke.png"),
-  //     back: require("../../../../css/images/back.png"),
-  //   },
-  //   ambassador: {
-  //     front: require("../../../../css/images/ambassador.png"),
-  //     back: require("../../../../css/images/back.png"),
-  //   },
-  //   captain: {
-  //     front: require("../../../../css/images/captain.png"),
-  //     back: require("../../../../css/images/back.png"),
-  //   },
-  // };
-
   const deck = ['assassin', 'assassin', 'assassin', 'contessa', 'contessa', 'contessa', 'duke', 'duke', 'duke', 'ambassador', 'ambassador', 'ambassador', 'captain', 'captain', 'captain'];
   shuffleDeck(deck);
 
