@@ -30,7 +30,7 @@ export function SaveTotalPlayersData(totalPlayers) {
 
 export function LoadTotalPlayersData() {
     let totalPlayers = localStorage.getItem('totalPlayers');
-    totalPlayers = totalPlayers ? parseInt(totalPlayers) : 0;
+    totalPlayers = totalPlayers ? parseInt(totalPlayers) : 999;
     return totalPlayers;
 }
 
@@ -49,7 +49,7 @@ export function SaveTurnData(turn) {
 
 export function LoadTurnData() {
     let turn = localStorage.getItem('turn');
-    turn = turn ? parseInt(turn) : 0;
+    turn = turn ? parseInt(turn) : 999;
     return turn;
 }
 
@@ -61,4 +61,34 @@ export function LoadActionData() {
     let action = localStorage.getItem('action');
     action = action ? action : null;
     return action;
+}
+
+export function SaveDoubtingPlayerSeatNumber(doubtingPlayerSeatNumber) {
+    localStorage.setItem('doubtingPlayerSeatNumber', doubtingPlayerSeatNumber.toString());
+}
+
+export function LoadDoubtingPlayerSeatNumber() {
+    let doubtingPlayerSeatNumber = localStorage.getItem('doubtingPlayerSeatNumber');
+    doubtingPlayerSeatNumber = doubtingPlayerSeatNumber ? parseInt(doubtingPlayerSeatNumber) : null;
+    return doubtingPlayerSeatNumber;
+}
+
+export function SaveObstructionButtonPressedTime(obstructionButtonPressedTime) {
+    localStorage.setItem('obstructionButtonPressedTime', obstructionButtonPressedTime.toString());
+}
+
+export function LoadObstructionButtonPressedTime() {
+    let obstructionButtonPressedTime = localStorage.getItem('obstructionButtonPressedTime');
+    obstructionButtonPressedTime = obstructionButtonPressedTime ? parseInt(obstructionButtonPressedTime) : null;
+    return obstructionButtonPressedTime;
+}
+
+export function SaveStealTargetSeatNumber(stealTargetSeatNumber) {
+    localStorage.setItem('stealTargetSeatNumber', stealTargetSeatNumber.toString());
+}
+
+export function LoadStealTargetSeatNumber() {
+    let stealTargetSeatNumber = localStorage.getItem('stealTargetSeatNumber');
+    stealTargetSeatNumber = stealTargetSeatNumber ? parseInt(stealTargetSeatNumber) : null;
+    return stealTargetSeatNumber;
 }

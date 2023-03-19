@@ -8,12 +8,15 @@ export function StartTurn(incomeButtonDisabled, setIncomeButtonDisabled,
     stealButtonDisabled, setStealButtonDisabled,
     assassinationButtonDisabled, setAssassinationButtonDisabled,
     coupButtonDisabled, setCoupButtonDisabled,
-    players, turn,
 ) {
+    let players = LoadPlayersData();
+    let turn = LoadTurnData();
+    console.log(turn);
     console.log((turn + 1) + "번 플레이어의 턴 시작");
+
     players[turn].player.myTurn = !(players[turn].player.myTurn);
+
     SavePlayersData(players);
-    players = LoadPlayersData();
 
     SelectAction(
         incomeButtonDisabled, setIncomeButtonDisabled,

@@ -38,39 +38,41 @@ function Game() {
           console.log(str);
         }}
       > */}
-        <div className="page">
-          <div className="gameHeader">
-            <div className="lobbyButton">
-              <GameToLobby navigate={navigate} loginPlayerId={loginPlayerId} loginPlayerNumber={loginPlayerNum} loginPlayerNickname={loginPlayerNickname} />
-            </div>
-            <div className="temp-div">
-              <button className="tmp-btn start">스타트</button>
-              <button className="tmp-btn server">서버로 전송</button>
-              <button className="tmp-btn turnButton">턴 바꾸기</button>
-              <button className="tmp-btn messageButton">메세지 바꾸기</button>
-            </div>
-            <button className="fabicon img"></button>
+      <div className="page">
+        <div className="gameHeader">
+          <div className="lobbyButton">
+            <GameToLobby navigate={navigate} loginPlayerId={loginPlayerId} loginPlayerNumber={loginPlayerNum} loginPlayerNickname={loginPlayerNickname} />
           </div>
-          <Banker />
-          <div className="deck">
-            <img className="card card-dummy img"></img>
-            <p className="remain-card">남은 카드: {LoadDeckData().length}</p>
+          <div className="temp-div">
+            <button className="tmp-btn start">스타트</button>
+            <button className="tmp-btn server">서버로 전송</button>
+            <button className="tmp-btn turnButton">턴 바꾸기</button>
+            <button className="tmp-btn messageButton">메세지 바꾸기</button>
           </div>
-          <div className="GameBoard">
-            <Console />
-          </div>
-          <div className="timezone">
-            시간이 흘러갑니다 ~~~
-            {/* <Progress value={5} max={10} /> */}
-          </div>
+          <button className="fabicon img"></button>
+        </div>
+        <Banker />
+        <div className="deck">
+          <img className="card card-dummy img"></img>
+          <p className="remain-card">
+            {LoadDeckData() ? `남은 카드: ${LoadDeckData().length}` : '정보를 불러오는 중입니다.'}
+          </p>
+        </div>
+        <div className="GameBoard">
+          <Console />
+        </div>
+        <div className="timezone">
+          시간이 흘러갑니다 ~~~
+          {/* <Progress value={5} max={10} /> */}
+        </div>
 
-          <Player activate={activate} howManyPlayer={howManyPlayer} loginPlayerNumber={loginPlayerNumber} loginPlayerNickname={loginPlayerNickname} />
+        <Player activate={activate} howManyPlayer={howManyPlayer} loginPlayerNumber={loginPlayerNumber} loginPlayerNickname={loginPlayerNickname} />
 
-          <div className="sideSection">
-            <HintBox />
-            {/* <ChatWindows loginPlayerId={loginPlayerId} loginPlayerNickname={loginPlayerNickname} /> */}
-          </div>
-        </div >
+        <div className="sideSection">
+          <HintBox />
+          {/* <ChatWindows loginPlayerId={loginPlayerId} loginPlayerNickname={loginPlayerNickname} /> */}
+        </div>
+      </div >
       {/* </StompSessionProvider> */}
     </ScrollToTop>
   );

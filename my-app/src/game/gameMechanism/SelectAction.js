@@ -37,14 +37,14 @@ export function SelectAction(
     setIncomeButtonDisabled((prev) => !prev);
     setForeignAidButtonDisabled((prev) => !prev);
     setTaxButtonDisabled((prev) => !prev);
-    // setExchangeButtonDisabled((prev) => !prev);
-    // setStealButtonDisabled((prev) => !prev);
+    setExchangeButtonDisabled((prev) => !prev);
+    setStealButtonDisabled((prev) => !prev);
     if (currentTurnPlayerCoin >= 3) {
         setAssassinationButtonDisabled((prev) => !prev);
     }
-    // if (currentTurnPlayerCoin >= 7) {
-    //     setCoupButtonDisabled((prev) => !prev);
-    // }
+    if (currentTurnPlayerCoin >= 7) {
+        setCoupButtonDisabled((prev) => !prev);
+    }
 }
 
 export function AfterSelectActionDisableActionButton(
@@ -65,16 +65,16 @@ export function AfterSelectActionDisableActionButton(
     if(taxButtonDisabled === false) {
         setTaxButtonDisabled((prev) => !prev);
     }
-    // if(exchangeButtonDisabled === false) {
-    //     setExchangeButtonDisabled((prev) => !prev);
-    // }
-    // if(stealButtonDisabled === false) {
-    //     setStealButtonDisabled((prev) => !prev);
-    // }
+    if(exchangeButtonDisabled === false) {
+        setExchangeButtonDisabled((prev) => !prev);
+    }
+    if(stealButtonDisabled === false) {
+        setStealButtonDisabled((prev) => !prev);
+    }
     if (assassinationButtonDisabled === false) {
         setAssassinationButtonDisabled((prev) => !prev);
     }
-    // if(coupButtonDisabled === false) {
-    //     setCoupButtonDisabled((prev) => !prev);
-    // }
+    if(coupButtonDisabled === false) {
+        setCoupButtonDisabled((prev) => !prev);
+    }
 }
