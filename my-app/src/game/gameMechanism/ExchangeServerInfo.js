@@ -92,3 +92,13 @@ export function LoadStealTargetSeatNumber() {
     stealTargetSeatNumber = stealTargetSeatNumber ? parseInt(stealTargetSeatNumber) : null;
     return stealTargetSeatNumber;
 }
+
+export function SaveAssassinationTargetIndex(assassinationTargetIndex) {
+    localStorage.setItem('assassinationTargetIndex', assassinationTargetIndex.toString());
+}
+
+export function LoadAssassinationTargetIndex() {
+    let assassinationTargetIndex = localStorage.getItem('assassinationTargetIndex');
+    assassinationTargetIndex = assassinationTargetIndex ? parseInt(assassinationTargetIndex) : null;
+    return assassinationTargetIndex;
+}

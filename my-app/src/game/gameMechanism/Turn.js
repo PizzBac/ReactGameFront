@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { cardImages, shuffleDeck } from '../gameBoard/player/card/Card';
-import { SaveDeckData, LoadDeckData, SaveTotalPlayersData, LoadTotalPlayersData, SavePlayersData, LoadPlayersData, SaveTurnData, LoadTurnData, SaveActionData, LoadActionData, SaveStealTargetSeatNumber, LoadStealTargetSeatNumber, SaveDoubtingPlayerSeatNumber, SaveObstructionButtonPressedTime, LoadDoubtingPlayerSeatNumber } from './ExchangeServerInfo';
+import { SaveDeckData, LoadDeckData, SaveTotalPlayersData, LoadTotalPlayersData, SavePlayersData, LoadPlayersData, SaveTurnData, LoadTurnData, SaveActionData, LoadActionData, SaveStealTargetSeatNumber, LoadStealTargetSeatNumber, SaveDoubtingPlayerSeatNumber, SaveObstructionButtonPressedTime, LoadDoubtingPlayerSeatNumber, SaveAssassinationTargetIndex } from './ExchangeServerInfo';
 import { StartTurn } from './StartTurn';
 import { ActionButtonState, AfterSelectActionDisableActionButton } from './SelectAction';
 import { EndGame } from './EndGame';
@@ -39,6 +39,7 @@ function Turn(props) {
     let obstructingPlayerSeatNumber = 999;
     let obstructionButtonPressedTime;
     let stealTargetSeatNumber;
+    let assassinationTargetIndex;
 
     useEffect(() => {
         StartTurn(
@@ -181,7 +182,7 @@ function Turn(props) {
 
         // 강탈 대상 플레이어를 현재 턴 플레이어가 지정할 수 있게 해야 함
         do {
-            stealTargetSeatNumber = Math.floor(Math.random() * 5);
+            stealTargetSeatNumber = Math.floor(Math.random() * totalLoginPlayersNumber);
         } while (playersData[turn].player.id == stealTargetSeatNumber);
         SaveStealTargetSeatNumber(stealTargetSeatNumber);
 
@@ -190,6 +191,28 @@ function Turn(props) {
 
     function Assassination() {
         console.log("암살");
+        AfterSelectActionDisableActionButton(
+            incomeButtonDisabled, setIncomeButtonDisabled,
+            foreignAidButtonDisabled, setForeignAidButtonDisabled,
+            taxButtonDisabled, setTaxButtonDisabled,
+            exchangeButtonDisabled, setExchangeButtonDisabled,
+            stealButtonDisabled, setStealButtonDisabled,
+            assassinationButtonDisabled, setAssassinationButtonDisabled,
+            coupButtonDisabled, setCoupButtonDisabled,
+        );
+        action = "Assassination";
+        SaveActionData(action);
+
+        // 암살 대상 플레이어를 현재 턴 플레이어가 지정할 수 있게 해야 함
+        do {
+            assassinationTargetIndex = Math.floor(Math.random() * totalLoginPlayersNumber);
+        } while (playersData[turn].player.id == assassinationTargetIndex);
+        SaveAssassinationTargetIndex(assassinationTargetIndex);
+
+        playersData[turn].player.coins -= 3;
+        SavePlayersData(playersData);
+
+        IsDoubt();
     }
 
     function Coup() {
@@ -242,8 +265,9 @@ function Turn(props) {
             console.log(`${playersData[obstructingPlayerSeatNumber].player.nickName}` + "님이 방해 시도");
 
             IsDoubt();
-        } else if (action == "Steal") {
-            // 방해 여부 질문
+        }
+        else if (action == "Steal") {
+
             let checkObstruction = false;
             if (playersData[loginPlayerSeatNumber].player.id != playersData[turn].player.id) {
                 checkObstruction = window.confirm(
@@ -257,8 +281,46 @@ function Turn(props) {
             SaveActionData(action);
 
             IsDoubt();
-        } else if (action == "Assassination") {
+        }
+        else if (action == "Assassination") {
+            let checkObstruction = false;
+            if (playersData[assassinationTargetIndex].player.id == playersData[loginPlayerSeatNumber].player.id) {
+                checkObstruction = window.confirm(
+                    `${playersData[turn].player.nickName}님의 암살에 저항하시겠습니까? (암살 저항 가능 직업 : 귀부인)`
+                );
+            }
 
+            action = "ResistingAssassination";
+            SaveActionData(action);
+
+            if (checkObstruction) {
+                IsDoubt();
+            }
+            else {
+                const checkNotOpenedHands = playersData[assassinationTargetIndex].player.hand.filter((card) => card.isOpen == false).length;
+
+                if (checkNotOpenedHands == 2) {
+                    // doubtingPlayer가 자신의 hand에서 isOpen = true로 바꿀 카드를 선택할 수 있도록 해야 함
+                    const closedHandIndex = Math.floor(Math.random() * 2);
+                    playersData[assassinationTargetIndex].player.hand[closedHandIndex].isOpen = true;
+                } else if (checkNotOpenedHands == 1) {
+                    const closedHandIndex = playersData[assassinationTargetIndex].player.hand.findIndex((card) => card.isOpen == false);
+                    playersData[assassinationTargetIndex].player.hand[closedHandIndex].isOpen = true;
+                    playersData[assassinationTargetIndex].player.isOut = true;
+                    SaveTotalPlayersData(totalLoginPlayersNumber - 1);
+                }
+
+                SavePlayersData(playersData);
+                EndTurn(
+                    incomeButtonDisabled, setIncomeButtonDisabled,
+                    foreignAidButtonDisabled, setForeignAidButtonDisabled,
+                    taxButtonDisabled, setTaxButtonDisabled,
+                    exchangeButtonDisabled, setExchangeButtonDisabled,
+                    stealButtonDisabled, setStealButtonDisabled,
+                    assassinationButtonDisabled, setAssassinationButtonDisabled,
+                    coupButtonDisabled, setCoupButtonDisabled,
+                );
+            }
         }
     }
 
@@ -361,7 +423,7 @@ function Turn(props) {
             }
         }
         else if (action == "Steal") {
-            // 캡틴인지 의심
+
             let checkDoubt = false;
             if (playersData[loginPlayerSeatNumber].player.myTurn == false) {
                 checkDoubt = window.confirm(
@@ -418,7 +480,28 @@ function Turn(props) {
             }
         }
         else if (action == "Assassination") {
+            let checkDoubt = false;
+            if (playersData[loginPlayerSeatNumber].player.myTurn == false) {
+                checkDoubt = window.confirm(
+                    `${playersData[turn].player.nickName}님이 암살을 시도합니다. 의심하시겠습니까? (암살 가능 직업 : 암살자)`
+                );
+            }
+            const doubtButtonPressedTime = new Date().getTime();
 
+            if (checkDoubt) {
+                playersData[loginPlayerSeatNumber].player.doubtButtonPressedTime = doubtButtonPressedTime;
+                doubtingPlayerSeatNumber = playersData[loginPlayerSeatNumber].player.id;
+
+                SavePlayersData(playersData);
+                SaveDoubtingPlayerSeatNumber(doubtingPlayerSeatNumber);
+
+                CheckBluff();
+            }
+            else {
+                console.log(`의심 플레이어 없음`)
+
+                IsObstruction();
+            }
         }
     }
 
@@ -793,7 +876,138 @@ function Turn(props) {
             }
         }
         else if (action == "Assassination") {
+            playersData = LoadPlayersData();
+            deck = LoadDeckData();
 
+            let hasAssassin = false;
+            playersData[turn].player.hand.forEach((card) => {
+                if ((card.type === "assassin") && !card.isOpen) {
+                    hasAssassin = true;
+                }
+
+            });
+
+            if (hasAssassin) {
+                console.log("블러핑 아니었음. 의심 실패.");
+                let assassinIndex = playersData[turn].player.hand.findIndex(card => card.type == "assassin");
+                playersData[turn].player.hand[assassinIndex] = {
+                    type: deck.pop(),
+                    image: cardImages[deck[deck.length - 1]],
+                    isOpen: false,
+                };
+                deck.push("assassin");
+                shuffleDeck(deck);
+
+                const checkNotOpenedHands = playersData[doubtingPlayerSeatNumber].player.hand.filter((card) => card.isOpen == false).length;
+
+                if (checkNotOpenedHands == 2) {
+                    // doubtingPlayer가 자신의 hand에서 isOpen = true로 바꿀 카드를 선택할 수 있도록 해야 함
+                    const closedHandIndex = Math.floor(Math.random() * 2);
+                    playersData[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
+                } else if (checkNotOpenedHands == 1) {
+                    const closedHandIndex = playersData[doubtingPlayerSeatNumber].player.hand.findIndex((card) => card.isOpen == false);
+                    playersData[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
+                    playersData[doubtingPlayerSeatNumber].player.isOut = true;
+                    SaveTotalPlayersData(totalLoginPlayersNumber - 1);
+                }
+
+                SavePlayersData(playersData);
+                SaveDeckData(deck);
+
+                IsObstruction();
+            }
+            else {
+                console.log("블러핑이었으므로 카드 한 장 오픈");
+                const checkNotOpenedHands = playersData[turn].player.hand.filter((card) => card.isOpen == false).length;
+
+                if (checkNotOpenedHands == 2) {
+                    // doubtingPlayer가 자신의 hand에서 isOpen = true로 바꿀 카드를 선택할 수 있도록 해야 함
+                    const closedHandIndex = Math.floor(Math.random() * 2);
+                    playersData[turn].player.hand[closedHandIndex].isOpen = true;
+                } else if (checkNotOpenedHands == 1) {
+                    const closedHandIndex = playersData[turn].player.hand.findIndex((card) => card.isOpen == false);
+                    playersData[turn].player.hand[closedHandIndex].isOpen = true;
+                    playersData[turn].player.isOut = true;
+                    SaveTotalPlayersData(totalLoginPlayersNumber - 1);
+                }
+
+                SavePlayersData(playersData);
+                SaveDeckData(deck);
+
+                EndTurn(
+                    incomeButtonDisabled, setIncomeButtonDisabled,
+                    foreignAidButtonDisabled, setForeignAidButtonDisabled,
+                    taxButtonDisabled, setTaxButtonDisabled,
+                    exchangeButtonDisabled, setExchangeButtonDisabled,
+                    stealButtonDisabled, setStealButtonDisabled,
+                    assassinationButtonDisabled, setAssassinationButtonDisabled,
+                    coupButtonDisabled, setCoupButtonDisabled,
+                );
+            }
+        }
+        else if (action == "ResistingAssassination") {
+            playersData = LoadPlayersData();
+            deck = LoadDeckData();
+
+            let hasContessa = false;
+            playersData[assassinationTargetIndex].player.hand.forEach((card) => {
+                if ((card.type === "contessa") && !card.isOpen) {
+                    hasContessa = true;
+                }
+
+            });
+
+            if (hasContessa) {
+                console.log("블러핑 아니었음. 저항 성공");
+                let contessaIndex = playersData[assassinationTargetIndex].player.hand.findIndex(card => card.type == "contessa");
+                playersData[assassinationTargetIndex].player.hand[contessaIndex] = {
+                    type: deck.pop(),
+                    image: cardImages[deck[deck.length - 1]],
+                    isOpen: false,
+                };
+                deck.push("contessa");
+                shuffleDeck(deck);
+
+                const checkNotOpenedHands = playersData[doubtingPlayerSeatNumber].player.hand.filter((card) => card.isOpen == false).length;
+
+                if (checkNotOpenedHands == 2) {
+                    // doubtingPlayer가 자신의 hand에서 isOpen = true로 바꿀 카드를 선택할 수 있도록 해야 함
+                    const closedHandIndex = Math.floor(Math.random() * 2);
+                    playersData[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
+                } else if (checkNotOpenedHands == 1) {
+                    const closedHandIndex = playersData[doubtingPlayerSeatNumber].player.hand.findIndex((card) => card.isOpen == false);
+                    playersData[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
+                    playersData[doubtingPlayerSeatNumber].player.isOut = true;
+                    SaveTotalPlayersData(totalLoginPlayersNumber - 1);
+                }
+
+                SavePlayersData(playersData);
+                SaveDeckData(deck);
+
+                IsObstruction();
+            }
+            else {
+                console.log("블러핑이었으므로 암살 당하고 카드도 오픈");
+
+                [0, 1].forEach(function (index) {
+                    playersData[assassinationTargetIndex].player.hand[index].isOpen = true;
+                });
+                playersData[assassinationTargetIndex].player.isOut = true;
+                
+                SaveTotalPlayersData(totalLoginPlayersNumber - 1);
+                SavePlayersData(playersData);
+                SaveDeckData(deck);
+
+                EndTurn(
+                    incomeButtonDisabled, setIncomeButtonDisabled,
+                    foreignAidButtonDisabled, setForeignAidButtonDisabled,
+                    taxButtonDisabled, setTaxButtonDisabled,
+                    exchangeButtonDisabled, setExchangeButtonDisabled,
+                    stealButtonDisabled, setStealButtonDisabled,
+                    assassinationButtonDisabled, setAssassinationButtonDisabled,
+                    coupButtonDisabled, setCoupButtonDisabled,
+                );
+            }
         }
     }
 
