@@ -90,7 +90,7 @@ function Lobby() {
         setCount3(count3 + 1);
         setColor3(colors[count3 % colors.length]);
     }
-    function handleClick4(event) {
+    function handleClick4(event) {//1234
         setCount4(count4 + 1);
         setColor4(colors[count4 % colors.length]);
     }
