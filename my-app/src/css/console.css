@@ -11,16 +11,19 @@
 } */
 .line-1 {
   position: absolute;
+  z-index: 100;
 }
 .line-2 {
   position: absolute;
   margin-top: 90px;
   margin-left: 50px;
+  z-index: 100;
 }
 .line-3 {
   position: absolute;
   margin-top: 180px;
   margin-left: 100px;
+  z-index: 100;
 }
 
 .wrapper {

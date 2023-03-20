@@ -4,20 +4,11 @@ import { SaveDeckData, LoadDeckData, SaveTotalPlayersData, LoadTotalPlayersData,
 import { StartTurn } from './StartTurn';
 import { ActionButtonState, AfterSelectActionDisableActionButton } from './SelectAction';
 import { EndGame } from './EndGame';
-import Modal from '../../dummy/modal/Modal';
-import ModalBasic from '../../dummy/modal/StealTargetModal';
+import StealTargetModal from '../gameBoard/modal/StealTargetModal';
 
 function Turn(props) {
-    const { howManyPlayer } = props;
     const [loginPlayerSeatNumber, setLoginPlayerSeatNumber] = useState(1);
-    const [whatAction, setWhatAction] = useState("")
-    const [whosTurn, setWhosTurn] = useState("")
-
-    const [yesDoubt, setYesDoubt] = useState(false);
-    const [whoDoubt, setWhoDoubt] = useState(null);
     const [doubtTime, setDoubtTime] = useState(Infinity);
-
-    const [whoObstruct, setWhoObstruct] = useState(null);
     const [obstructTime, setObstructTime] = useState(Infinity);
 
     const {
@@ -692,15 +683,6 @@ function Turn(props) {
                 SavePlayersData(playersData);
                 SaveDeckData(deck);
                 // ExchangeCards();
-                EndTurn(
-                    incomeButtonDisabled, setIncomeButtonDisabled,
-                    foreignAidButtonDisabled, setForeignAidButtonDisabled,
-                    taxButtonDisabled, setTaxButtonDisabled,
-                    exchangeButtonDisabled, setExchangeButtonDisabled,
-                    stealButtonDisabled, setStealButtonDisabled,
-                    assassinationButtonDisabled, setAssassinationButtonDisabled,
-                    coupButtonDisabled, setCoupButtonDisabled,
-                );
             } else {
                 console.log("블러핑이었으므로 카드 교환 실패하고 카드 한 장 오픈");
                 const checkNotOpenedHands = playersData[turn].player.hand.filter((card) => card.isOpen == false).length;
@@ -717,17 +699,16 @@ function Turn(props) {
                 }
                 SavePlayersData(playersData);
                 SaveDeckData(deck);
-                EndTurn(
-                    incomeButtonDisabled, setIncomeButtonDisabled,
-                    foreignAidButtonDisabled, setForeignAidButtonDisabled,
-                    taxButtonDisabled, setTaxButtonDisabled,
-                    exchangeButtonDisabled, setExchangeButtonDisabled,
-                    stealButtonDisabled, setStealButtonDisabled,
-                    assassinationButtonDisabled, setAssassinationButtonDisabled,
-                    coupButtonDisabled, setCoupButtonDisabled,
-                );
             }
-
+            EndTurn(
+                incomeButtonDisabled, setIncomeButtonDisabled,
+                foreignAidButtonDisabled, setForeignAidButtonDisabled,
+                taxButtonDisabled, setTaxButtonDisabled,
+                exchangeButtonDisabled, setExchangeButtonDisabled,
+                stealButtonDisabled, setStealButtonDisabled,
+                assassinationButtonDisabled, setAssassinationButtonDisabled,
+                coupButtonDisabled, setCoupButtonDisabled,
+            );
         }
         else if (action == "Steal") {
 
@@ -773,11 +754,11 @@ function Turn(props) {
                 if (checkNotOpenedHands == 2) {
                     // doubtingPlayer가 자신의 hand에서 isOpen = true로 바꿀 카드를 선택할 수 있도록 해야 함
                     const closedHandIndex = Math.floor(Math.random() * 2);
-                    playersData[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
+                    playersData[turn].player.hand[closedHandIndex].isOpen = true;
                 } else if (checkNotOpenedHands == 1) {
-                    const closedHandIndex = playersData[doubtingPlayerSeatNumber].player.hand.findIndex((card) => card.isOpen == false);
-                    playersData[doubtingPlayerSeatNumber].player.hand[closedHandIndex].isOpen = true;
-                    playersData[doubtingPlayerSeatNumber].player.isOut = true;
+                    const closedHandIndex = playersData[turn].player.hand.findIndex((card) => card.isOpen == false);
+                    playersData[turn].player.hand[closedHandIndex].isOpen = true;
+                    playersData[turn].player.isOut = true;
                     SaveTotalPlayersData(totalLoginPlayersNumber - 1);
                 }
                 SavePlayersData(playersData);
@@ -1019,7 +1000,7 @@ function Turn(props) {
     }
 
     return (
-        <div>
+        <>
             <div style={{ position: 'absolute', backgroundColor: '#FFFFFF', right: 30, bottom: 30, height: 30 }}>
                 <button id="income" onClick={Income} disabled={incomeButtonDisabled}>소득</button>
                 <button id="foreignAid" onClick={ForeignAid} disabled={foreignAidButtonDisabled}>해외원조</button>
@@ -1028,9 +1009,9 @@ function Turn(props) {
                 <button id="steal" onClick={Steal} disabled={stealButtonDisabled}>강탈</button>
                 <button id="assassination" onClick={Assassination} disabled={assassinationButtonDisabled}>암살</button>
                 <button id="coup" onClick={Coup} disabled={coupButtonDisabled}>쿠데타</button>
-                {modalOpen && <ModalBasic setModalOpen={setModalOpen} />}
             </div>
-        </div>
+            {modalOpen && <StealTargetModal setModalOpen={setModalOpen} />}
+        </>
     )
 }
 

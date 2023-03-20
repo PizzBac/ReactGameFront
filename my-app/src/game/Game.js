@@ -65,7 +65,6 @@ function Game() {
           시간이 흘러갑니다 ~~~
           {/* <Progress value={5} max={10} /> */}
         </div>
-
         <Player activate={activate} howManyPlayer={howManyPlayer} loginPlayerNumber={loginPlayerNumber} loginPlayerNickname={loginPlayerNickname} />
 
         <div className="sideSection">

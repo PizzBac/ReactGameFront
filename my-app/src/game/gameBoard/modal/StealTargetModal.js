@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import { useEffect, useRef } from 'react';
-import styles from './ModalBasic.module.css';
-import { LoadActionData } from '../../game/gameMechanism/ExchangeServerInfo';
-import { cardImages } from '../../game/gameBoard/player/card/Card';
+import styles from './StealTargetModal.css';
+import { LoadActionData } from '../../gameMechanism/ExchangeServerInfo';
+import { cardImages } from '../player/card/Card';
+import { SavePlayersData, LoadPlayersData } from '../../gameMechanism/ExchangeServerInfo';
 
-function ModalBasic(props) {
-    const { modalOpen, setModalOpen, onConfirm, id, title, content, writer  } = props;
+function StealTargetModal(props) {
+    const { setModalOpen, onConfirm, id, title, content, writer } = props;
     // 모달 끄기 (X버튼 onClick 이벤트 핸들러)
     const closeModal = () => {
         setModalOpen(false);
@@ -45,24 +46,47 @@ function ModalBasic(props) {
                 return cardImages.contessa.front;
             case "Tax":
                 return cardImages.duke.front;
+            case "Steal":
+                return cardImages.captain.front;
             default:
                 return cardImages.ambassador.front;
         }
     }
 
+    let players = LoadPlayersData();
+
     return (
         // 모달창을 useRef로 잡아준다.
+        // <div ref={modalRef} className={`${styles.ModalContainer} ${action}`}>
+        //     <img src={getCardImage(action)} alt={`Card ${action}`} width={250} height={250}/>
+        //     <button className={styles.confirm} onClick={() => {
+        //         setModalOpen(false);
+        //         onConfirm();
+        //     }}>
+        //         확인하기
+        //     </button>
+        //     <button className={styles.close} onClick={closeModal}>
+        //         취소하기
+        //     </button>
+        // </div>
         <div ref={modalRef} className={`${styles.ModalContainer} ${action}`}>
-            <img src={getCardImage(action)} alt={`Card ${action}`} />
-            <button className={styles.close} onClick={closeModal}>
-                취소하기
-            </button>
-            <button className={styles.confirm} onClick={() => {
-                setModalOpen(false);
-                onConfirm();
-            }}>
-                확인하기
-            </button>
+            {players ? (
+                players.map((player) => (
+                    <div key={player.player.id + 1} className={`player${player.player.id + 1}`}>
+                        <p className={`player${player.player.id + 1} nickname`}># {player.player.nickName}</p>
+                        <input
+                            id={player.player.id}
+                            value={player.player.id}
+                            name={player.player.nickName}
+                            type="radio"
+                            // checked={this.state.selectValue === "Mac"}
+                            // onChange={this.handleChange}
+                        />
+                    </div>
+                ))
+            ) : (
+                <div>Loading...</div>
+            )}
         </div>
     );
 }
@@ -75,4 +99,4 @@ function ModalBasic(props) {
 //     writer: PropTypes.string.isRequired,
 // };
 
-export default ModalBasic;
+export default StealTargetModal;

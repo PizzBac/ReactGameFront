@@ -68,7 +68,7 @@ function Player(props) {
   });
 
   return (
-    <div>
+    <>
       {players ? (
         players.map((player) => (
           <div key={player.player.id + 1} className={`player player${player.player.id + 1} ${activate === true ? "active" : ""}`}>
@@ -87,7 +87,7 @@ function Player(props) {
       ) : (
         <div>Loading...</div>
       )}
-    </div>
+    </>
   )
 }
 
