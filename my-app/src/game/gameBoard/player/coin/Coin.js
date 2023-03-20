@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 function Coin(props) {
     const { player, activate } = props;
 

@@ -11,7 +11,6 @@ export function StartTurn(incomeButtonDisabled, setIncomeButtonDisabled,
 ) {
     let players = LoadPlayersData();
     let turn = LoadTurnData();
-    console.log(turn);
     console.log((turn + 1) + "번 플레이어의 턴 시작");
 
     players[turn].player.myTurn = !(players[turn].player.myTurn);

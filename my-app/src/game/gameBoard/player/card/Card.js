@@ -69,7 +69,7 @@ export function Card(props) {
           key={index}
           className={`card card-p${player.id + 1} card${index + 1} ${activate === true ? "active" : ""}`}
           src={
-            player.id + 1 === loginPlayerNumber
+            (player.id + 1 === loginPlayerNumber || player.hand[index].isOpen === true)
               ? card.image.front
               : card.image.back
           }

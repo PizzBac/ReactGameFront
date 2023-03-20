@@ -1,7 +1,8 @@
 import { DistributeCards, Card } from './card/Card';
 import Coin from './coin/Coin';
 import Turn from '../../gameMechanism/Turn';
-import { SavePlayersData, LoadPlayersData } from '../../gameMechanism/ExchangeServerInfo';
+import { LoadPlayersData } from '../../gameMechanism/ExchangeServerInfo';
+import { useEffect, useState } from 'react';
 
 function Player(props) {
   const { activate, howManyPlayer, loginPlayerNumber, loginPlayerNickname } = props;
@@ -45,6 +46,7 @@ function Player(props) {
   }
 
   let players = LoadPlayersData();
+
   if (!players) {
     players = CreatePlayers();
     players = DistributeCards(players);
@@ -56,19 +58,35 @@ function Player(props) {
     players = LoadPlayersData();
   }
 
+  useEffect(() => {
+    players = LoadPlayersData();
+
+    return () => {
+      // cleanup function
+      // 이전에 등록된 useEffect의 부수 효과를 정리
+    };
+  });
+
   return (
     <div>
-      {players.map((player) => (
-        <div key={player.player.id + 1} className={`player player${player.player.id + 1} ${activate === true ? "active" : ""}`}>
-          <div className={`cardSet ${activate === true ? "active" : ""}`}>
-            <p className={`card-p${player.player.id + 1} playerId ${activate === true ? "active" : ""}`}># {player.player.nickName}</p>
-            <Card player={player.player} activate={activate} loginPlayerNumber={loginPlayerNumber} />
+      {players ? (
+        players.map((player) => (
+          <div key={player.player.id + 1} className={`player player${player.player.id + 1} ${activate === true ? "active" : ""}`}>
+            <div className={`cardSet ${activate === true ? "active" : ""}`}>
+              <p className={`card-p${player.player.id + 1} playerId ${activate === true ? "active" : ""}`}># {player.player.nickName}</p>
+              <Card player={player.player} activate={activate} loginPlayerNumber={loginPlayerNumber} />
+            </div>
+            <Coin player={player.player} activate={activate} />
           </div>
-          <Coin player={player.player} activate={activate} />
-        </div>
-      ))}
-      <Turn howManyPlayer={players.length} />
-      {/* {playersData ? (<Turn howManyPlayer={players.length} LoadPlayersData={LoadPlayersData}/>) : (<div>loading</div>)} */}
+        ))
+      ) : (
+        <div>Loading...</div>
+      )}
+      {players ? (
+        <Turn howManyPlayer={players.length} />
+      ) : (
+        <div>Loading...</div>
+      )}
     </div>
   )
 }

@@ -4,6 +4,8 @@ import { SaveDeckData, LoadDeckData, SaveTotalPlayersData, LoadTotalPlayersData,
 import { StartTurn } from './StartTurn';
 import { ActionButtonState, AfterSelectActionDisableActionButton } from './SelectAction';
 import { EndGame } from './EndGame';
+import Modal from '../../dummy/modal/Modal';
+import ModalBasic from '../../dummy/modal/StealTargetModal';
 
 function Turn(props) {
     const { howManyPlayer } = props;
@@ -50,7 +52,6 @@ function Turn(props) {
             stealButtonDisabled, setStealButtonDisabled,
             assassinationButtonDisabled, setAssassinationButtonDisabled,
             coupButtonDisabled, setCoupButtonDisabled,
-            playersData, turn,
         );
     }, []);
 
@@ -133,6 +134,7 @@ function Turn(props) {
     }
 
     function Tax() {
+        turn = LoadTurnData();
         console.log((turn + 1) + "번 플레이어가 세금 징수를 시도한다.");
         AfterSelectActionDisableActionButton(
             incomeButtonDisabled, setIncomeButtonDisabled,
@@ -166,6 +168,8 @@ function Turn(props) {
         IsDoubt();
     }
 
+    const [modalOpen, setModalOpen] = useState(false);
+
     function Steal() {
         console.log((turn + 1) + "번 플레이어가 강탈을 시도한다.");
         AfterSelectActionDisableActionButton(
@@ -181,12 +185,15 @@ function Turn(props) {
         SaveActionData(action);
 
         // 강탈 대상 플레이어를 현재 턴 플레이어가 지정할 수 있게 해야 함
-        do {
-            stealTargetSeatNumber = Math.floor(Math.random() * totalLoginPlayersNumber);
-        } while (playersData[turn].player.id == stealTargetSeatNumber);
-        SaveStealTargetSeatNumber(stealTargetSeatNumber);
+        // do {
+        //     stealTargetSeatNumber = Math.floor(Math.random() * totalLoginPlayersNumber);
+        // } while (playersData[turn].player.id == stealTargetSeatNumber);
+        // SaveStealTargetSeatNumber(stealTargetSeatNumber);
 
-        IsDoubt();
+        // 모달창 노출
+        setModalOpen(true);
+
+        // IsDoubt();
     }
 
     function Assassination() {
@@ -993,7 +1000,7 @@ function Turn(props) {
                     playersData[assassinationTargetIndex].player.hand[index].isOpen = true;
                 });
                 playersData[assassinationTargetIndex].player.isOut = true;
-                
+
                 SaveTotalPlayersData(totalLoginPlayersNumber - 1);
                 SavePlayersData(playersData);
                 SaveDeckData(deck);
@@ -1021,6 +1028,7 @@ function Turn(props) {
                 <button id="steal" onClick={Steal} disabled={stealButtonDisabled}>강탈</button>
                 <button id="assassination" onClick={Assassination} disabled={assassinationButtonDisabled}>암살</button>
                 <button id="coup" onClick={Coup} disabled={coupButtonDisabled}>쿠데타</button>
+                {modalOpen && <ModalBasic setModalOpen={setModalOpen} />}
             </div>
         </div>
     )

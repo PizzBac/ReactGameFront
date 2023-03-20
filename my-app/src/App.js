@@ -10,6 +10,7 @@ import WaitingRoom3 from "./pages/WaitingRoom3";
 import WaitingRoom4 from "./pages/WaitingRoom4";
 import WaitingRoom5 from "./pages/WaitingRoom5";
 import WaitingRoom6 from "./pages/WaitingRoom6";
+import Modal from "./dummy/modal/Modal";
 
 function App() {
   //Route path =뒤에 있는건 무조건 소문자로 써야한다.
@@ -28,6 +29,7 @@ function App() {
         <Route path="/waitingRoom5" element={<WaitingRoom5 />}/>
         <Route path="/waitingRoom6" element={<WaitingRoom6 />}/>
         <Route tmp="/tmp" element={<Tmp />}/>
+        <Route path="/modal" element={<Modal />}/>
       </Routes>
     </Router>
   );
