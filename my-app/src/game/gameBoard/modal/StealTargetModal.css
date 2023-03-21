@@ -27,3 +27,12 @@
     right: 10px;
     top: 10px;
 }
+
+.player0-nickname,
+.player1-nickname,
+.player2-nickname,
+.player3-nickname,
+.player4-nickname,
+.player5-nickname{
+    color: red;
+}

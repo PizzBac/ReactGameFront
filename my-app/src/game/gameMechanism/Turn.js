@@ -160,6 +160,7 @@ function Turn(props) {
     }
 
     const [modalOpen, setModalOpen] = useState(false);
+    const [stealTargetModalSelectedPlayer, setStealTargetModalSelectedPlayer] = useState("");
 
     function Steal() {
         console.log((turn + 1) + "번 플레이어가 강탈을 시도한다.");
@@ -185,6 +186,12 @@ function Turn(props) {
         setModalOpen(true);
 
         // IsDoubt();
+    }
+
+    function StealConfirm() {
+        setModalOpen(false);
+        console.log(stealTargetModalSelectedPlayer);
+        IsDoubt();
     }
 
     function Assassination() {
@@ -1010,7 +1017,13 @@ function Turn(props) {
                 <button id="assassination" onClick={Assassination} disabled={assassinationButtonDisabled}>암살</button>
                 <button id="coup" onClick={Coup} disabled={coupButtonDisabled}>쿠데타</button>
             </div>
-            {modalOpen && <StealTargetModal setModalOpen={setModalOpen} />}
+            {modalOpen &&
+                <StealTargetModal
+                    setModalOpen={setModalOpen}
+                    setStealTargetModalSelectedPlayer={setStealTargetModalSelectedPlayer}
+                    stealTargetModalSelectedPlayer={stealTargetModalSelectedPlayer}
+                    StealConfirm={StealConfirm}
+                />}
         </>
     )
 }

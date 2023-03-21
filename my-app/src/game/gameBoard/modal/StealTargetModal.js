@@ -1,12 +1,11 @@
-import PropTypes from 'prop-types';
-import { useEffect, useRef } from 'react';
-import styles from './StealTargetModal.css';
+import { useState, useEffect, useRef } from 'react';
+import ModalCss from './StealTargetModal.css';
 import { LoadActionData } from '../../gameMechanism/ExchangeServerInfo';
-import { cardImages } from '../player/card/Card';
 import { SavePlayersData, LoadPlayersData } from '../../gameMechanism/ExchangeServerInfo';
 
 function StealTargetModal(props) {
-    const { setModalOpen, onConfirm, id, title, content, writer } = props;
+    const { setModalOpen, stealTargetModalSelectedPlayer, setStealTargetModalSelectedPlayer, StealConfirm } = props;
+
     // 모달 끄기 (X버튼 onClick 이벤트 핸들러)
     const closeModal = () => {
         setModalOpen(false);
@@ -27,76 +26,39 @@ function StealTargetModal(props) {
 
         // 이벤트 핸들러 등록
         document.addEventListener('mousedown', handler);
-        // document.addEventListener('touchstart', handler); // 모바일 대응
 
         return () => {
             // 이벤트 핸들러 해제
             document.removeEventListener('mousedown', handler);
-            // document.removeEventListener('touchstart', handler); // 모바일 대응
         };
     });
 
     let action = LoadActionData();
-
-    function getCardImage(action) {
-        switch (action) {
-            case "Assassination":
-                return cardImages.assassin.front;
-            case "block":
-                return cardImages.contessa.front;
-            case "Tax":
-                return cardImages.duke.front;
-            case "Steal":
-                return cardImages.captain.front;
-            default:
-                return cardImages.ambassador.front;
-        }
-    }
-
     let players = LoadPlayersData();
 
     return (
         // 모달창을 useRef로 잡아준다.
-        // <div ref={modalRef} className={`${styles.ModalContainer} ${action}`}>
-        //     <img src={getCardImage(action)} alt={`Card ${action}`} width={250} height={250}/>
-        //     <button className={styles.confirm} onClick={() => {
-        //         setModalOpen(false);
-        //         onConfirm();
-        //     }}>
-        //         확인하기
-        //     </button>
-        //     <button className={styles.close} onClick={closeModal}>
-        //         취소하기
-        //     </button>
-        // </div>
-        <div ref={modalRef} className={`${styles.ModalContainer} ${action}`}>
+        <div ref={modalRef} className={`${ModalCss.ModalContainer} ${action}`}>
             {players ? (
                 players.map((player) => (
-                    <div key={player.player.id + 1} className={`player${player.player.id + 1}`}>
-                        <p className={`player${player.player.id + 1} nickname`}># {player.player.nickName}</p>
+                    <div key={player.player.id} className={`player${player.player.id}`}>
+                        <p className={`player${player.player.id}-nickname`}># {player.player.nickName}</p>
                         <input
                             id={player.player.id}
-                            value={player.player.id}
+                            value={player.player.nickName}
                             name={player.player.nickName}
                             type="radio"
-                            // checked={this.state.selectValue === "Mac"}
-                            // onChange={this.handleChange}
+                            checked={stealTargetModalSelectedPlayer === player.player.nickName}
+                            onChange={() => setStealTargetModalSelectedPlayer(player.player.nickName)}
                         />
                     </div>
                 ))
             ) : (
                 <div>Loading...</div>
             )}
+            <button onClick={() => StealConfirm()}>확인</button>
         </div>
     );
 }
-
-// ModalBasic.propTypes = {
-//     setModalOpen: PropTypes.func.isRequired,
-//     id: PropTypes.number.isRequired,
-//     title: PropTypes.string.isRequired,
-//     content: PropTypes.string.isRequired,
-//     writer: PropTypes.string.isRequired,
-// };
 
 export default StealTargetModal;
