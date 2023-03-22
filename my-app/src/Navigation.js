@@ -23,6 +23,17 @@ export function LoginToLobby({ navigate, loginPlayerId, loginPlayerNickname }) {
     );
 }
 
+export function LobbyToWaitingRoom1({navigate, howManyPlayer,loginPlayerNum}){
+    function handleClick(event){
+        event.preventDefault();
+        navigate('/WaitingRoom1',{
+            state:{
+                howManyPlayer:howManyPlayer,
+                loginPlayerNum:loginPlayerNum,
+            },
+        });
+    };
+}
 export function GameToLobby({ navigate, loginPlayerId, loginPlayerNumber, loginPlayerNickname }) {
    function handleClick(event){
         event.preventDefault();

@@ -65,3 +65,13 @@ export function LoadDoubtingPlayer() {
     const doubtingPlayer = localStorage.getItem('doubtingPlayer');
     return doubtingPlayer ? JSON.parse(doubtingPlayer) : null;
 }
+
+  
+export function SaveRoomData() {
+    const howManyPlayer = localStorage.getItem('howManyPlayer');
+    const loginPlayerNum = localStorage.getItem('loginPlayerNum');
+    return {
+      howManyPlayer: howManyPlayer ? JSON.stringify(howManyPlayer) : null,
+      loginPlayerNum: loginPlayerNum ? JSON.stringify(loginPlayerNum) : null
+    };
+  }

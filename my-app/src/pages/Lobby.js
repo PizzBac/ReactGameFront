@@ -79,27 +79,27 @@ function Lobby() {
     }
 
     function handleClick1(event) {
-        setCount1(count1 + 1);
-        setColor1(colors[count1 % colors.length]);
+      setCount1(prevCount1 => prevCount1 + 1);
+      setColor1(colors[count1 % colors.length]);
     }
     function handleClick2(event) {
-        setCount2(count2 + 1);
+      setCount1(prevCount2 => prevCount2 + 1);
         setColor2(colors[count2 % colors.length]);
     }
     function handleClick3(event) {
-        setCount3(count3 + 1);
+      setCount1(prevCount3 => prevCount3 + 1);
         setColor3(colors[count3 % colors.length]);
     }
     function handleClick4(event) {//1234
-        setCount4(count4 + 1);
+      setCount1(prevCount4 => prevCount4 + 1);
         setColor4(colors[count4 % colors.length]);
     }
     function handleClick5(event) {
-        setCount5(count5 + 1);
+      setCount1(prevCount5 => prevCount5 + 1);
         setColor5(colors[count5 % colors.length]);
     }
     function handleClick6(event) {
-        setCount6(count6 + 1);
+      setCount1(prevCount6 => prevCount6 + 1);
         setColor6(colors[count6 % colors.length]);
     }
 
@@ -227,7 +227,7 @@ function Lobby() {
                 <tbody>      
 
 
-
+);
                 <tr>{/*첫번째 테이블 행*/}
   <td className="tdFirst">1번방</td>
   <td>
@@ -500,9 +500,8 @@ function Lobby() {
     
 
 
-
     );
-}
+          }
 
 
 export default Lobby;
