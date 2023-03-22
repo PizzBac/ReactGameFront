@@ -32,32 +32,33 @@ function WaitingRoom(){
      }
    }, [loginPlayerNumState, howManyPlayerState]);
 
-
-   function LoadLoginPlayerNum(){ 
-    WaitingRoomToGame();//호출할 함수를 적어준다.
-     //만약 플레이어가 1명이면, 1명것만 가지고 오게 해야 함.
-
+   function LoadLoginPlayerNum(){
+    //이전에 저장된 로그인한 플레이어 수를 로드하여 반환하는 코드
+    //...
+    return loginPlayerNum;
    }
 
    function LoadHowManyPlayer(){
-    WaitingRoomToGame();
+    //이전에 저장된 전체 플레이어 수를 로드하여 반환하는 코드
+    //...
+    return howManyPlayer;
    }
 
-   function handleClick(){
-    WaitingRoomToGame();
+   function loadPlayerNumbers(){
+      var loginPlayerNum = LoadLoginPlayerNum(); //이전에 저장된 로그인한 플레이어 수를 로드합니다.
+      var howManyPlayer= LoadHowManyPlayer(); // 이전에 저장된 전체 플레이어 수 를 로드합니다.
+
+      setLoginPlayerNum(loginPlayerNum); // "setLoginPlayerNum()"함수를 호출하여 "loginPlayerNum" 변수를 설정합니다.
+      setHowManyPlayer(howManyPlayer); //"setHowManyPlayer()" 함수를 호출하여 "howManyPlayer" 변수를 설정합니다.
+
    }
-   return(
+   return (
     <div>
-    <button className="toGame" onClick={() => {
-      handleClick();
-      LoadLoginPlayerNum();
-      LoadHowManyPlayer();
-    }}>
-      Button
-    </button>
-  </div>
+      <button onClick={() => WaitingRoomToGame(navigate)}>Button</button>
+    </div>
+   );
+
   
-  );
    }
 
 export default WaitingRoom;
